@@ -25,18 +25,50 @@ class UserSeeder extends Seeder
 
             //-------------------------------
 
+//            factory(\App\BinaryfileUser::class, 1)->create()->each(function ($up) use ($u) {
+//                $up->users()->update($u);
+//            });
             factory(\App\Binaryfile::class, 1)->create()->each(function ($up) use ($u) {
                 $up->users()->save($u);
             });
             factory(\App\Content::class, 1)->create()->each(function ($up) use ($u) {
                 $up->users()->save($u);
             });
-            factory(\App\Card::class, 1)->create()->each(function ($up) use ($u) {
-                $up->users()->save($u);
-            });
-//            factory(\App\Shedule::class, 1)->create()->each(function ($up) use ($u) {
+//            factory(\App\Card::class, 1)->create()->each(function ($up) use ($u) {
 //                $up->users()->save($u);
 //            });
+            factory(\App\CardUser::class, 1)->create()->each(function ($cu) use ($u) {
+
+                $user = \App\User::
+                select('id')
+                    ->inRandomOrder()
+                    ->get()
+                    ->toArray();
+
+                $card = \App\Card::all();
+                $card->toArray();
+
+                $cu->update([
+                    'user_id' => $user[0]['id'],
+                    'card_id' => $card[0]['id']
+                ]);
+
+//                    factory(\App\Card::class, 1)->create()->each(function ($c) use ($u, $cu) {
+//                    $c->users()
+//                       ->save($u);
+//
+//                        $cu->update($cu->toArray());
+//                });
+
+
+//                \App\Card::
+//                select("id")
+//                    ->inRandomOrder()
+//                    ->first()
+//                    ->users()
+//                    ->update($up->toArray());
+            });
+
         });
          //-------------------------------
 
@@ -59,9 +91,23 @@ class UserSeeder extends Seeder
             factory(\App\Content::class, 1)->create()->each(function ($up) use ($u) {
                 $up->users()->save($u);
             });
-            factory(\App\Card::class, 1)->create()->each(function ($up) use ($u) {
-                $up->users()->save($u);
+            factory(\App\CardUser::class, 1)->create()->each(function ($cu) use ($u) {
+
+                $user = \App\User::
+                select('id')
+                    ->inRandomOrder()
+                    ->get()
+                    ->toArray();
+
+                $card = \App\Card::all();
+                $card->toArray();
+
+                $cu->update([
+                    'user_id' => $user[0]['id'],
+                    'card_id' => $card[0]['id']
+                ]);
             });
+
         });
          //-------------------------------
 
@@ -84,8 +130,21 @@ class UserSeeder extends Seeder
             factory(\App\Content::class, 1)->create()->each(function ($up) use ($u) {
                 $up->users()->save($u);
             });
-            factory(\App\Card::class, 1)->create()->each(function ($up) use ($u) {
-                $up->users()->save($u);
+            factory(\App\CardUser::class, 1)->create()->each(function ($cu) use ($u) {
+
+                $user = \App\User::
+                select('id')
+                    ->inRandomOrder()
+                    ->get()
+                    ->toArray();
+
+                $card = \App\Card::all();
+                $card->toArray();
+
+                $cu->update([
+                    'user_id' => $user[0]['id'],
+                    'card_id' => $card[0]['id']
+                ]);
             });
         });
          //-------------------------------
@@ -109,8 +168,21 @@ class UserSeeder extends Seeder
             factory(\App\Content::class, 1)->create()->each(function ($up) use ($u) {
                 $up->users()->save($u);
             });
-            factory(\App\Card::class, 1)->create()->each(function ($up) use ($u) {
-                $up->users()->save($u);
+            factory(\App\CardUser::class, 1)->create()->each(function ($cu) use ($u) {
+
+                $user = \App\User::
+                select('id')
+                    ->inRandomOrder()
+                    ->get()
+                    ->toArray();
+
+                $card = \App\Card::all();
+                $card->toArray();
+
+                $cu->update([
+                    'user_id' => $user[0]['id'],
+                    'card_id' => $card[0]['id']
+                ]);
             });
         });
          //-------------------------------
@@ -134,8 +206,21 @@ class UserSeeder extends Seeder
             factory(\App\Content::class, 1)->create()->each(function ($up) use ($u) {
                 $up->users()->save($u);
             });
-            factory(\App\Card::class, 1)->create()->each(function ($up) use ($u) {
-                $up->users()->save($u);
+            factory(\App\CardUser::class, 1)->create()->each(function ($cu) use ($u) {
+
+                $user = \App\User::
+                select('id')
+                    ->inRandomOrder()
+                    ->get()
+                    ->toArray();
+
+                $card = \App\Card::all();
+                $card->toArray();
+
+                $cu->update([
+                    'user_id' => $user[0]['id'],
+                    'card_id' => $card[0]['id']
+                ]);
             });
         });
 

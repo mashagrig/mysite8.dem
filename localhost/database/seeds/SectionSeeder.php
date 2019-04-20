@@ -11,6 +11,7 @@ class SectionSeeder extends Seeder
      */
     public function run()
     {
+
         factory(\App\Section::class, 'morning_programs', 1)->create();
         factory(\App\Section::class, 'body_building', 1)->create();
         factory(\App\Section::class, 'stretching', 1)->create();
