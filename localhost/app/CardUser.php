@@ -4,8 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class EquipmentGym extends Pivot
+class CardUser extends Pivot
 {
-    protected $table = 'equipment_gym';
+    protected $table = 'card_user';
     protected $guarded = [];
 }
