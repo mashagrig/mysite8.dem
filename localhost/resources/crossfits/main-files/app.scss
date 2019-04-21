@@ -1,0 +1,21 @@
+
+// Fonts
+//@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC:400,700|Work+Sans:300,400,700');
+
+
+// Variables
+@import 'variables';
+
+//crossfits
+@import '../crossfits/scss/style';
+@import '../crossfits/fonts/flaticon/font/_flaticon';
+
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+.navbar-laravel {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}

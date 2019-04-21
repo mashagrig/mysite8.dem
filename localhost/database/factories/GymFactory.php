@@ -6,7 +6,7 @@ $factory->define(App\Gym::class, function (Faker $faker) {
     $faker = \Faker\Factory::create('ru_RU');
     return [
         'title' => $faker->text(100),
-        'slug' => $faker->slug('title'),
+        'slug' => $faker->slug,
         'number' => rand(100, 108),
     ];
 });
