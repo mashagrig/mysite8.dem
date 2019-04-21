@@ -50,6 +50,7 @@ mix.copy([
     'node_modules/popper.js/dist/popper.js.map',
     'node_modules/popper.js/dist/popper.min.js.map',
     'node_modules/jquery/dist/jquery.js',
+    'node_modules/jquery/dist/jquery.min.js',
     'node_modules/jquery/dist/jquery.min.map',
     'node_modules/jquery-migrate/dist/jquery-migrate.min.js',
     'node_modules/jquery-ui-css/jquery-ui.min.js',
