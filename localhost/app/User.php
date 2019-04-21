@@ -54,30 +54,30 @@ class User extends Authenticatable  implements MustVerifyEmail
     //m-m (мн)
     //--------------------------------------------
 
-    public function binaryfiles()
-    {
-        return $this->belongsToMany("App\Binaryfile");
+//    public function binaryfiles()
+//    {
+//        return $this->belongsToMany("App\Binaryfile");
+//
+//   //это вторая связываемая таблица, поэтому связующую таблицу не указываем при создании связи
+//    }
+//
+//    public function contents()
+//    {
+//        return $this->belongsToMany("App\Content");
+//        //это вторая связываемая таблица
+//    }
 
-   //это вторая связываемая таблица, поэтому связующую таблицу не указываем при создании связи
-    }
-
-    public function contents()
-    {
-        return $this->belongsToMany("App\Content");
-        //это вторая связываемая таблица
-    }
-
-    public function cards()
-    {
-        return $this->belongsToMany("App\Card");
-   //это вторая связываемая таблица
-    }
+//    public function cards()
+//    {
+//        return $this->belongsToMany("App\Card");
+//   //это вторая связываемая таблица
+//    }
 
 
-    public function shedules(){
-        return $this->belongsToMany("App\Shedule");
-        //это вторая связываемая таблица
-    }
+//    public function shedules(){
+//        return $this->belongsToMany("App\Shedule");
+//        //это вторая связываемая таблица
+//    }
 
 
 

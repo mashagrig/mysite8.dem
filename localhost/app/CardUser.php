@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class CardUser extends Model
+class CardUser extends Pivot
 {
     protected $table = 'card_user';
     protected $guarded = [];

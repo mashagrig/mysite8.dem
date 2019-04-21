@@ -11,16 +11,15 @@ class Binaryfile extends Model
 
     //1-m
     public function users(){
-        return $this->belongsToMany("App\User", "binaryfile_user", "binaryfile_id", "user_id");
+//        return $this->belongsToMany("App\User", "binaryfile_user", "binaryfile_id", "user_id");
 
-//        return $this->belongsToMany('App\User', 'binaryfile_user')
-//            ->withPivot('created_at', 'updated_at')
-//            ->using('App\BinaryfileUser');
+        return $this->belongsToMany('App\User', 'binaryfile_user')
+            ->withPivot('created_at', 'updated_at')
+            ->using('App\BinaryfileUser');
 
         //это первая связываемая таблица, поэтому прописываем связующую таблицу, поле первой (первой_id), поле второй (имя имя второй_id)
     }
 }
-
 //
 //
 //public function regions()

@@ -12,22 +12,42 @@ class SheduleUserSeeder extends Seeder
     public function run()
     {
         //-----------------create Shedule_User
-        factory(\App\SheduleUser::class, 1)->create()->each(function ($shedule_user) {
-
-            $user = \App\User::where('name', 'like', "%guest%")
-                ->inRandomOrder()
-                ->get()
-                ->toArray();
-
-            $shedule = \App\Shedule::all();
-            $shedule->toArray();
-
-            $shedule_user->update([
-                'user_id' => $user[0]['id'],
-                'shedule_id' => $shedule[0]['id']
-            ]);
 
 
-        });
+        $user = \App\User::where('name', 'like', "%guest%")
+            ->inRandomOrder()->first();
+        \App\Shedule::all()
+            ->reverse()
+            //->inRandomOrder()
+            ->first()
+            ->users()
+            ->save($user);
+
+
+
+
+//        factory(\App\SheduleUser::class, 1)->create()->each(function ($shedule_user) {
+//
+//            $user = \App\User::where('name', 'like', "%guest%")
+//                ->inRandomOrder()
+//                ->get()
+//                ->toArray();
+//
+//            $shedule = \App\Shedule::all();
+//            $shedule->toArray();
+//
+//            $shedule_user->update([
+//                'user_id' => $user[0]['id'],
+//                'shedule_id' => $shedule[0]['id']
+//            ]);
+//
+//
+//        });
+
+
+
+
+
+
     }
 }

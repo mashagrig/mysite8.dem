@@ -30,13 +30,17 @@ class SheduleSeeder extends Seeder
 
 
 //-----------------add User
-            \App\User::
-            select("id")
-            ->where('name', 'like', "%trainer%")
+           $user = \App\User::where('name', 'like', "%trainer%")
                 ->inRandomOrder()
                 ->first()
-                ->shedules()
-                ->save($shedule);
+                ->id;
+                //->shedules()
+               // ->save($shedule);
+
+
+            $shedule->update([
+                    'user_id' =>  $user
+                ]);
 
 
 //-----------------add Gym
