@@ -169,6 +169,8 @@ Route::post('/shedule', 'shedule\SheduleController@store');
 Route::get('/contacts', 'contacts\ContactsController@index')->name('contacts');
 
 
+
+
 /*
 
 

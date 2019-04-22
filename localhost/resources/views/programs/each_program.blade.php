@@ -44,7 +44,7 @@
                     <div class="col-lg-5 ml-auto">
                         <h2 class="site-section-heading mb-3">{{ $title }}</h2>
                         <p class="mb-4">{{ $text }}</p>
-                        <p><a href="{{ route('contacts') }}" class="btn btn-outline-primary py-2 px-4">Записаться</a></p>
+                        <p><a href="{{ route('shedule') }}" class="btn btn-outline-primary py-2 px-4">Записаться</a></p>
                     </div>
                     <div class="col-lg-6">
                         <p class="mb-5"><img src="{{ asset("{$file}") }}" alt="Image" class="img-fluid"></p>

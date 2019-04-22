@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\shedule;
 
 use App\Section;
+use App\Shedule;
 use App\Trainingshedule;
 use DateTime;
 use Illuminate\Http\Request;
@@ -60,7 +61,10 @@ class SheduleController extends Controller
         $check_shedule_id ='';
 
         $today = date('Y-m-d');
-        $date = new DateTime(date('Y-m-d'));
+        try {
+            $date = new DateTime(date('Y-m-d'));
+        } catch (\Exception $e) {
+        }
         $count_month = 1;
         $last_date = date_modify($date, "+{$count_month} month")->format('Y-m-d');
 
@@ -90,64 +94,64 @@ class SheduleController extends Controller
             {
                 $program_select = $request->programs;
 
-                if(isset($request->trainers))
-                {
-                    $trainers_select = $request->trainers;
-                }
+
             }
-
+            if(isset($request->trainers))
+            {
+                $trainers_select = $request->trainers;
+            }
             //только если выбран период для фильтра расписания!!!
+            view()->share('shedule_for_date',
+                $shedule_for_date = Shedule::select(
+                    'shedules.id as shedules_id',
+                    'shedules.date_training as date_training',
 
-            $shedule_for_date =Trainingshedule::select(
-                'trainingshedules.id as shedule_id',
-                'trainingshedules.date_training as date_training',
-                'trainingtimes.start_training as start_training',
-                'trainingtimes.stop_training as stop_training',
-                'trainingshedules.user_id as trainer_id',
-                'personalinfos.name as trainer_name',
-                'trainingshedules.section_id as section_id',
-                'sections.title as section_title',
-                'trainingshedules.gym_id as gym_id'
-            )
-                ->join('users', function ($join) {
-                    $join->on('users.id', '=', 'trainingshedules.user_id');
-                })
-                ->join('personalinfos', function ($join) {
-                    $join->on('personalinfos.id', '=', 'users.personalinfo_id');
-                })
-                ->join('roles', function ($join) {
-                    $join->on('roles.id', '=', 'users.role_id');
-                })
-                ->join('trainingtimes', function ($join) {
-                    $join->on('trainingtimes.id', '=', 'trainingshedules.trainingtime_id');
-                })
+                    'shedules.trainingtime_id as trainingtime_id',
+                    'trainingtimes.start_training as start_training',
+                    'trainingtimes.stop_training as stop_training',
 
-                ->join('sections', function ($join) {
-                    $join->on("sections.id", '=', 'trainingshedules.section_id');
-                })
-                ->join('gyms', function ($join) {
-                    $join->on('gyms.id', '=', 'trainingshedules.gym_id');
-                })
-//            ->join('sections', function ($join) use ($program_select) {
-//                $join->on('sections.id', '=', 'trainingshedules.section_id')
-//                    ->union(
-//                        Section::select('sections.id')
-//                            ->where('sections.title', 'like', "{$program_select}")
-//                    )
-//                ;
-//            })
-                ->where('roles.title', 'like', '%trainer%')
-                // ->groupby('trainingshedules.date_training')
-                ->where('trainingshedules.date_training', '<=', "{$max_date_select}")
-                ->where('trainingshedules.date_training', '>=', "{$today}")
-               // ->where('sections.title', 'like', "%{$program_select}%")
-                ->where('sections.title', 'like', "%{$program_select}%")
-                ->where('users.id', 'like', "%{$trainers_select}%")//id
-               // ->where('trainingshedules.user_id', 'like', "%{$trainers_select}%")//id
+                    'shedules.user_id as trainer_id',
+                    'personalinfos.name as trainer_name',
 
-                ->oldest('date_training')
-                ->oldest('start_training')
-                ->get();
+                    'shedules.section_id as section_id',
+                    'sections.title as section_title',
+
+                    'shedules.gym_id as gym_id'
+                )
+                    ->join('users', function ($join) {
+                        $join->on('users.id', '=', 'shedules.user_id');
+                    })
+                    ->join('roles', function ($join) {
+                        $join->on('roles.id', '=', 'users.role_id')
+                            ->where('roles.title', 'like', '%trainer%');
+                    })
+                    ->join('personalinfos', function ($join) {
+                        $join->on('personalinfos.id', '=', 'users.personalinfo_id');
+                    })
+
+                    ->join('trainingtimes', function ($join) {
+                        $join->on('trainingtimes.id', '=', 'shedules.trainingtime_id');
+                    })
+                    ->join('sections', function ($join) {
+                        $join->on('sections.id', '=', 'shedules.section_id');
+                    })
+                    ->join('gyms', function ($join) {
+                        $join->on('gyms.id', '=', 'shedules.gym_id');
+                    })
+                    ->where('roles.title', 'like', '%trainer%')
+                    ->where('shedules.date_training', '<=', "{$max_date_select}")
+                    ->where('shedules.date_training', '>=', "{$today}")
+                    ->where('sections.title', 'like', "%{$program_select}%")
+                    ->where('users.id', 'like', "%{$trainers_select}%")
+                    ->oldest('date_training')
+                    ->oldest('start_training')
+//                ->groupby('shedules.date_training')
+//                ->distinct()
+                    ->get()
+            );
+
+
+
 
 
             $max_date_select = $shedule_for_date

@@ -8,8 +8,6 @@
     'top_slider_test_1'=>'Бесплатные Авто и вело парковки для наших гостей'
     ])
 
-
-
     <p><br /></p>
     @include('contacts.contacts')
 

@@ -66,7 +66,7 @@
                             @if(isset($shedule_for_date) && $shedule_for_date!=='')
 
                                 <?php
-                                $shedule_for_date_u =  $shedule_for_date->unique('trainer_id')
+                                $shedule_for_date_u =  $shedule_for_date//->unique('trainer_id')
                                 ?>
 
                                     @foreach($shedule_for_date_u as $shedule)

@@ -6,6 +6,7 @@
     "/js/libs/popper.js.map": "/js/libs/popper.js.map",
     "/js/libs/popper.min.js.map": "/js/libs/popper.min.js.map",
     "/js/libs/jquery.js": "/js/libs/jquery.js",
+    "/js/libs/jquery.min.js": "/js/libs/jquery.min.js",
     "/js/libs/jquery.min.map": "/js/libs/jquery.min.map",
     "/js/libs/jquery-migrate.min.js": "/js/libs/jquery-migrate.min.js",
     "/js/libs/jquery-ui.min.js": "/js/libs/jquery-ui.min.js",

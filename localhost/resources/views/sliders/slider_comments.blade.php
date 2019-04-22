@@ -15,7 +15,6 @@
 
                     @foreach($guests as $guest)
 
-
                         <div class="p-5">
                             <div class="block-testimony">
 
@@ -26,7 +25,7 @@
                                           </div>
 
                                         <div class="col-md-auto text-left">
-                                              <span class=" post-date">{{$guest->comments_updated_at}} <h2> {{$guest->users_name}}</h2></span>
+                                              <span class=" post-date">{{$guest->contents_updated_at}} <h2> {{$guest->users_name}}</h2></span>
                                         </div>
                                     </div>
 
@@ -35,7 +34,7 @@
                                 <div class="row">
                                   <div class="col">
 
-                                        <blockquote>&ldquo;{{ $guest->comments_text }}&rdquo;
+                                        <blockquote>&ldquo;{{ $guest->contents_text }}&rdquo;
                                         </blockquote>
                                     </div>
                                  </div>
