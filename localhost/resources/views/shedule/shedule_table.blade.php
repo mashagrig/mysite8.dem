@@ -73,11 +73,11 @@
             <td>{{ date_format(date_create($shedule->start_training), 'H:i') }} - {{ date_format(date_create($shedule->stop_training), 'H:i') }}</td>
             <td>{{ $shedule->trainer_name }}</td>
             <td>{{ $section }}</td>
-            <td>{{ $shedule->gym_id }}</td>
+            <td>{{ $shedule->gym_number }}</td>
            @auth
                 <td>
                     <label for="check_shedule_id">
-                        <input id="check_shedule_id" type="checkbox" name="check_shedule_id[]" value="{{ $shedule->shedule_id }}">
+                        <input id="check_shedule_id" type="checkbox" name="check_shedule_id[]" value="{{ $shedule->shedule_id }}">{{ $shedule->shedule_id }}
                     </label>
                 </td>
             @endauth

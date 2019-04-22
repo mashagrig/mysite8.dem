@@ -16,6 +16,7 @@ class SheduleUserSeeder extends Seeder
 
         $user = \App\User::where('name', 'like', "%guest%")
             ->inRandomOrder()->first();
+
         \App\Shedule::all()
             ->reverse()
             //->inRandomOrder()

@@ -18,7 +18,8 @@ class Card extends Model
 
 
        return $this->belongsToMany('App\User', 'card_user')
-            ->withPivot('first_date_subscription','created_at', 'updated_at')
+            ->withPivot('first_date_subscription')
+           ->withTimestamps()
             ->using('App\CardUser');
     }
 }

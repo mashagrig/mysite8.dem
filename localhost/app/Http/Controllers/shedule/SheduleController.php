@@ -103,7 +103,7 @@ class SheduleController extends Controller
             //только если выбран период для фильтра расписания!!!
             view()->share('shedule_for_date',
                 $shedule_for_date = Shedule::select(
-                    'shedules.id as shedules_id',
+                    'shedules.id as shedule_id',
                     'shedules.date_training as date_training',
 
                     'shedules.trainingtime_id as trainingtime_id',
@@ -116,7 +116,8 @@ class SheduleController extends Controller
                     'shedules.section_id as section_id',
                     'sections.title as section_title',
 
-                    'shedules.gym_id as gym_id'
+                    'shedules.gym_id as gym_id',
+                    'gyms.number as gym_number'
                 )
                     ->join('users', function ($join) {
                         $join->on('users.id', '=', 'shedules.user_id');

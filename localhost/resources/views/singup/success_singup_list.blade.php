@@ -10,20 +10,14 @@
             <div class="row">
                 <div class="col-md-12">
 
-                    {{--------------------------------------------------}}
-
-                    {{--{{ print_r(Auth::user()->getAuthIdentifier()) }}--}}
+                    {{----------------будет удаление----------------------------------}}
 
                     @if(isset($max_date_select) && !empty($max_date_select))
                         @if(isset($each_check_shedule_info) && !empty($each_check_shedule_info))
 
-
                             <h2 class="site-section-heading text-center">Вы успешно запсаны на занятия:</h2>
 
-
                             @auth
-                                {{--<form method='POST' action="{{ action('shedule\SheduleController@store') }}"--}}
-                                      {{--class="row">--}}
                                     <form method='POST' action="{{ action('SingupController@destroy') }}" class="row">
                                         @csrf
                                         <?php $format_date = '';?>
@@ -107,6 +101,8 @@
                                                                         <input id="check_shedule_id" type="checkbox"
                                                                                name="check_shedule_id[]"
                                                                                value="{{ $singup[$k]['shedule_id'] }}">
+
+
                                                                     </label>
                                                                 </td>
                                                             @endauth

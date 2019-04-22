@@ -14,7 +14,8 @@ class Binaryfile extends Model
 //        return $this->belongsToMany("App\User", "binaryfile_user", "binaryfile_id", "user_id");
 
         return $this->belongsToMany('App\User', 'binaryfile_user')
-            ->withPivot('created_at', 'updated_at')
+            ->withTimestamps()
+          //  ->withPivot('created_at', 'updated_at')
             ->using('App\BinaryfileUser');
 
         //это первая связываемая таблица, поэтому прописываем связующую таблицу, поле первой (первой_id), поле второй (имя имя второй_id)

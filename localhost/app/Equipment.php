@@ -12,7 +12,8 @@ class Equipment extends Model
     public function gyms(){
 
         return $this->belongsToMany('App\Gym', 'equipment_gym')
-            ->withPivot('count_equipment','created_at', 'updated_at')
+            ->withPivot('count_equipment')
+            ->withTimestamps()
             ->using('App\EquipmentGym');
 
         //  return $this->belongsToMany("App\Gym", "equipment_gym");
