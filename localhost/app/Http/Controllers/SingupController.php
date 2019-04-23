@@ -20,8 +20,6 @@ class SingupController extends Controller
         $max_date_select = array();
         $each_check_shedule_info = array();
 
-
-
         //--------------------------------------------------------
 
         //определяем поьзоватея (в роли гостя)
@@ -40,8 +38,6 @@ class SingupController extends Controller
 //            })
 //            ->where('roles.title', 'like', '%trainer%')
 //            ->get('id');//[0]->id;
-
-
 
         $today = date("Y-m-d");
         $max_date = date('Y-m-d', time() + 86400*31);
@@ -69,7 +65,6 @@ class SingupController extends Controller
 //                    $join->on('shedule_user.user_id', '=', 'users.id')
 //                        ->where('shedule_user.user_id', '=', "{$current_user}");
 //            })
-
                 ->whereHas('users', function ($q) use($current_user){
                     $q->where('users.id', '=', "{$current_user}");
                 })
@@ -99,10 +94,6 @@ class SingupController extends Controller
             ->oldest('start_training')
             ->get()
         );
-
-
-
-
 
         foreach ($each_check_shedule_info as $kk => $singup) {
 
@@ -230,7 +221,6 @@ class SingupController extends Controller
                        ->oldest('date_training')
                        ->oldest('start_training')
                        ->get()
-                    //   ->unique('shedules.id')
                     //______________________________________
                 );
             }
@@ -309,9 +299,6 @@ class SingupController extends Controller
                 Shedule::find($id)
                     ->users()
                     ->detach($user);
-//                whereHas('users', function ($q) use($id){
-//                    $q->where('shedules.id', '=', "{$id}");
-//                })
 
             }}
         return redirect()->action('SingupController@index');
