@@ -34,12 +34,12 @@ Route::get('/home', function () {
 
 Route::get('/privacy', function () {
     return view('privacy');
-})->middleware('auth');
-Route::get('/privacy', 'SingupController@index')->name('privacy')->middleware('auth');
+})->middleware("auth");
+Route::get('/privacy', 'SingupController@index')->name('privacy')->middleware("auth");
 //POST запрос аутентификации на сайте
-Route::post('/privacy', 'SingupController@store')->middleware('auth');
-Route::post('/privacy/{id}/update', 'SingupController@update')->middleware('auth');
-Route::post('/privacy/destroy', 'SingupController@destroy')->middleware('auth');
+Route::post('/privacy', 'SingupController@store')->middleware("can:manipulate,App\SheduleUser");
+Route::post('/privacy/{id}/update', 'SingupController@update')->middleware("can:manipulate,App\SheduleUser");
+Route::post('/privacy/destroy', 'SingupController@destroy')->middleware("can:manipulate,App\SheduleUser");
 
 
 
@@ -159,7 +159,6 @@ Route::get('/cards#cards_child', 'cards\CardsPersonalController@index')->name('c
 Route::get('/trainers', 'trainers\TrainersController@index')->name('trainers');
 //--------- shedule -----------------
 Route::get('/shedule', 'shedule\SheduleController@index')->name('shedule');
-Route::post('/shedule', 'shedule\SheduleController@index');
 Route::post('/shedule/', 'shedule\SheduleController@show');
 Route::post('/shedule', 'shedule\SheduleController@store');
 

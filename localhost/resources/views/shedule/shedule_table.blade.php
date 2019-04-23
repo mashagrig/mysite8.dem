@@ -2,12 +2,14 @@
 @if(isset($max_date_select) && $max_date_select!=='')
 
 
-    @auth
+    @can("manipulate", "App\SheduleUser")
         {{--<form method='POST' action="{{ action('shedule\SheduleController@store') }}" class="row">--}}
         <form method='POST' action="{{ action('SingupController@store') }}" class="row">
+
             @csrf
+            @endcan
+
             <?php $format_date = '';?>
-    @endauth
 
 
 
@@ -32,7 +34,8 @@
         <th scope="col">Тренер</th>
         <th scope="col">Секция</th>
         <th scope="col">№ зала</th>
-       @auth <th scope="col">Записаться</th> @endauth
+
+        @can("manipulate", "App\SheduleUser") <th scope="col">Записаться</th> @endcan
     </tr>
     </thead>
     <tbody>
@@ -74,13 +77,14 @@
             <td>{{ $shedule->trainer_name }}</td>
             <td>{{ $section }}</td>
             <td>{{ $shedule->gym_number }}</td>
-           @auth
+
+            @can("manipulate", "App\SheduleUser")
                 <td>
                     <label for="check_shedule_id">
                         <input id="check_shedule_id" type="checkbox" name="check_shedule_id[]" value="{{ $shedule->shedule_id }}">{{ $shedule->shedule_id }}
                     </label>
                 </td>
-            @endauth
+            @endcan
         </tr>
             @endif
         @endforeach
@@ -89,8 +93,7 @@
 </table>
     @endforeach
 
-
-    @auth
+     @can("manipulate", "App\SheduleUser")
        @if($format_date!=='')
             <div class="col text-md-right  mb-3">
                 <input type="submit" class="btn btn-primary rounded text-white px-4" value="Записаться">
@@ -98,8 +101,8 @@
        @endif
         </form>
         {{--@section('success')--}}
-        @include('singup.success_singup_list')
-    @endauth
+        {{--@include('singup.success_singup_list')--}}
+    @endcan
 
 
 @endif

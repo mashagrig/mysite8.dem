@@ -36,4 +36,9 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+    //для для аутентификации будет использоваться поле имя
+//    public function username()
+//    {
+//        return 'name';
+//    }
 }

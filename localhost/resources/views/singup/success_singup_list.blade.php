@@ -17,11 +17,11 @@
 
                             <h2 class="site-section-heading text-center">Вы успешно запсаны на занятия:</h2>
 
-                            @auth
+                            @can("manipulate", "App\SheduleUser")
                                     <form method='POST' action="{{ action('SingupController@destroy') }}" class="row">
                                         @csrf
                                         <?php $format_date = '';?>
-                                        @endauth
+                             @endcan
 
 
                                         {{--Для каждой уникальной даты из расписания создаем таблицу--}}
@@ -46,8 +46,9 @@
                                                     <th scope="col">Тренер</th>
                                                     <th scope="col">Секция</th>
                                                     <th scope="col">№ зала</th>
-                                                    @auth
-                                                        <th scope="col">Отменить</th> @endauth
+                                           @can("manipulate", "App\SheduleUser")
+                                                        <th scope="col">Отменить</th>
+                                            @endcan
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -94,8 +95,8 @@
                                                                 - {{ date_format(date_create($singup[$k]['stop_training']), 'H:i') }}</td>
                                                             <td>{{ $singup[$k]['trainer_name'] }}</td>
                                                             <td>{{ $section }}</td>
-                                                            <td>{{ $singup[$k]['gym_id'] }}</td>
-                                                            @auth
+                                                            <td>{{ $singup[$k]['gym_number'] }}</td>
+                                              @can("manipulate", "App\SheduleUser")
                                                                 <td>
                                                                     <label for="check_shedule_id">
                                                                         <input id="check_shedule_id" type="checkbox"
@@ -105,7 +106,7 @@
 
                                                                     </label>
                                                                 </td>
-                                                            @endauth
+                                             @endcan
                                                         </tr>
                                                     @endif
                                                 @endforeach
@@ -116,14 +117,14 @@
                                         @endforeach
 
 
-                           @auth
+                        @can("manipulate", "App\SheduleUser")
                                @if($format_date!=='')
                                   <div class="col text-md-right  mb-3">
                                          <input type="submit" class="btn btn-primary rounded text-white px-4" value="Отменить">
                                    </div>
                                @endif
                                     </form>
-                            @endauth
+                            @endcan
 
                             <p>В ближайшее время наш менеджер свяжется с Вами для подтверждения записи.</p>
                         @endif

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\shedule;
 
 use App\Section;
 use App\Shedule;
-use App\Trainingshedule;
 use DateTime;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

@@ -52,7 +52,8 @@ class SingupController extends Controller
             'trainingtimes.start_training as start_training',
             'trainingtimes.stop_training as stop_training',
             'shedules.section_id as section_id',
-            'shedules.gym_id as gym_id'
+            'shedules.gym_id as gym_id',
+             'gyms.number as gym_number'
         )
                 //trainer
                 ->join('users', function ($join) {
@@ -184,7 +185,7 @@ class SingupController extends Controller
                        'trainingtimes.stop_training as stop_training',
                        'shedules.section_id as section_id',
                        'shedules.gym_id as gym_id',
-                       'shedules.gym_id as gym_id'
+                       'gyms.number as gym_number'
                    )
                        //trainer
                        ->join('users', function ($join) {
