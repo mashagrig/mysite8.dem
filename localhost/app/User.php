@@ -18,7 +18,7 @@ class User extends Authenticatable  implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'personalinfo_id', 'role_id'
     ];
 
     /**
@@ -51,7 +51,7 @@ class User extends Authenticatable  implements MustVerifyEmail
     }
 
 
-    //m-m (мн)
+    //m-m (мн)-
     //--------------------------------------------
 
 //    public function binaryfiles()
