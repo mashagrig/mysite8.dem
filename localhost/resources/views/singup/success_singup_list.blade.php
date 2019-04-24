@@ -1,3 +1,12 @@
+
+@extends('privacy')
+
+@section('privacy_guest')
+
+
+
+
+
 @if(isset($each_check_shedule_info) && $each_check_shedule_info!=='')
 
     <div class="site-section  block-14 bg-light nav-direction-white">
@@ -41,7 +50,6 @@
                                             <table class="table table-striped">
                                                 <thead class="text-black thead-dark">
                                                 <tr>
-                                                    <th scope="col">Дата</th>
                                                     <th scope="col">Время</th>
                                                     <th scope="col">Тренер</th>
                                                     <th scope="col">Секция</th>
@@ -89,12 +97,11 @@
                                                         ?>
 
                                                         <tr>
-                                                            <td>{{ date_format(date_create($singup[$k]['date_training']), 'd-m-Y') }} -
-                                                                {{ $singup[$k]['shedule_id'] }}</td>
                                                             <td>{{ date_format(date_create($singup[$k]['start_training']), 'H:i') }}
                                                                 - {{ date_format(date_create($singup[$k]['stop_training']), 'H:i') }}</td>
                                                             <td>{{ $singup[$k]['trainer_name'] }}</td>
-                                                            <td>{{ $section }}</td>
+                                                            <td>{{ $section }} -
+                                                                {{ $singup[$k]['shedule_id'] }}</td>
                                                             <td>{{ $singup[$k]['gym_number'] }}</td>
                                               @can("manipulate", "App\SheduleUser")
                                                                 <td>
@@ -161,3 +168,4 @@
 {{--@endforeach--}}
 
 
+@endsection

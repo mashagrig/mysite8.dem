@@ -109,11 +109,16 @@ class SingupController extends Controller
         //--------------------------------------------------------
 
 
-        return view('privacy', [
+        return view('singup.success_singup_list', [
             'check_shedule_id' => $check_shedule_id,
             'max_date_select' => $max_date_select,
             'each_check_shedule_info' => $each_check_shedule_info,
         ]);
+//        return view('singup.success_singup_list', [
+//            'check_shedule_id' => $check_shedule_id,
+//            'max_date_select' => $max_date_select,
+//            'each_check_shedule_info' => $each_check_shedule_info,
+//        ]);
     }
 
     /**
@@ -242,6 +247,7 @@ class SingupController extends Controller
 //            array_unique( array_column($each_check_shedule_info, 'date_training')) )  ;
 
         return redirect()->action('SingupController@index');
+
     }
 
     /**

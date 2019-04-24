@@ -50,6 +50,44 @@ class User extends Authenticatable  implements MustVerifyEmail
         return $this->belongsTo("App\Role", "role_id", "id");
     }
 
+    //---------------------------------------
+
+    public function isAdmin()
+    {
+        if($this->role_id !== null) {
+            //не role()!!!
+            return $this->role->title === 'admin';
+        }
+    }
+
+    public function isGuest()
+    {
+        if($this->role_id !== null){
+            return $this->role->title === 'guest';
+        }
+    }
+    public function isTrainer()
+    {
+        if($this->role_id !== null) {
+            return $this->role->title === 'trainer';
+        }
+    }
+    public function isSupport()
+    {
+        if($this->role_id !== null) {
+            return $this->role->title === 'support';
+        }
+    }
+    public function isContent()
+    {
+        if($this->role_id !== null) {
+            return $this->role->title === 'content';
+        }
+    }
+
+
+
+
 
     //m-m (мн)-
     //--------------------------------------------

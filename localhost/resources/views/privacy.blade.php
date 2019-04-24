@@ -29,14 +29,30 @@
     {{--</div>--}}
     {{--<p><br /></p>--}}
 
+    @yield('privacy_guest')
 
-    @auth
-        @include('singup.success_singup_list',[
-            'check_shedule_id'=>$check_shedule_id,
-            'max_date_select' => $max_date_select,
-            'each_check_shedule_info' => $each_check_shedule_info,
-        ])
-    @endauth
+
+
+
+    {{--@can("manipulate", "App\SheduleUser")--}}
+    {{--@auth--}}
+        {{--@include('singup.success_singup_list',[--}}
+            {{--'check_shedule_id'=>$check_shedule_id,--}}
+            {{--'max_date_select' => $max_date_select,--}}
+            {{--'each_check_shedule_info' => $each_check_shedule_info,--}}
+        {{--])--}}
+    {{--@endauth--}}
+    {{--@endcan--}}
+
+    {{--@can("manipulate", "App\SheduleUser")--}}
+    {{--@auth--}}
+        {{--@include('singup.success_singup_list',[--}}
+            {{--'check_shedule_id'=>$check_shedule_id,--}}
+            {{--'max_date_select' => $max_date_select,--}}
+            {{--'each_check_shedule_info' => $each_check_shedule_info,--}}
+        {{--])--}}
+    {{--@endauth--}}
+    {{--@endcan--}}
 
 @endsection
 

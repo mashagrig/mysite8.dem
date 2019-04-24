@@ -20,27 +20,38 @@
 //    return view('welcome');
 //});
 
-
-Route::get('/', function () {
-    return view('home');
-});
-Route::get('/home', function () {
-    return view('home');
-});
-//Route::get('/home', 'HomeController@index')->name('home');
+//с такой записью (с замыканием - анонимной функцией) кэш роуов не возможен для данной версии PHP
+//Route::get('/', function () {
+//    return view('home');
+//});
+//Route::get('/home', function () {
+//    return view('home');
+//});
+Route::get('/', 'HomeController@index')->name('/');
+Route::get('/home', 'HomeController@index')->name('home');
 
 //--------- privacy -----------------
 //--------- singup -----------------
 
-Route::get('/privacy', function () {
-    return view('privacy');
-})->middleware("auth");
-Route::get('/privacy', 'SingupController@index')->name('privacy')->middleware("auth");
-//POST запрос аутентификации на сайте
-Route::post('/privacy', 'SingupController@store')->middleware("can:manipulate,App\SheduleUser");
-Route::post('/privacy/{id}/update', 'SingupController@update')->middleware("can:manipulate,App\SheduleUser");
-Route::post('/privacy/destroy', 'SingupController@destroy')->middleware("can:manipulate,App\SheduleUser");
+//не auth иначе будет конфликт
+Route::group(['middleware' => 'guest'], function() {
+    Route::get('/privacy', 'PrivacyController@index')->name('privacy');
+});
+  // Route::get('/privacy', 'PrivacyController@index')->name('privacy');
 
+
+  //  Route::get('/privacy', 'SingupController@index')->name('privacy');
+//Route::post('/privacy', 'SingupController@store')->middleware("can:manipulate,App\SheduleUser");
+//Route::post('/privacy/{id}/update', 'SingupController@update')->middleware("can:manipulate,App\SheduleUser");
+//Route::post('/privacy/destroy', 'SingupController@destroy')->middleware("can:manipulate,App\SheduleUser");
+
+
+    Route::group(['middleware' => 'CheckIfGuest'], function() {
+        Route::get('/privacy', 'SingupController@index')->name('privacy');
+      //  Route::post('/privacy', 'SingupController@index');
+        Route::post('/privacy', 'SingupController@store');
+        Route::post('/privacy/destroy', 'SingupController@destroy');
+});
 
 
 
@@ -140,21 +151,21 @@ Route::get('/about#comments', 'about\AboutController@index')->name('comments');
 
 //--------- programs -----------------
 Route::get('/programs', 'programs\ProgramsController@index')->name('programs');
-Route::get('/programs#morning_programs', 'programs\MorningProgramsController@index')->name('morning_programs');
-Route::get('/programs#body_building', 'programs\BodyBuildingController@index')->name('body_building');
-Route::get('/programs#stretching', 'programs\StretchingController@index')->name('stretching');
-Route::get('/programs#fitness', 'programs\FitnessController@index')->name('fitness');
-Route::get('/programs#yoga', 'programs\YogaController@index')->name('yoga');
-Route::get('/programs#pilates', 'programs\PilatesController@index')->name('pilates');
-Route::get('/programs#child_programs', 'programs\ChildProgramsController@index')->name('child_programs');
+Route::get('/programs#morning_programs', 'programs\ProgramsController@index')->name('morning_programs');
+Route::get('/programs#body_building', 'programs\ProgramsController@index')->name('body_building');
+Route::get('/programs#stretching', 'programs\ProgramsController@index')->name('stretching');
+Route::get('/programs#fitness', 'programs\ProgramsController@index')->name('fitness');
+Route::get('/programs#yoga', 'programs\ProgramsController@index')->name('yoga');
+Route::get('/programs#pilates', 'programs\ProgramsController@index')->name('pilates');
+Route::get('/programs#child_programs', 'programs\ProgramsController@index')->name('child_programs');
 //--------- cards -----------------
 Route::get('/cards', 'cards\CardsController@index')->name('cards');
-Route::get('/cards#cards_year', 'cards\CardsYearController@index')->name('cards_year');
-Route::get('/cards#cards_six_month', 'cards\CardsSixMonthController@index')->name('cards_six_month');
-Route::get('/cards#cards_three_month', 'cards\CardsThreeMonthController@index')->name('cards_three_month');
-Route::get('/cards#cards_one_month', 'cards\CardsOneMonthController@index')->name('cards_one_month');
-Route::get('/cards#cards_personal', 'cards\CardsPersonalController@index')->name('cards_personal');
-Route::get('/cards#cards_child', 'cards\CardsPersonalController@index')->name('cards_child');
+Route::get('/cards#cards_year', 'cards\CardsController@index')->name('cards_year');
+Route::get('/cards#cards_six_month', 'cards\CardsController@index')->name('cards_six_month');
+Route::get('/cards#cards_three_month', 'cards\CardsController@index')->name('cards_three_month');
+Route::get('/cards#cards_one_month', 'cards\CardsController@index')->name('cards_one_month');
+Route::get('/cards#cards_personal', 'cards\CardsController@index')->name('cards_personal');
+Route::get('/cards#cards_child', 'cards\CardsController@index')->name('cards_child');
 //--------- trainers -----------------
 Route::get('/trainers', 'trainers\TrainersController@index')->name('trainers');
 //--------- shedule -----------------
