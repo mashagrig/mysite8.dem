@@ -7,8 +7,8 @@
     'top_slider_test_1'=>'Присоединяйтесь к нашей команде',
 ])
     @include('about.about')
-    @include('about.for_slider_photo_gallery')
+    @include('sliders.slider_photo_gallery')
     @include('about.actions')
     @include('about.for_icon_partners')
-    @include('about.for_slider_comments')
+    @include('sliders.slider_comments')
 @endsection

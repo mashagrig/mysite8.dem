@@ -9,26 +9,6 @@
     'top_slider_test_1'=>'Идивидуальный подход для эффективной тренировки'
     ])
 
-    {{--<p><br /></p>--}}
-    {{--<div class="container">--}}
-        {{--<div class="row justify-content-center">--}}
-            {{--<div class="col-md-8">--}}
-                {{--<div class="card">--}}
-                    {{--<div class="card-body text-center orange">--}}
-                        {{--@if (session('status'))--}}
-                            {{--<div class="alert alert-success" role="alert">--}}
-                                {{--{{ session('status') }}--}}
-                            {{--</div>--}}
-                        {{--@endif--}}
-                        {{--<p class="orange text-uppercase">Вы успешно авторизованы</p>--}}
-                        {{--<p class="orange text-uppercase">Добро пожаловать в Ваш личный кабинет.</p>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-    {{--</div>--}}
-    {{--<p><br /></p>--}}
-
     @yield('privacy_guest')
 
 

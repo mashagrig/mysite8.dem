@@ -3,8 +3,19 @@
         <div class="row">
             <div class="col-md-12">
                 <h2 class="site-section-heading text-center">Расписание занятий</h2>
+                @guest
+                <p>Для записи на тренировку Вам необходимо
+                    <a class="a-link" href="{{ route('register') }}">зарегистрироваться</a>
+                    или
+                    <a class="a-link" href="{{ route('login') }}">авторизоваться</a>
+                </p>
+                    @endguest
+
             </div>
         </div>
+
+
+
 
         <div class="row">
             <form method='POST' action="{{ action('shedule\SheduleController@store') }}" class="row">

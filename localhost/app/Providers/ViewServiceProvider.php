@@ -2,6 +2,14 @@
 
 namespace App\Providers;
 
+use App\Http\ViewComposers\GuestComposer;
+use App\Http\ViewComposers\IconBlocks\IconPogramsComposer;
+use App\Http\ViewComposers\Sliders\SliderCommentsComposer;
+use App\Http\ViewComposers\Sliders\SliderPhotoGalleryComposer;
+use App\Http\ViewComposers\Sliders\SliderProgramsComposer;
+use App\Http\ViewComposers\Sliders\SliderTopThreeComposer;
+use App\Http\ViewComposers\Sliders\SliderTrainersComposer;
+use App\Http\ViewComposers\TrainerComposer;
 use App\Personalinfo;
 use App\Shedule;
 use App\User;
@@ -39,146 +47,160 @@ class ViewServiceProvider extends ServiceProvider
         //   "equipment" => Equipment::all(),
         //   "gym" => Gym::all()
 
-        view()->share('trainers_info',
-            $trainers_info = Personalinfo::select(
-                'users.email as users_email',
-                'users.id as users_id',
-                'users.name as users_name',//login
-
-                'roles.title as roles_title',
-                'roles.text as roles_text',
-
-                'personalinfos.login as personalinfos_login',
-                'personalinfos.name as personalinfos_name',
-                'personalinfos.surname as personalinfos_surname',
-                'personalinfos.middle_name as personalinfos_middle_name',
-                'personalinfos.email as personalinfos_email',
-                'personalinfos.telephone as personalinfos_telephone',
-                'personalinfos.birthdate as personalinfos_birthdate',
-                'personalinfos.text as personalinfos_text',
-
-                'binaryfiles.title as binaryfiles_title',
-                'binaryfiles.file_src as binaryfiles_file_src',
-                'binaryfiles.text as binaryfiles_text',
-
-                'contents.id as contents_id',
-                'contents.title as contents_title',
-                'contents.slug as contents_slug',
-                'contents.text as contents_text',
-                'contents.created_at as contents_created_at',
-                'contents.updated_at as contents_updated_at'
-            )
-                ->join('users', 'users.personalinfo_id', '=', 'personalinfos.id', 'inner')
-                ->join('roles', 'roles.id', '=', 'users.role_id', 'inner')
-
-                ->join('binaryfile_user', 'binaryfile_user.user_id', '=', 'users.id', 'inner')
-                ->join('binaryfiles', 'binaryfiles.id', '=','binaryfile_user.binaryfile_id',  'inner')
-
-                ->join('content_user', 'content_user.user_id', '=', 'users.id', 'inner')
-                ->join('contents', 'contents.id', '=','content_user.content_id',  'inner')
-
-                ->where('roles.title', 'like', '%trainer%')
-                ->get());
-
-
-
-        view()->share('guests',
-            $guests = User::select(
-                'users.id as users_id',
-                'users.email as users_email',
-                'users.name as users_name',//login
-
-                'roles.title as roles_title',
-                'roles.text as roles_text',
-
-                'personalinfos.login as personalinfos_login',
-                'personalinfos.name as personalinfos_name',
-                'personalinfos.surname as personalinfos_surname',
-                'personalinfos.middle_name as personalinfos_middle_name',
-                'personalinfos.email as personalinfos_email',
-                'personalinfos.telephone as personalinfos_telephone',
-                'personalinfos.birthdate as personalinfos_birthdate',
-                'personalinfos.text as personalinfos_text',
-
-                'binaryfiles.title as binaryfiles_title',
-                'binaryfiles.file_src as binaryfiles_file_src',
-                'binaryfiles.text as binaryfiles_text',
-
-                'contents.id as contents_id',
-                'contents.title as contents_title',
-                'contents.slug as contents_slug',
-                'contents.text as contents_text',
-                'contents.created_at as contents_created_at',
-                'contents.updated_at as contents_updated_at',
-
-                'card_user.first_date_subscription as first_date_subscription',
-                'cards.title as contents_title',
-                'cards.count_month as contents_count_month',
-                'cards.count_day as contents_count_day',
-                'cards.price as contents_price',
-
-                'shedules.id as shedules_id',
-                'shedules.date_training as shedules_date_training',
-                'shedules.trainingtime_id as shedules_trainingtime_id',
-                'shedules.user_id as shedules_trainer_id',
-                'shedules.section_id as shedules_section_id',
-                'shedules.gym_id as shedules_gym_id'
-            )
-
-                ->join('roles', function ($join) {
-                    $join->on('roles.id', '=', 'users.role_id');
-                     //   ->where('roles.title', 'like', '%guest%');
-                })
-                ->join('personalinfos', function ($join) {
-                    $join->on('personalinfos.id', '=', 'users.personalinfo_id');
-                })
-
-                ->join('binaryfile_user', 'binaryfile_user.user_id', '=', 'users.id', 'inner')
-                ->join('binaryfiles', 'binaryfiles.id', '=','binaryfile_user.binaryfile_id',  'inner')
-
-                ->join('content_user', 'content_user.user_id', '=', 'users.id', 'inner')
-                ->join('contents', 'contents.id', '=','content_user.content_id',  'inner')
-
-                ->join('card_user', 'card_user.user_id', '=', 'users.id', 'inner')
-                ->join('cards', 'cards.id', '=','card_user.card_id',  'inner')
-
-                ->join('shedule_user', 'shedule_user.user_id', '=', 'users.id', 'inner')
-                ->join('shedules', 'shedules.id', '=','shedule_user.shedule_id',  'inner')
-
-                ->where('roles.title', 'like', '%guest%')
-                ->get());
-
-
-
-
-
-
-
-
-//        View::composers('*', function ($view){
+//        view()->share('trainers_info',
 //            $trainers_info = Personalinfo::select(
-//                'roles.title',
-//                'users.email',
-//                'users.id as id',
-//                'personalinfos.name as person',
-//                'users.name as user',
-//                'binaryfiles.file_src as file_src',
-//                'personalinfos.info'
+//                'users.email as users_email',
+//                'users.id as users_id',
+//                'users.name as users_name',//login
+//
+//                'roles.title as roles_title',
+//                'roles.text as roles_text',
+//
+//                'personalinfos.login as personalinfos_login',
+//                'personalinfos.name as personalinfos_name',
+//                'personalinfos.surname as personalinfos_surname',
+//                'personalinfos.middle_name as personalinfos_middle_name',
+//                'personalinfos.email as personalinfos_email',
+//                'personalinfos.telephone as personalinfos_telephone',
+//                'personalinfos.birthdate as personalinfos_birthdate',
+//                'personalinfos.text as personalinfos_text',
+//
+//                'binaryfiles.title as binaryfiles_title',
+//                'binaryfiles.file_src as binaryfiles_file_src',
+//                'binaryfiles.text as binaryfiles_text',
+//
+//                'contents.id as contents_id',
+//                'contents.title as contents_title',
+//                'contents.slug as contents_slug',
+//                'contents.text as contents_text',
+//                'contents.created_at as contents_created_at',
+//                'contents.updated_at as contents_updated_at'
 //            )
 //                ->join('users', 'users.personalinfo_id', '=', 'personalinfos.id', 'inner')
 //                ->join('roles', 'roles.id', '=', 'users.role_id', 'inner')
-//                ->join('contents', 'contents.user_id', '=', 'users.id', 'inner')
-//                ->join('binaryfiles', 'binaryfiles.id', '=', 'contents.binaryfile_id', 'inner')
-//                ->where('roles.title','like', '%trainer%')
-//                //->orderBy("personalinfos.id")
-//                ->get();
-////            view('trainers.page_trainers', [
-////                'trainers_info'=> $trainers_info,
-////            ]);
-//           return $view->with('trainers_info', $trainers_info);
 //
+//                ->join('binaryfile_user', 'binaryfile_user.user_id', '=', 'users.id', 'inner')
+//                ->join('binaryfiles', 'binaryfiles.id', '=','binaryfile_user.binaryfile_id',  'inner')
 //
-//        });
+//                ->join('content_user', 'content_user.user_id', '=', 'users.id', 'inner')
+//                ->join('contents', 'contents.id', '=','content_user.content_id',  'inner')
+//
+//                ->where('roles.title', 'like', '%trainer%')
+//                ->get());
+
+
+//
+//        view()->share('guests',
+//            $guests = User::select(
+//                'users.id as users_id',
+//                'users.email as users_email',
+//                'users.name as users_name',//login
+//
+//                'roles.title as roles_title',
+//                'roles.text as roles_text',
+//
+//                'personalinfos.login as personalinfos_login',
+//                'personalinfos.name as personalinfos_name',
+//                'personalinfos.surname as personalinfos_surname',
+//                'personalinfos.middle_name as personalinfos_middle_name',
+//                'personalinfos.email as personalinfos_email',
+//                'personalinfos.telephone as personalinfos_telephone',
+//                'personalinfos.birthdate as personalinfos_birthdate',
+//                'personalinfos.text as personalinfos_text',
+//
+//                'binaryfiles.title as binaryfiles_title',
+//                'binaryfiles.file_src as binaryfiles_file_src',
+//                'binaryfiles.text as binaryfiles_text',
+//
+//                'contents.id as contents_id',
+//                'contents.title as contents_title',
+//                'contents.slug as contents_slug',
+//                'contents.text as contents_text',
+//                'contents.created_at as contents_created_at',
+//                'contents.updated_at as contents_updated_at',
+//
+//                'card_user.first_date_subscription as first_date_subscription',
+//                'cards.title as contents_title',
+//                'cards.count_month as contents_count_month',
+//                'cards.count_day as contents_count_day',
+//                'cards.price as contents_price',
+//
+//                'shedules.id as shedules_id',
+//                'shedules.date_training as shedules_date_training',
+//                'shedules.trainingtime_id as shedules_trainingtime_id',
+//                'shedules.user_id as shedules_trainer_id',
+//                'shedules.section_id as shedules_section_id',
+//                'shedules.gym_id as shedules_gym_id'
+//            )
+//
+//                ->join('roles', function ($join) {
+//                    $join->on('roles.id', '=', 'users.role_id');
+//                     //   ->where('roles.title', 'like', '%guest%');
+//                })
+//                ->join('personalinfos', function ($join) {
+//                    $join->on('personalinfos.id', '=', 'users.personalinfo_id');
+//                })
+//
+//                ->join('binaryfile_user', 'binaryfile_user.user_id', '=', 'users.id', 'inner')
+//                ->join('binaryfiles', 'binaryfiles.id', '=','binaryfile_user.binaryfile_id',  'inner')
+//
+//                ->join('content_user', 'content_user.user_id', '=', 'users.id', 'inner')
+//                ->join('contents', 'contents.id', '=','content_user.content_id',  'inner')
+//
+//                ->join('card_user', 'card_user.user_id', '=', 'users.id', 'inner')
+//                ->join('cards', 'cards.id', '=','card_user.card_id',  'inner')
+//
+//                ->join('shedule_user', 'shedule_user.user_id', '=', 'users.id', 'inner')
+//                ->join('shedules', 'shedules.id', '=','shedule_user.shedule_id',  'inner')
+//
+//                ->where('roles.title', 'like', '%guest%')
+//                ->get());
+
+
+
+        view()->composer([
+            'home',
+            'welcome',
+            'about.page_about',
+            'trainers.page_trainers',
+        ], TrainerComposer::class);
+
+        view()->composer([
+            'home',
+            'welcome',
+            'about.page_about',
+        ], GuestComposer::class);
+
+
+        //sliders--------------------------------------
+        view()->composer([
+            'sliders.slider_top_three',
+        ], SliderTopThreeComposer::class);
+
+        view()->composer([
+            'sliders.slider_photo_gallery',
+        ], SliderPhotoGalleryComposer::class);
+
+        view()->composer([
+            'sliders.slider_trainers',
+        ], SliderTrainersComposer::class);
+
+        //нигде не используется!!!
+//        view()->composer([
+//            'sliders.slider_programs',
+//        ], SliderProgramsComposer::class);
+
+        view()->composer([
+            'sliders.slider_comments',
+        ], SliderCommentsComposer::class);
+
+        //icons--------------------------------------
+
+        view()->composer([
+            'icon_blocks.icon_blocks_programs',
+        ], IconPogramsComposer::class);
+
+
 
     }
 }

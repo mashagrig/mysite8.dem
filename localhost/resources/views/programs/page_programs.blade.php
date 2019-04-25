@@ -9,7 +9,7 @@
     'top_slider_test_1'=>'Идивидуальный подход для эффективной тренировки'
     ])
 
-    @include('programs.for_icon_programs')
+    @include('icon_blocks.icon_blocks_programs')
     @include('programs.for_each_program')
 
 

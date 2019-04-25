@@ -12,7 +12,7 @@
     ])
 
 
-    @include('trainers.for_slider_trainers')
+    @include('sliders.slider_trainers')
     @include('trainers.each_trainer')
 
 @endsection
