@@ -100,8 +100,6 @@
             </div>
        @endif
         </form>
-        {{--@section('success')--}}
-        {{--@include('singup.success_singup_list')--}}
     @endcan
 
 

@@ -8,6 +8,7 @@ use App\Http\ViewComposers\IconBlocks\IconCardsComposer;
 use App\Http\ViewComposers\IconBlocks\IconPartnersComposer;
 use App\Http\ViewComposers\IconBlocks\IconPogramsComposer;
 use App\Http\ViewComposers\ProgramComposer;
+use App\Http\ViewComposers\SheduleComposer;
 use App\Http\ViewComposers\Sliders\SliderCommentsComposer;
 use App\Http\ViewComposers\Sliders\SliderPhotoGalleryComposer;
 use App\Http\ViewComposers\Sliders\SliderProgramsComposer;
@@ -17,6 +18,7 @@ use App\Http\ViewComposers\TrainerComposer;
 use App\Personalinfo;
 use App\Shedule;
 use App\User;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class ViewServiceProvider extends ServiceProvider
@@ -51,6 +53,12 @@ class ViewServiceProvider extends ServiceProvider
             'welcome',
             'about.page_about',
         ], GuestComposer::class);
+
+        view()->composer([
+           // 'shedule.page_shedule',
+            'shedule.for_shedule_table',
+        ], SheduleComposer::class);
+
 
 
         //for_each_description page--------------------
