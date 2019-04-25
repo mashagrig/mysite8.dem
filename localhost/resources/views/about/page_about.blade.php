@@ -9,6 +9,6 @@
     @include('about.about')
     @include('sliders.slider_photo_gallery')
     @include('about.actions')
-    @include('about.for_icon_partners')
+    @include('icon_blocks.icon_blocks_partners')
     @include('sliders.slider_comments')
 @endsection

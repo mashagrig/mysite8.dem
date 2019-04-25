@@ -9,7 +9,7 @@
     'top_slider_test_1'=>'Индивидуальный подход к каждому гостю нашего клуба'
     ])
 
-    @include('cards.for_icon_cards')
-    @include('cards.for_each_card')
+    @include('icon_blocks.icon_blocks_cards')
+    @include('cards.each_card')
 
 @endsection

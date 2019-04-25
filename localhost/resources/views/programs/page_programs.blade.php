@@ -10,7 +10,7 @@
     ])
 
     @include('icon_blocks.icon_blocks_programs')
-    @include('programs.for_each_program')
+    @include('programs.each_program')
 
 
 

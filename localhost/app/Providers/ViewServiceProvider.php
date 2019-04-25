@@ -2,8 +2,12 @@
 
 namespace App\Providers;
 
+use App\Http\ViewComposers\CardComposer;
 use App\Http\ViewComposers\GuestComposer;
+use App\Http\ViewComposers\IconBlocks\IconCardsComposer;
+use App\Http\ViewComposers\IconBlocks\IconPartnersComposer;
 use App\Http\ViewComposers\IconBlocks\IconPogramsComposer;
+use App\Http\ViewComposers\ProgramComposer;
 use App\Http\ViewComposers\Sliders\SliderCommentsComposer;
 use App\Http\ViewComposers\Sliders\SliderPhotoGalleryComposer;
 use App\Http\ViewComposers\Sliders\SliderProgramsComposer;
@@ -34,6 +38,73 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
+        view()->composer([
+            'home',
+            'welcome',
+            'about.page_about',
+            'trainers.page_trainers',
+        ], TrainerComposer::class);
+
+        view()->composer([
+            'home',
+            'welcome',
+            'about.page_about',
+        ], GuestComposer::class);
+
+
+        //for_each_description page--------------------
+        view()->composer([
+            'cards.each_card',
+        ], CardComposer::class);
+
+        view()->composer([
+            'programs.each_program',
+        ], ProgramComposer::class);
+
+
+        //sliders--------------------------------------
+        view()->composer([
+            'sliders.slider_top_three',
+        ], SliderTopThreeComposer::class);
+
+        view()->composer([
+            'sliders.slider_photo_gallery',
+        ], SliderPhotoGalleryComposer::class);
+
+        view()->composer([
+            'sliders.slider_trainers',
+        ], SliderTrainersComposer::class);
+
+        //нигде не используется!!!
+//        view()->composer([
+//            'sliders.slider_programs',
+//        ], SliderProgramsComposer::class);
+
+        view()->composer([
+            'sliders.slider_comments',
+        ], SliderCommentsComposer::class);
+
+        //icons--------------------------------------
+
+        view()->composer([
+            'icon_blocks.icon_blocks_programs',
+        ], IconPogramsComposer::class);
+
+        view()->composer([
+            'icon_blocks.icon_blocks_cards',
+        ], IconCardsComposer::class);
+
+        view()->composer([
+            'icon_blocks.icon_blocks_partners',
+        ], IconPartnersComposer::class);
+
+
+
+
+
+
+
         //                View::share([
 //                    'contents'=>Content::orderBy('updated_at', 'desc')->first()
 //                        ->users()
@@ -155,50 +226,6 @@ class ViewServiceProvider extends ServiceProvider
 //
 //                ->where('roles.title', 'like', '%guest%')
 //                ->get());
-
-
-
-        view()->composer([
-            'home',
-            'welcome',
-            'about.page_about',
-            'trainers.page_trainers',
-        ], TrainerComposer::class);
-
-        view()->composer([
-            'home',
-            'welcome',
-            'about.page_about',
-        ], GuestComposer::class);
-
-
-        //sliders--------------------------------------
-        view()->composer([
-            'sliders.slider_top_three',
-        ], SliderTopThreeComposer::class);
-
-        view()->composer([
-            'sliders.slider_photo_gallery',
-        ], SliderPhotoGalleryComposer::class);
-
-        view()->composer([
-            'sliders.slider_trainers',
-        ], SliderTrainersComposer::class);
-
-        //нигде не используется!!!
-//        view()->composer([
-//            'sliders.slider_programs',
-//        ], SliderProgramsComposer::class);
-
-        view()->composer([
-            'sliders.slider_comments',
-        ], SliderCommentsComposer::class);
-
-        //icons--------------------------------------
-
-        view()->composer([
-            'icon_blocks.icon_blocks_programs',
-        ], IconPogramsComposer::class);
 
 
 
