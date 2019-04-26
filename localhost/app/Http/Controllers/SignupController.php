@@ -72,23 +72,19 @@ class SignupController extends Controller
                     Shedule::find($id)
                         ->users()
                         ->attach($user);
-
-                    $email_admin = 'm-a-grigoreva@yandex.ru';
-                    $email_arr = [
-                        $email,
-                        $email_admin
-                    ];
-                    event(new CheckSheduleEvent($email_arr));
-                    return redirect()->action('SignupController@index');
-
                 }
             }
-
-
         }
-       // $message = 'Данная карта уже выбрна Вами';
-        return redirect()->action('SignupController@index');
 
+        //если данная тренировка уже привязана, проверка будет в запросе  базу, но не тут
+
+        $email_admin = 'm-a-grigoreva@yandex.ru';
+        $email_arr = [
+            $email,
+            $email_admin
+        ];
+        event(new CheckSheduleEvent($email_arr));
+        return redirect()->action('SignupController@index');
     }
 
     /**

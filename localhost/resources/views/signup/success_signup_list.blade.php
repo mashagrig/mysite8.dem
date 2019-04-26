@@ -99,15 +99,15 @@
                                                             <td>{{ date_format(date_create($singup[$k]['start_training']), 'H:i') }}
                                                                 - {{ date_format(date_create($singup[$k]['stop_training']), 'H:i') }}</td>
                                                             <td>{{ $singup[$k]['trainer_name'] }}</td>
-                                                            <td>{{ $section }} -
-                                                                {{ $singup[$k]['shedule_id'] }}</td>
+                                                            <td>{{ $section }}</td>
                                                             <td>{{ $singup[$k]['gym_number'] }}</td>
                                               @can("manipulate", "App\SheduleUser")
                                                                 <td>
                                                                     <label for="check_shedule_id">
                                                                         <input id="check_shedule_id" type="checkbox"
                                                                                name="check_shedule_id[]"
-                                                                               value="{{ $singup[$k]['shedule_id'] }}">
+                                                                               value="{{ $singup[$k]['shedule_id'] }}"> -
+                                                                        {{ $singup[$k]['shedule_id'] }}
 
 
                                                                     </label>
