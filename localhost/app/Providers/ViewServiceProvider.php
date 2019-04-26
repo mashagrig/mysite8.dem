@@ -9,7 +9,7 @@ use App\Http\ViewComposers\IconBlocks\IconPartnersComposer;
 use App\Http\ViewComposers\IconBlocks\IconPogramsComposer;
 use App\Http\ViewComposers\ProgramComposer;
 use App\Http\ViewComposers\SheduleComposer;
-use App\Http\ViewComposers\SingupComposer;
+use App\Http\ViewComposers\SignupComposer;
 use App\Http\ViewComposers\Sliders\SliderCommentsComposer;
 use App\Http\ViewComposers\Sliders\SliderPhotoGalleryComposer;
 use App\Http\ViewComposers\Sliders\SliderProgramsComposer;
@@ -60,8 +60,8 @@ class ViewServiceProvider extends ServiceProvider
         ], SheduleComposer::class);
 
         view()->composer([
-            'singup.success_singup_list',
-        ], SingupComposer::class);
+            'signup.success_signup_list',
+        ], SignupComposer::class);
 
 
 

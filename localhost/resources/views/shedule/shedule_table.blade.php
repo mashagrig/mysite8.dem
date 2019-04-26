@@ -4,7 +4,7 @@
 
     @can("manipulate", "App\SheduleUser")
         {{--<form method='POST' action="{{ action('shedule\SheduleController@store') }}" class="row">--}}
-        <form method='POST' action="{{ action('SingupController@store') }}" class="row">
+        <form method='POST' action="{{ action('SignupController@store') }}" class="row">
 
             @csrf
             @endcan

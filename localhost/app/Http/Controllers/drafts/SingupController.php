@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\ViewComposers\SingupComposer;
+use App\Http\ViewComposers\SignupComposer;
 use App\Shedule;
 use App\User;
 use Illuminate\Http\Request;
@@ -97,32 +97,32 @@ class SingupController extends Controller
 //            ->get()
 //        );
 //
-//        foreach ($each_check_shedule_info as $kk => $singup) {
+//        foreach ($each_check_shedule_info as $kk => $signup) {
 //
-//            foreach ($singup as $k => $v) {
+//            foreach ($signup as $k => $v) {
 //
 //                array_push(
 //                    $max_date_select,
-//                    $singup[$k]['date_training']);
+//                    $signup[$k]['date_training']);
 //            }
 //        }
 //        $max_date_select = array_unique($max_date_select);
 //        //--------------------------------------------------------
 //
 //
-//        return view('singup.success_singup_list', [
+//        return view('signup.success_singup_list', [
 //            'check_shedule_id' => $check_shedule_id,
 //            'max_date_select' => $max_date_select,
 //            'each_check_shedule_info' => $each_check_shedule_info,
 //        ]);
-//        return view('singup.success_singup_list', [
+//        return view('signup.success_singup_list', [
 //            'check_shedule_id' => $check_shedule_id,
 //            'max_date_select' => $max_date_select,
 //            'each_check_shedule_info' => $each_check_shedule_info,
 //        ]);
 
-        $singup_composer = new SingupComposer();
-                return view('singup.success_singup_list');
+        $singup_composer = new SignupComposer();
+                return view('signup.success_singup_list');
 
     }
 
@@ -236,11 +236,11 @@ class SingupController extends Controller
               //  );
             }
         }
-//                foreach ($each_check_shedule_info as $kk => $singup) {
-//                    foreach ($singup as $k => $v) {
+//                foreach ($each_check_shedule_info as $kk => $signup) {
+//                    foreach ($signup as $k => $v) {
 //                        array_push(
 //                            $max_date_select,
-//                            $singup[$k]['date_training']);
+//                            $signup[$k]['date_training']);
 //                    }
 //                }
 //        $max_date_select = array_unique($max_date_select);
@@ -252,7 +252,7 @@ class SingupController extends Controller
 //        $singup_composer = new SingupIndexComposer();
 
 
-        return redirect()->action('SingupController@index');
+        return redirect()->action('SignupController@index');
 
     }
 
@@ -314,7 +314,7 @@ class SingupController extends Controller
                     ->detach($user);
 
             }}
-        return redirect()->action('SingupController@index');
+        return redirect()->action('SignupController@index');
 
 
     }

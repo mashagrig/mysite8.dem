@@ -27,7 +27,7 @@
                             <h2 class="site-section-heading text-center">Вы успешно запсаны на занятия:</h2>
 
                             @can("manipulate", "App\SheduleUser")
-                                    <form method='POST' action="{{ action('SingupController@destroy') }}" class="row">
+                                    <form method='POST' action="{{ action('SignupController@destroy') }}" class="row">
                                         @csrf
                                         <?php $format_date = '';?>
                              @endcan
@@ -151,17 +151,17 @@
 
 
 
-{{--@foreach($each_check_shedule_info as $kk=>$singup)--}}
+{{--@foreach($each_check_shedule_info as $kk=>$signup)--}}
 
-{{--@foreach($singup as $k=>$v)--}}
+{{--@foreach($signup as $k=>$v)--}}
 
 {{--<ul>--}}
-{{--<li>id {{ $singup[$k]['shedule_id'] }}</li>--}}
-{{--<li>id {{ $singup[$k]['date_training'] }}</li>--}}
-{{--<li>id {{ $singup[$k]['start_training'] }} - {{ $singup[$k]['stop_training'] }}</li>--}}
-{{--<li>id {{ $singup[$k]['section_title'] }}</li>--}}
-{{--<li>id {{ $singup[$k]['trainer_name'] }}</li>--}}
-{{--<li>id {{ $singup[$k]['gym_id'] }}</li>--}}
+{{--<li>id {{ $signup[$k]['shedule_id'] }}</li>--}}
+{{--<li>id {{ $signup[$k]['date_training'] }}</li>--}}
+{{--<li>id {{ $signup[$k]['start_training'] }} - {{ $signup[$k]['stop_training'] }}</li>--}}
+{{--<li>id {{ $signup[$k]['section_title'] }}</li>--}}
+{{--<li>id {{ $signup[$k]['trainer_name'] }}</li>--}}
+{{--<li>id {{ $signup[$k]['gym_id'] }}</li>--}}
 {{--</ul>--}}
 {{--@endforeach--}}
 

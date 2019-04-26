@@ -31,7 +31,7 @@ Route::get('/', 'HomeController@index')->name('/');
 Route::get('/home', 'HomeController@index')->name('home');
 
 //--------- privacy -----------------
-//--------- singup -----------------
+//--------- signup -----------------
 
 //не auth иначе будет конфликт
 Route::group(['middleware' => 'guest'], function() {
@@ -40,17 +40,17 @@ Route::group(['middleware' => 'guest'], function() {
   // Route::get('/privacy', 'PrivacyController@index')->name('privacy');
 
 
-  //  Route::get('/privacy', 'SingupController@index')->name('privacy');
-//Route::post('/privacy', 'SingupController@store')->middleware("can:manipulate,App\SheduleUser");
-//Route::post('/privacy/{id}/update', 'SingupController@update')->middleware("can:manipulate,App\SheduleUser");
-//Route::post('/privacy/destroy', 'SingupController@destroy')->middleware("can:manipulate,App\SheduleUser");
+  //  Route::get('/privacy', 'SignupController@index')->name('privacy');
+//Route::post('/privacy', 'SignupController@store')->middleware("can:manipulate,App\SheduleUser");
+//Route::post('/privacy/{id}/update', 'SignupController@update')->middleware("can:manipulate,App\SheduleUser");
+//Route::post('/privacy/destroy', 'SignupController@destroy')->middleware("can:manipulate,App\SheduleUser");
 
 
     Route::group(['middleware' => 'CheckIfGuest'], function() {
-        Route::get('/privacy', 'SingupController@index')->name('privacy');
-      //  Route::post('/privacy', 'SingupController@index');
-        Route::post('/privacy', 'SingupController@store');
-        Route::post('/privacy/destroy', 'SingupController@destroy');
+        Route::get('/privacy', 'SignupController@index')->name('privacy');
+      //  Route::post('/privacy', 'SignupController@index');
+        Route::post('/privacy', 'SignupController@store');
+        Route::post('/privacy/destroy', 'SignupController@destroy');
 });
 
 

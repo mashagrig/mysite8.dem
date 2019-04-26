@@ -16,7 +16,7 @@
 
     {{--@can("manipulate", "App\SheduleUser")--}}
     {{--@auth--}}
-        {{--@include('singup.success_singup_list',[--}}
+        {{--@include('signup.success_singup_list',[--}}
             {{--'check_shedule_id'=>$check_shedule_id,--}}
             {{--'max_date_select' => $max_date_select,--}}
             {{--'each_check_shedule_info' => $each_check_shedule_info,--}}
@@ -26,7 +26,7 @@
 
     {{--@can("manipulate", "App\SheduleUser")--}}
     {{--@auth--}}
-        {{--@include('singup.success_singup_list',[--}}
+        {{--@include('signup.success_singup_list',[--}}
             {{--'check_shedule_id'=>$check_shedule_id,--}}
             {{--'max_date_select' => $max_date_select,--}}
             {{--'each_check_shedule_info' => $each_check_shedule_info,--}}
