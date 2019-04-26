@@ -18,8 +18,9 @@ class SignupCardController extends Controller
      */
     public function index()
     {
+        $message = '';
         $singup_card_composer = new SignupCardComposer();
-        return view('signup.success_signup_card_list');
+        return view('signup.success_signup_card_list',['message'=>$message]);
     }
 
     /**
@@ -92,7 +93,9 @@ class SignupCardController extends Controller
         }
         //если такая карта уже привязана, то просто вернуться на карты
       //  return redirect()->action('cards\CardsController@index');
-        return redirect()->route('cards');
+       // return redirect()->route('cards');
+        $message = 'Данная карта уже выбрна Вами';
+        return redirect()->action('SignupCardController@index', ['message'=>$message]);
     }
 
     /**

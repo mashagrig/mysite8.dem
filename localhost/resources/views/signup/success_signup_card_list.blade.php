@@ -21,6 +21,10 @@
                         @if(isset($max_date_select) && !empty($max_date_select))
                             @if(isset($each_check_card_info) && !empty($each_check_card_info))
 
+                                @if(isset($message) && ($message !== ''))
+                                <h2 class="site-section-heading text-center">{{ $message }}</h2>
+                            @endif
+
                                 <h2 class="site-section-heading text-center">Вы успешно отправили заявку на получение карты нашего клуба:</h2>
                                 <h2 class="site-section-heading text-center">Ваши карты:</h2>
 
@@ -47,10 +51,9 @@
                                             <table class="table table-striped">
                                                 <thead class="text-black thead-dark">
                                                 <tr>
-                                                    <th scope="col">Время</th>
-                                                    <th scope="col">Тренер</th>
-                                                    <th scope="col">Секция</th>
-                                                    <th scope="col">№ зала</th>
+                                                    <th scope="col">Срок действия</th>
+                                                    <th scope="col">Привелегии</th>
+                                                    <th scope="col">Цена</th>
                                                     @can("manipulate", "App\SheduleUser")
                                                         <th scope="col">Отменить</th>
                                                     @endcan
@@ -71,42 +74,48 @@
                                                             <?php
                                                             $card_types = $singup[$k]['card_title'];
 
-                                                            switch ($singup[$k]['section_title']) {
-                                                                case "morning_programs":
-                                                                    $section = "Утренние программы";
+                                                            switch ($singup[$k]['card_title']) {
+                                                                case "year":
+                                                                    $card_type = "1 год";
                                                                     break;
-                                                                case "body_building":
-                                                                    $section = "Боди билдинг";
+                                                                case "6month":
+                                                                    $card_type = "6 месяцев";
                                                                     break;
-                                                                case "stretching":
-                                                                    $section = "Стретчинг";
+                                                                case "3month":
+                                                                    $card_type = "3 месяца";
                                                                     break;
-                                                                case "fitness":
-                                                                    $section = "Фитнес";
+                                                                case "1month":
+                                                                    $card_type = "1 месяц";
                                                                     break;
-                                                                case "yoga":
-                                                                    $section = "Йога";
+                                                                case "personal":
+                                                                    $card_type = "Персональная карта";
                                                                     break;
-                                                                case "child_programs":
-                                                                    $section = "Детсткие программы";
+                                                                case "child":
+                                                                    $card_type = "Детсткая карта";
                                                                     break;
                                                             }
+
+
+
+                                                            $month_count = $singup[$k]['card_count_month'];
+                                                          //  $month_day = $singup[$k]['card_count_day'];
+                                                            $date_car = new DateTime($singup[$k]['first_date_subscription']);
+                                                            $date_car->modify("+{$month_count} month -1 day");
+                                                          //  $date_car->modify("+{$month_day} day");
+                                                            $last_date_subscription = $date_car->format('Y-m-d');
                                                             ?>
 
                                                             <tr>
-                                                                {{--<td>{{ date_format(date_create($singup[$k]['start_training']), 'H:i') }}--}}
-                                                                    {{--- {{ date_format(date_create($singup[$k]['stop_training']), 'H:i') }}</td>--}}
-                                                                <td>{{ $singup[$k]['first_date_subscription'] }}</td>
-                                                                <td>{{ $singup[$k]['user_name'] }}</td>
-                                                                <td>{{ $card_types }} -
-                                                                    {{ $singup[$k]['card_id'] }}</td>
-                                                                <td>{{ $singup[$k]['price'] }}</td>
+                                                                <td>{{ $singup[$k]['first_date_subscription'] }} - {{ $last_date_subscription }}</td>
+                                                                <td>{{ $card_type }}</td>
+                                                                <td>{{ $singup[$k]['card_price'] }}</td>
 
                                                                     <td>
                                                                         <label for="check_card_id">
                                                                             <input id="check_card_id" type="checkbox"
                                                                                    name="check_card_id[]"
-                                                                                   value="{{ $singup[$k]['card_id'] }}">
+                                                                                   value="{{ $singup[$k]['card_id'] }}"> -
+                                                                            {{ $singup[$k]['card_id'] }}
 
 
                                                                         </label>

@@ -3,6 +3,7 @@
 @foreach($arr as $k=>$v)
     <?php
 
+    $card_id = $arr[$k]['card_id'];
     $file = $arr[$k]['file'];
     $price = $arr[$k]['price'];
     $title = $arr[$k]['title'];
@@ -49,7 +50,7 @@
                                         <label for="card_id" class="row">
                                             <input id="card_id" type="checkbox"
                                                    name="card_id"
-                                                   value="1" hidden checked>
+                                                   value="{{ $card_id }}" hidden checked>
                                         </label>
                                     </div>
                                 </div>
@@ -108,7 +109,7 @@
                                     <label for="card_id" class="row">
                                         <input id="card_id" type="checkbox"
                                                name="card_id"
-                                               value="1" hidden checked>
+                                               value="{{ $card_id }}" hidden checked>
                                     </label>
                                 </div>
                             </div>
