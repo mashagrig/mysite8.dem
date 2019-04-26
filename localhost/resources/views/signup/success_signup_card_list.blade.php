@@ -66,10 +66,10 @@
 
 
                                                         {{--Для каждой уникальной даты из расписания выводим все записи для этой даты--}}
-                                                        @if((strtotime($singup[$k]['date_training']) === strtotime($date)))
+                                                        @if((strtotime($singup[$k]['first_date_subscription']) === strtotime($date)))
 
                                                             <?php
-                                                            $section = $singup[$k]['section_title'];
+                                                            $card_types = $singup[$k]['card_title'];
 
                                                             switch ($singup[$k]['section_title']) {
                                                                 case "morning_programs":
@@ -94,18 +94,19 @@
                                                             ?>
 
                                                             <tr>
-                                                                <td>{{ date_format(date_create($singup[$k]['start_training']), 'H:i') }}
-                                                                    - {{ date_format(date_create($singup[$k]['stop_training']), 'H:i') }}</td>
-                                                                <td>{{ $singup[$k]['trainer_name'] }}</td>
-                                                                <td>{{ $section }} -
-                                                                    {{ $singup[$k]['shedule_id'] }}</td>
-                                                                <td>{{ $singup[$k]['gym_number'] }}</td>
+                                                                {{--<td>{{ date_format(date_create($singup[$k]['start_training']), 'H:i') }}--}}
+                                                                    {{--- {{ date_format(date_create($singup[$k]['stop_training']), 'H:i') }}</td>--}}
+                                                                <td>{{ $singup[$k]['first_date_subscription'] }}</td>
+                                                                <td>{{ $singup[$k]['user_name'] }}</td>
+                                                                <td>{{ $card_types }} -
+                                                                    {{ $singup[$k]['card_id'] }}</td>
+                                                                <td>{{ $singup[$k]['price'] }}</td>
 
                                                                     <td>
-                                                                        <label for="check_shedule_id">
-                                                                            <input id="check_shedule_id" type="checkbox"
-                                                                                   name="check_shedule_id[]"
-                                                                                   value="{{ $singup[$k]['shedule_id'] }}">
+                                                                        <label for="check_card_id">
+                                                                            <input id="check_card_id" type="checkbox"
+                                                                                   name="check_card_id[]"
+                                                                                   value="{{ $singup[$k]['card_id'] }}">
 
 
                                                                         </label>
@@ -129,7 +130,7 @@
                                     </form>
 
 
-                                <p>В ближайшее время наш менеджер свяжется с Вами для подтверждения записи.</p>
+                                <p>В ближайшее время наш менеджер свяжется с Вами для подтверждения заявки на получение Клубной карты.</p>
                             @endif
                         @endif
                         {{--------------------------------------------------}}

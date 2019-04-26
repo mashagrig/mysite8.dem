@@ -9,6 +9,7 @@ use App\Http\ViewComposers\IconBlocks\IconPartnersComposer;
 use App\Http\ViewComposers\IconBlocks\IconPogramsComposer;
 use App\Http\ViewComposers\ProgramComposer;
 use App\Http\ViewComposers\SheduleComposer;
+use App\Http\ViewComposers\SignupCardComposer;
 use App\Http\ViewComposers\SignupComposer;
 use App\Http\ViewComposers\Sliders\SliderCommentsComposer;
 use App\Http\ViewComposers\Sliders\SliderPhotoGalleryComposer;
@@ -62,6 +63,11 @@ class ViewServiceProvider extends ServiceProvider
         view()->composer([
             'signup.success_signup_list',
         ], SignupComposer::class);
+
+
+        view()->composer([
+            'signup.success_signup_card_list',
+        ], SignupCardComposer::class);
 
 
 
