@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\cards;
 
+use App\Card;
+use App\Events\Cards\CheckCardEvent;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class CardsController extends Controller
 {
@@ -35,7 +39,7 @@ class CardsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**

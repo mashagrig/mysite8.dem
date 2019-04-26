@@ -35,6 +35,7 @@ class UserSeeder extends Seeder
 
             factory(\App\Card::class, 1)->create()->each(function ($up) use ($u) {
                 $up->users()->save($u);
+
                 \App\CardUser::all()
                 ->reverse()
                 ->first()

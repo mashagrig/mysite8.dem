@@ -46,11 +46,20 @@ Route::group(['middleware' => 'guest'], function() {
 //Route::post('/privacy/destroy', 'SignupController@destroy')->middleware("can:manipulate,App\SheduleUser");
 
 
-    Route::group(['middleware' => 'CheckIfGuest'], function() {
-        Route::get('/privacy', 'SignupController@index')->name('privacy');
+    Route::group([
+        'middleware' => 'CheckIfGuest',
+        'prefix' => '/privacy',
+        ], function() {
+        Route::get('/', 'SignupController@index')->name('privacy');
       //  Route::post('/privacy', 'SignupController@index');
-        Route::post('/privacy', 'SignupController@store');
-        Route::post('/privacy/destroy', 'SignupController@destroy');
+        Route::post('/', 'SignupController@store');
+        Route::post('/destroy', 'SignupController@destroy');
+
+        Route::get('/cards', 'SignupCardController@index')->name('privacy.cards');
+        Route::post('/cards', 'SignupCardController@store');
+        Route::post('/cards/destroy', 'SignupCardController@destroy');
+
+
 });
 
 

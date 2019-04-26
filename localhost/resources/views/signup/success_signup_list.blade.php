@@ -6,7 +6,6 @@
 
 
 
-
 @if(isset($each_check_shedule_info) && $each_check_shedule_info!=='')
 
     <div class="site-section  block-14 bg-light nav-direction-white">
@@ -144,28 +143,6 @@
         </div>
     </div>
 
-
 @endif
-
-
-
-
-
-{{--@foreach($each_check_shedule_info as $kk=>$signup)--}}
-
-{{--@foreach($signup as $k=>$v)--}}
-
-{{--<ul>--}}
-{{--<li>id {{ $signup[$k]['shedule_id'] }}</li>--}}
-{{--<li>id {{ $signup[$k]['date_training'] }}</li>--}}
-{{--<li>id {{ $signup[$k]['start_training'] }} - {{ $signup[$k]['stop_training'] }}</li>--}}
-{{--<li>id {{ $signup[$k]['section_title'] }}</li>--}}
-{{--<li>id {{ $signup[$k]['trainer_name'] }}</li>--}}
-{{--<li>id {{ $signup[$k]['gym_id'] }}</li>--}}
-{{--</ul>--}}
-{{--@endforeach--}}
-
-{{--@endforeach--}}
-
 
 @endsection

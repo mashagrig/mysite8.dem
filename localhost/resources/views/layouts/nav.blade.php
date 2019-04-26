@@ -4,29 +4,32 @@
 <div class="text-right top-line">
     <a class="orange" href="8-999-876-54-32">8-999-876-54-32</a>
     <a class="top-register" href="{{ route('contacts') }}"> ул. Правды, д.1</a>
-    <span class="top-register"> | </span>
+
     <!-- Right Side Of Navbar -->
 
         <!-- Authentication Links -->
         @guest
+        <span class="top-register"> | </span>
                 <a class="top-register" href="{{ route('login') }}">{{ __('Вход') }}</a>
             @if (Route::has('register'))
                     <a class="top-register" href="{{ route('register') }}">{{ __('Регистрация') }}</a>
             @endif
-        @else
+
+        {{--@else--}}
                 {{--<a id="navbarDropdown" class="top-register" href="{{ route('privacy') }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>--}}
-                <a id="navbarDropdown" class="top-register" href="{{ route('privacy') }}" role="button">
-                    {{ Auth::user()->name }}<span class="caret"></span>
-                </a>
+                {{--<a id="navbarDropdown" class="top-register" href="{{ route('privacy') }}" role="button">--}}
+                    {{--{{ Auth::user()->name }}<span class="caret"></span>--}}
+                {{--</a>--}}
+
                 {{--<div class="top-register" aria-labelledby="navbarDropdown">--}}
-                    <a class="top-register" href="{{ route('logout') }}"
-                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                        {{ __('Выход') }}
-                    </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
+                    {{--<a class="top-register" href="{{ route('logout') }}"--}}
+                       {{--onclick="event.preventDefault();--}}
+                                                     {{--document.getElementById('logout-form').submit();">--}}
+                        {{--{{ __('Выход') }}--}}
+                    {{--</a>--}}
+                    {{--<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">--}}
+                        {{--@csrf--}}
+                    {{--</form>--}}
                 {{--</div>--}}
         @endguest
 </div>
@@ -80,6 +83,7 @@
                 <li class="nav-item dropdown">
                     <a id="navbarDropdown " class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>Карты<span class="caret"></span></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ route('cards') }}">{{ __('Все карты') }}</a>
                         <a class="dropdown-item" href="{{ route('cards_year') }}">{{ __('Год') }}</a>
                         <a class="dropdown-item" href="{{ route('cards_six_month') }}">{{ __('6 месяцев') }}</a>
                         <a class="dropdown-item" href="{{ route('cards_three_month') }}">{{ __('3 месяца') }}</a>
@@ -96,6 +100,25 @@
                 {{--------------contacts---------------}}
                 <li class="nav-item"><a class="nav-link" href="{{ route('contacts') }}">{{ __('Контакты') }}</a></li>
 
+
+
+                {{--------------privacy---------------}}
+
+               @auth
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown " class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre> {{ Auth::user()->name }}<span class="caret"></span></a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('privacy') }}">{{ __('Тренировки') }}</a>
+                            <a class="dropdown-item" href="{{ route('privacy.cards') }}">{{ __('Карты') }}</a>
+                            {{--<a class="dropdown-item" href="{{ route('privacy') }}">{{ __('Настройки') }}</a>--}}
+                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">{{ __('Выход') }}</a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </div>
+                    </li>
+                @endauth
             </ul>
 
 

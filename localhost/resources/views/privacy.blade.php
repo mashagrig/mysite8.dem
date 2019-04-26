@@ -9,6 +9,7 @@
     'top_slider_test_1'=>'Идивидуальный подход для эффективной тренировки'
     ])
 
+    @yield('signup_guest_card')
     @yield('privacy_guest')
 
 
