@@ -11,12 +11,4 @@
 
     @include('shedule.for_shedule_table')
 
-    {{--@include('shedule.for_shedule_table',[--}}
-            {{--'max_date_select' => $max_date_select,--}}
-            {{--'program_select' => $program_select,--}}
-            {{--'trainers_select' => $trainers_select,--}}
-             {{--'shedule_for_date' => $shedule_for_date,--}}
-             {{--'period_select' => $period_select,--}}
-            {{--'check_shedule_id'=>$check_shedule_id--}}
-    {{--])--}}
 @endsection

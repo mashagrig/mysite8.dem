@@ -54,7 +54,7 @@ class SheduleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    //фильтрует расписание
+    //фильтрует расписание = передает из регуеста параметры в композер с запосом
     public function store(Request $request)
     {
 
