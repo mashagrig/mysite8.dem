@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\Shedules\CheckSheduleEvent;
 use App\Http\ViewComposers\SignupComposer;
 use App\Shedule;
 use App\User;
@@ -39,9 +40,11 @@ class SignupController extends Controller
      */
     public function store(Request $request)
     {
-        //определяем поьзоватея (в роли гостя)
+        $email = '';
+            //определяем поьзоватея (в роли гостя)
         $current_user = Auth::user()->getAuthIdentifier();
         $user = User::find($current_user);
+        $email = $user->email;
 
         //для всех выбранных позиций в расписании
         if (isset($request->check_shedule_id) && (!empty($request->check_shedule_id))) {
@@ -69,10 +72,23 @@ class SignupController extends Controller
                     Shedule::find($id)
                         ->users()
                         ->attach($user);
+
+                    $email_admin = 'm-a-grigoreva@yandex.ru';
+                    $email_arr = [
+                        $email,
+                        $email_admin
+                    ];
+                    event(new CheckSheduleEvent($email_arr));
+                    return redirect()->action('SignupController@index');
+
                 }
             }
+
+
         }
+       // $message = 'Данная карта уже выбрна Вами';
         return redirect()->action('SignupController@index');
+
     }
 
     /**
@@ -132,6 +148,7 @@ class SignupController extends Controller
                     ->users()
                     ->detach($user);
             }}
+
         return redirect()->action('SignupController@index');
     }
 }

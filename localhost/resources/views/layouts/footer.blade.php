@@ -4,7 +4,7 @@
 
         <div class="row">
             <div class="col-md-4">
-                <h3 class="footer-heading mb-4 text-white">О фитнес-клубе SPORT</h3>
+                <h3 class="footer-heading mb-4 text-white">О фитнес-клубе {{ config('app.name') }}</h3>
                 <p>Эффективные тренировки с лучшими тренерами москвы.<br />
                     Просторные тренажерные залы, <br />
                     новейшие тренажеры и <br />

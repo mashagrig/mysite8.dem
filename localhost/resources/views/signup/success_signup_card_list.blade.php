@@ -22,11 +22,11 @@
                             @if(isset($each_check_card_info) && !empty($each_check_card_info))
 
                                 @if(isset($message) && ($message !== ''))
-                                <h2 class="site-section-heading text-center">{{ $message }}</h2>
+                                <h2 class="site-section-heading text-center">{{  $_GET['message'] }}</h2>
                             @endif
 
-                                <h2 class="site-section-heading text-center">Вы успешно отправили заявку на получение карты нашего клуба:</h2>
-                                <h2 class="site-section-heading text-center">Ваши карты:</h2>
+                                <h2 class="site-section-heading">Вы успешно отправили заявку на получение карты нашего клуба</h2>
+                                <h2 class="site-section-heading">Ваши карты:</h2>
 
                                     <form method='POST' action="{{ action('SignupCardController@destroy') }}" class="row">
                                         @csrf

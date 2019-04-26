@@ -8,7 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class CheckCardEmail extends Mailable
+class CheckCardEmail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
@@ -36,7 +36,9 @@ class CheckCardEmail extends Mailable
     public function build()
     {
         return $this->markdown('emails.cards.check_card')
-            ->subject(config('app.name') . ": Checked Card")
-            ->from(config('mail.from.address'));
+            ->subject(  "SportFit: Заказ клубной карты")
+           //необходимо указывать от кого точно, иначе не будет отправляться - требование яндекса
+            ->from("m-a-grigoreva@yandex.ru");
+            //->from(config('mail.from.address')) и  env('APP_NAME') не работает тут;
     }
 }

@@ -59,6 +59,10 @@ return [
         'address' => env('MAIL_FROM_ADDRESS', 'm-a-grigoreva@yandex.ru'),
         'name' => env('MAIL_FROM_NAME', 'Маша'),
     ],
+//    'to' => [
+//        'address' => 'm-a-grigoreva@yandex.ru',
+//        'name' => 'Маша'
+//    ],
 
     /*
     |--------------------------------------------------------------------------

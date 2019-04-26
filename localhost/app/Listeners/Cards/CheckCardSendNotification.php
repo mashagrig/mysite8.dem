@@ -6,7 +6,7 @@ use App\Events\Cards\CheckCardEvent;
 use App\Mail\Cards\CheckCardEmail;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Mail;
+use Illuminate\Support\Facades\Mail;
 
 class CheckCardSendNotification
 {
@@ -17,7 +17,7 @@ class CheckCardSendNotification
      */
     public function __construct()
     {
-        //
+        ////нельзя передавать никакие парпметры в конструктор, даже если в событие передаются!!!
     }
 
     /**
@@ -28,6 +28,6 @@ class CheckCardSendNotification
      */
     public function handle(CheckCardEvent $event)
     {
-        Mail::to($event->email)->send(new CheckCardEmail($event->email, $event->card_id));
+        Mail::to($event->email)->queue(new CheckCardEmail($event->email, $event->card_id));//send
     }
 }

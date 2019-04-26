@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\Cards\CheckCardEvent;
 use App\Listeners\Cards\CheckCardSendNotification;
+use App\Events\Shedules\CheckSheduleEvent;
+use App\Listeners\Shedules\CheckSheduleSendNotification;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -19,9 +22,16 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        CheckCardSendNotification::class => [
-            CheckCardSendNotification::class,
+        //отправка писем при заказе карты
+        'App\Events\Cards\CheckCardEvent' => [
+       // CheckCardSendNotification::class => [
+            'App\Listeners\Cards\CheckCardSendNotification',
         ],
+        //отправка писем при записи на тренировку
+        'App\Events\Shedules\CheckSheduleEvent' => [
+            'App\Listeners\Shedules\CheckSheduleSendNotification',
+        ],
+
     ];
 
     /**

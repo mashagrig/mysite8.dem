@@ -62,6 +62,7 @@ class ViewServiceProvider extends ServiceProvider
 
         view()->composer([
             'signup.success_signup_list',
+            'emails.shedules.check_shedule',
         ], SignupComposer::class);
 
 

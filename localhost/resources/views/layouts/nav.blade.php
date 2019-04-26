@@ -2,7 +2,7 @@
 
 
 <div class="text-right top-line">
-    <a class="orange" href="8-999-876-54-32">8-999-876-54-32</a>
+    <a class="orange" href="{{ __('8-999-876-54-32') }}">8-999-876-54-32</a>
     <a class="top-register" href="{{ route('contacts') }}"> ул. Правды, д.1</a>
 
     <!-- Right Side Of Navbar -->
@@ -41,7 +41,7 @@
             <a class="navbar-brand site-logo" href="{{ url('/') }}">
                 {{--{{ config('app.name', 'SPORT') }} --}}
                 {{--<strong>S</strong>port--}}
-                <strong>S</strong>port
+                Sport<strong>Fit</strong>
             </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}"  tabindex="1">
             {{--<span class="navbar-toggler-icon"></span>--}}

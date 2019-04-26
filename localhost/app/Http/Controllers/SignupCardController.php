@@ -44,9 +44,6 @@ class SignupCardController extends Controller
         $card_id = '';
         $email = '';
 
-
-
-
         if (isset($request->card_id)&&($request->card_id !== '')){
             $card_id = $request->card_id;
         }
@@ -55,9 +52,6 @@ class SignupCardController extends Controller
         $current_user_id = Auth::user()->getAuthIdentifier();
         $user = User::find($current_user_id);
         $email = $user->email;
-
-
-
 
 //все привязанные карты к кому-либо
         $cards_arr =  Card::
@@ -86,9 +80,14 @@ class SignupCardController extends Controller
                     ->update([
                         'first_date_subscription' => date('Y-m-d')
                     ]);
+            //$email_admin = 'm-a-grigorieva@yandex.ru';
+            $email_admin = 'm-a-grigoreva@yandex.ru';
+            $email_arr = [
+                $email,
+                $email_admin
+            ];
 
-
-            event(new CheckCardEvent($email, $card_id));
+            event(new CheckCardEvent($email_arr, $card_id));
             return redirect()->action('SignupCardController@index');
         }
         //если такая карта уже привязана, то просто вернуться на карты
