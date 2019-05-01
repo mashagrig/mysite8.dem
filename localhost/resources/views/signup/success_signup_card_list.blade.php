@@ -21,18 +21,18 @@
                         @if(isset($max_date_select) && !empty($max_date_select))
                             @if(isset($each_check_card_info) && !empty($each_check_card_info))
 
-                                @if(isset($message) && ($message !== ''))
-                                <h2 class="site-section-heading text-center">{{  $_GET['message'] }}</h2>
-                            @endif
 
-                                <h2 class="site-section-heading">Вы успешно отправили заявку на получение карты нашего клуба</h2>
-                                <h2 class="site-section-heading">Ваши карты:</h2>
+                                <h2 class="site-section-heading text-center">Ваши карты:</h2>
+                                <p class="orange">Вы успешно отправили заявку на получение карты нашего клуба</p>
+
+                                {{--{{ var_dump($message) }}--}}
+                                {{--@if(isset($message) && ($message !==''))--}}
+                                {{--<p class="orange">{{ $message }}</p>--}}
+                                {{--@endif--}}
 
                                     <form method='POST' action="{{ action('SignupCardController@destroy') }}" class="row">
                                         @csrf
                                         <?php $format_date = '';?>
-
-
 
                                         {{--Для каждой уникальной даты из расписания создаем таблицу--}}
                                         @foreach($max_date_select as $k =>$date)
@@ -44,7 +44,7 @@
                                             ?>
 
                                             <span
-                                                class="text-black">Запись на  &bullet; <strong>{{ $format_date }}</strong></span>
+                                                class="text-black">Заявка на карту  &bullet; <strong>{{ $format_date }}</strong></span>
 
 
 
@@ -108,7 +108,7 @@
                                                             <tr>
                                                                 <td>{{ $singup[$k]['first_date_subscription'] }} - {{ $last_date_subscription }}</td>
                                                                 <td>{{ $card_type }}</td>
-                                                                <td>{{ $singup[$k]['card_price'] }}</td>
+                                                                <td>{{ number_format($singup[$k]['card_price'], 0, '', ' ') }}</td>
 
                                                                     <td>
                                                                         <label for="check_card_id">

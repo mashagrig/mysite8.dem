@@ -1,5 +1,15 @@
 
 
+{{--{{ print_r($email) }}--}}
+
+{{--@foreach($current_user_id_db as $current_user_id)--}}
+{{--{{ $current_user_id }}--}}
+{{--@endforeach--}}
+
+{{--{{ print_r($current_user_id_db) }}--}}
+{{--{{ print_r($current_user_email) }}--}}
+
+
 
 <div class="py-5 bg-light">
     <div class="container">
@@ -25,18 +35,47 @@
                 <div class="p-4 bg-white  mb-3">
                     <h3 class="h5 text-black mb-3">Напишите нам</h3>
                     {{--<div class="col-md-12 col-lg-8 mb-5  bg-white">--}}
-                    <form action="#" class="mb-0 bg-white">
+                    <form method='POST' action="{{ action('contacts\ContactsController@store') }}" class="mb-0 bg-white">
+                        @csrf
+
+                        <?php
+                        $email = '';
+                        $name = '';
+                        $phone = '';
+
+                        if(Auth::user()!== null){
+                            $email = Auth::user()->email;
+                            $name = Auth::user()->personalinfo()->get('name')[0]->name;
+                            $phone = Auth::user()->personalinfo()->get('telephone')[0]->telephone;
+                        }
+
+                        ?>
+
 
                         <div class="row form-group">
                             <div class="col-md-12 mb-3 mb-md-0">
-                                <label class="font-weight-bold" for="fullname">Ваше имя</label>
-                                <input type="text" id="fullname" class="form-control" placeholder="Имя">
+                                <label class="font-weight-bold" for="name">Ваше имя</label>
+                                <input type="text" name="name" id="name" class="form-control" placeholder="Имя"
+                                       value="{{ old('name', $name) }}">
                             </div>
                         </div>
                         <div class="row form-group">
                             <div class="col-md-12">
                                 <label class="font-weight-bold" for="email">Email</label>
-                                <input type="email" id="email" class="form-control" placeholder="Email">
+                                <input type="email" name="email" id="email" class="form-control" placeholder="Email"
+                                       value="{{ old('email', $email) }}">
+
+
+
+                                {{--value="--}}
+                                {{--@if (Auth::user()!== null)--}}
+                                    {{--{{ old('email', Auth::user()->email) }}--}}
+                                    {{--@elseif (Auth::user()=== null)--}}
+                                {{--{{ old('email') }}--}}
+                                {{--@endif--}}
+                               {{--">--}}
+
+
                             </div>
                         </div>
 
@@ -44,14 +83,15 @@
                         <div class="row form-group">
                             <div class="col-md-12 mb-3 mb-md-0">
                                 <label class="font-weight-bold" for="phone">Телефон</label>
-                                <input type="text" id="phone" class="form-control" placeholder="Телефон">
+                                <input type="text" name="phone" id="phone" class="form-control" placeholder="Телефон"
+                                       value="{{ old('phone', $phone) }}">
                             </div>
                         </div>
 
                         <div class="row form-group">
                             <div class="col-md-12">
                                 <label class="font-weight-bold" for="message">Сообщение</label>
-                                <textarea name="message" id="message" cols="30" rows="3" class="form-control" placeholder="Сообщение..."></textarea>
+                                <textarea name="message" name="message" id="message" cols="30" rows="3" class="form-control" placeholder="Сообщение..."></textarea>
                             </div>
                         </div>
 

@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Card;
 use App\Events\Cards\CheckCardEvent;
+use App\Http\ViewComposers\MessageComposer;
 use App\Http\ViewComposers\SignupCardComposer;
 use App\User;
 use Auth;
 use Illuminate\Http\Request;
+use Swift_TransportException;
 
 class SignupCardController extends Controller
 {
@@ -18,9 +20,8 @@ class SignupCardController extends Controller
      */
     public function index()
     {
-        $message = '';
         $singup_card_composer = new SignupCardComposer();
-        return view('signup.success_signup_card_list',['message'=>$message]);
+        return view('signup.success_signup_card_list');
     }
 
     /**
@@ -80,21 +81,44 @@ class SignupCardController extends Controller
                     ->update([
                         'first_date_subscription' => date('Y-m-d')
                     ]);
-            //$email_admin = 'm-a-grigorieva@yandex.ru';
+
+
+               //отправляем уведомление о заказе карты с проверкой -----------------------
             $email_admin = 'm-a-grigoreva@yandex.ru';
             $email_arr = [
                 $email,
                 $email_admin
             ];
 
-            event(new CheckCardEvent($email_arr, $card_id));
+
+            try{
+                event(new CheckCardEvent($email_arr, $card_id));
+            }
+            catch(Swift_TransportException $e)
+            {
+//                $message = 'нет подключения к интернету';
+//                $message_composer = new MessageComposer($message);
+
+                redirect()->back();
+            }
+            //----------------------------------------------------------------------
+//            $message = 'Вам на почту было выслано письмо с информацие о Вашей заявки на получение клюбной карты';
+//            $message_composer = new MessageComposer();
+           // $message_composer->message = $message;
             return redirect()->action('SignupCardController@index');
+
         }
         //если такая карта уже привязана, то просто вернуться на карты
       //  return redirect()->action('cards\CardsController@index');
        // return redirect()->route('cards');
-        $message = 'Данная карта уже выбрна Вами';
-        return redirect()->action('SignupCardController@index', ['message'=>$message]);
+
+
+
+
+//        $message = 'Данная карта уже выбрна Вами';
+//        $message_composer = new MessageComposer($message);
+
+        return redirect()->action('SignupCardController@index');
     }
 
     /**

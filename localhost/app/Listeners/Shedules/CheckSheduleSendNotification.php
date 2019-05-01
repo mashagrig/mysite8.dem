@@ -30,6 +30,12 @@ class CheckSheduleSendNotification
      */
     public function handle(CheckSheduleEvent $event)
     {
-        Mail::to($event->email)->queue(new CheckSheduleEmail($event->email));//send
+        try{
+            Mail::to($event->email)->queue(new CheckSheduleEmail($event->email));//send
+        }  catch(Swift_TransportException $e)
+        {
+            redirect()->back()->with(['message'=>'нет подключения к интернету']);
+        }
+      //  Mail::to($event->email)->queue(new CheckSheduleEmail($event->email));//send
     }
 }

@@ -97,6 +97,14 @@
       <path value="$PROJECT_DIR$/localhost/vendor/doctrine/dbal" />
       <path value="$PROJECT_DIR$/localhost/vendor/doctrine/event-manager" />
       <path value="$PROJECT_DIR$/localhost/vendor/doctrine/cache" />
+      <path value="$PROJECT_DIR$/localhost/vendor/zendframework/zend-diactoros" />
+      <path value="$PROJECT_DIR$/localhost/vendor/php-http/promise" />
+      <path value="$PROJECT_DIR$/localhost/vendor/php-http/httplug" />
+      <path value="$PROJECT_DIR$/localhost/vendor/php-http/guzzle6-adapter" />
+      <path value="$PROJECT_DIR$/localhost/vendor/lcobucci/jwt" />
+      <path value="$PROJECT_DIR$/localhost/vendor/nexmo/client" />
+      <path value="$PROJECT_DIR$/localhost/vendor/guzzlehttp/guzzle" />
+      <path value="$PROJECT_DIR$/localhost/vendor/guzzlehttp/promises" />
     </include_path>
   </component>
   <component name="PhpInterpreters">

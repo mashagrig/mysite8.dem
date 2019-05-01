@@ -8,7 +8,7 @@
 Смотреть подробнее в личном кабинете
 @endcomponent
 
-С уважением,<br>
+С уважением,
 {{ config('app.name') }}
 @endcomponent
 

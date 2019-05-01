@@ -14,17 +14,9 @@ use Illuminate\View\View;
 
 class TrainerComposer
 {
-//    public function __construct(array $data)
-//    {
-//        $this->data = $data;
-//    }
 
     public function compose(View $view)
     {
-//        $data = $this->data;
-
-
-
         return $view->with('trainers_info',
             $trainers_info = Personalinfo::select(
                 'users.email as users_email',

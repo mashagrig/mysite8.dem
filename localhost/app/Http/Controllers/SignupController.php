@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Events\Shedules\CheckSheduleEvent;
+use App\Http\ViewComposers\MessageComposer;
 use App\Http\ViewComposers\SignupComposer;
 use App\Shedule;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Swift_TransportException;
 
 class SignupController extends Controller
 {
@@ -83,7 +85,17 @@ class SignupController extends Controller
             $email,
             $email_admin
         ];
-        event(new CheckSheduleEvent($email_arr));
+        try{
+            event(new CheckSheduleEvent($email_arr));
+        }  catch(Swift_TransportException $e)
+        {
+          //  $message = 'нет подключения к интернету';
+          //  $message_composer = new MessageComposer($message);
+
+            redirect()->back();
+        }
+//        event(new CheckSheduleEvent($email_arr));
+
         return redirect()->action('SignupController@index');
     }
 

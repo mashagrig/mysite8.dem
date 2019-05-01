@@ -14,15 +14,8 @@ use Illuminate\View\View;
 
 class GuestComposer
 {
-//    public function __construct(array $data)
-//    {
-//        $this->data = $data;
-//    }
-
     public function compose(View $view)
     {
-//        $data = $this->data;
-
         return $view->with('guests', $guests = User::select(
             'users.id as users_id',
             'users.email as users_email',

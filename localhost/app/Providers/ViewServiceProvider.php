@@ -3,10 +3,12 @@
 namespace App\Providers;
 
 use App\Http\ViewComposers\CardComposer;
+use App\Http\ViewComposers\ContactsComposer;
 use App\Http\ViewComposers\GuestComposer;
 use App\Http\ViewComposers\IconBlocks\IconCardsComposer;
 use App\Http\ViewComposers\IconBlocks\IconPartnersComposer;
 use App\Http\ViewComposers\IconBlocks\IconPogramsComposer;
+use App\Http\ViewComposers\MessageComposer;
 use App\Http\ViewComposers\ProgramComposer;
 use App\Http\ViewComposers\SheduleComposer;
 use App\Http\ViewComposers\SignupCardComposer;
@@ -71,6 +73,19 @@ class ViewServiceProvider extends ServiceProvider
         ], SignupCardComposer::class);
 
 
+//
+//        View::composer([
+//            'contacts.page_contacts',
+//            'contacts.contacts',
+//        ],  'App\Http\ViewComposers\ContactsComposer'
+//        );
+
+//        view()->composer([
+//            'contacts.page_contacts',
+//            'contacts.contacts',
+//        ], ContactsComposer::class);
+
+
 
         //for_each_description page--------------------
         view()->composer([
@@ -80,6 +95,14 @@ class ViewServiceProvider extends ServiceProvider
         view()->composer([
             'programs.each_program',
         ], ProgramComposer::class);
+
+
+        //MessageComposer--------------------------------------
+
+//        view()->composer([
+//          //  'signup.success_signup_list',
+//            'signup.success_signup_card_list',
+//        ], MessageComposer::class);
 
 
         //sliders--------------------------------------
