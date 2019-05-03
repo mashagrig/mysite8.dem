@@ -35,7 +35,9 @@ class CheckCardEmail extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->markdown('emails.cards.check_card')
+        $card_id = $this->card_id;
+
+        return $this->markdown('emails.cards.check_card', ['card_id'=>$card_id])
             ->subject(  "SportFit: Заказ клубной карты")
            //необходимо указывать от кого точно, иначе не будет отправляться - требование яндекса
             ->from("m-a-grigoreva@yandex.ru");

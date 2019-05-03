@@ -20,7 +20,7 @@ class SignupCardController extends Controller
      */
     public function index()
     {
-        $singup_card_composer = new SignupCardComposer();
+      //  $singup_card_composer = new SignupCardComposer();
         return view('signup.success_signup_card_list');
     }
 

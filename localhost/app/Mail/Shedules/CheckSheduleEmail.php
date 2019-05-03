@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class CheckSheduleEmail extends Mailable
+class CheckSheduleEmail extends Mailable  implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
@@ -16,11 +16,11 @@ class CheckSheduleEmail extends Mailable
      *
      * @return void
      */
-    public $email;
+    public $shedule_id;
 
-    public function __construct($email)
+    public function __construct($shedule_id)
     {
-        $this->email = $email;
+        $this->shedule_id = $shedule_id;
     }
 
     /**
@@ -32,7 +32,9 @@ class CheckSheduleEmail extends Mailable
     {
         //необходимо указывать от кого точно, иначе не будет отправляться - требование яндекса
 
-        return $this->markdown('emails.shedules.check_shedule')
+        $shedule_id = $this->shedule_id;
+
+        return $this->markdown('emails.shedules.check_shedule', ['shedule_id' => $shedule_id])
             ->subject(  "SportFit: Запись на тренировку" )
             ->from("m-a-grigoreva@yandex.ru");
     }

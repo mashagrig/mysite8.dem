@@ -20,10 +20,12 @@ class CheckSheduleEvent
      * @return void
      */
     public $email_arr;
+    public $shedule_id;
 
-    public function __construct($email_arr)
+    public function __construct($email_arr, $shedule_id)
     {
         $this->email_arr = $email_arr;
+        $this->shedule_id = $shedule_id;
     }
 
     /**

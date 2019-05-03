@@ -20,10 +20,12 @@ class ContactsEvent
      * @return void
      */
     public $email_arr;
+    public $question;
 
-    public function __construct($email_arr)
+    public function __construct($email_arr, $question)
     {
         $this->email_arr = $email_arr;
+        $this->question = $question;
     }
 
     /**
@@ -31,8 +33,8 @@ class ContactsEvent
      *
      * @return \Illuminate\Broadcasting\Channel|array
      */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
-    }
+//    public function broadcastOn()
+//    {
+//        return new PrivateChannel('channel-name');
+//    }
 }

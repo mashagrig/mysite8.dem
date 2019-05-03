@@ -64,7 +64,7 @@ class ViewServiceProvider extends ServiceProvider
 
         view()->composer([
             'signup.success_signup_list',
-            'emails.shedules.check_shedule',
+            'emails.shedules.check_shedule',//письмо о записи на тренировку
         ], SignupComposer::class);
 
 
@@ -90,6 +90,7 @@ class ViewServiceProvider extends ServiceProvider
         //for_each_description page--------------------
         view()->composer([
             'cards.each_card',
+            'emails.cards.check_card',//письмо о заявке на карту
         ], CardComposer::class);
 
         view()->composer([

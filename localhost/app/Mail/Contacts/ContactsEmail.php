@@ -7,19 +7,25 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class ContactsEmail extends Mailable
+class ContactsEmail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
+    //--------------------------
+    // implements ShouldQueue
+    //--------------------------
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public $email;
-    public function __construct($email)
+    public $email;//не $email_arr, т.к. отправка письма для каждого емейла
+    public $question;
+
+    public function __construct($question)
     {
-        $this->email = $email;
+     //   $this->email = $email;
+        $this->question = $question;
     }
 
     /**
@@ -29,10 +35,10 @@ class ContactsEmail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.contacts.send_question')
+        $question = $this->question;
+
+        return $this->markdown('emails.contacts.send_question', ['question'=>$question])
             ->subject(  "SportFit: Вопрос на сайт")
-            //необходимо указывать от кого точно, иначе не будет отправляться - требование яндекса
             ->from("m-a-grigoreva@yandex.ru");
-        //->from(config('mail.from.address')) и  env('APP_NAME') не работает тут;
     }
 }

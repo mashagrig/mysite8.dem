@@ -30,7 +30,7 @@
                         <select id="period" name="period">
                             <option  value="" hidden></option>
                             <option value="today"  @if($period_select === "today")  selected @endif>Сегодня</option>
-                            <option value="week"  @if($period_select === "week")  selected @endif>На неделю</option>
+                            <option value="week" selected>На неделю</option>
                             <option value="month"  @if($period_select === "month")  selected @endif>На месяц</option>
 
                             {{--<option value="week" @if($program_select === "week")  selected @endif>На неделю</option>--}}

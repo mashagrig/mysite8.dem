@@ -31,7 +31,7 @@ class ContactsSendNotification
     {
         foreach ($event->email_arr as $email){
             try{
-                Mail::to($email)->queue(new ContactsEmail($email));//send
+                Mail::to($email)->queue(new ContactsEmail($event->question));//send
             }  catch(Swift_TransportException $e)
             {
                 redirect()->back();//->with(['message'=>'нет подключения к интернету']);

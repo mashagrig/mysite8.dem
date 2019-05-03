@@ -33,7 +33,7 @@ class CheckSheduleSendNotification
     {
         foreach ($event->email_arr as $email){
             try{
-                Mail::to($email)->queue(new CheckSheduleEmail($email));//send
+                Mail::to($email)->queue(new CheckSheduleEmail($event->shedule_id));//send
             }  catch(Swift_TransportException $e)
             {
                 redirect()->back();//->with(['message'=>'нет подключения к интернету']);

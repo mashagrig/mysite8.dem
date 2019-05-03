@@ -114,6 +114,7 @@ class SignupComposer
             }
         }
         $max_date_select = array_unique($max_date_select);
+
         //--------------------------------------------------------
 
 

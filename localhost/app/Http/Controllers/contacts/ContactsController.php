@@ -4,7 +4,6 @@ namespace App\Http\Controllers\contacts;
 
 use App\Content;
 use App\Events\Contacts\ContactsEvent;
-use App\Http\ViewComposers\ContactsComposer;
 use App\Personalinfo;
 use App\User;
 use Illuminate\Http\Request;
@@ -73,7 +72,7 @@ class ContactsController extends Controller
 
                 $current_user_db = User::where('email', $email)->get();
                 //чтобы не обновлять данные зареганного пользователя
-                $message =
+                $message_db =
                     $name
                     .', '
                     .$email
@@ -84,7 +83,7 @@ class ContactsController extends Controller
 
                 Content::create([
                     'title' => 'Вопрос из формы контактов',
-                    'text' => $message,
+                    'text' => $message_db,
                 ])->users()->attach($current_user_db);
 
 //
@@ -112,17 +111,7 @@ class ContactsController extends Controller
                         'telephone' => $phone
                     ])->users()->save($current_user);
 
-//                $message .=
-//                    'Сообщение от пользователя: '
-//                    .$name
-//                    .', e-mail: '
-//                    .$email
-//                    .', телефон: '
-//                    .$phone
-//                    .'. Текст сообщения: '
-//                    .$message;
-
-                    $message =
+                    $message_db =
                         $name
                         .', '
                         .$email
@@ -133,30 +122,29 @@ class ContactsController extends Controller
 
                     Content::create([
                         'title' => 'Вопрос из формы контактов',
-                        'text' => $message,
+                        'text' => $message_db,
                     ])->users()->attach($current_user);
                 }
-        }else{
 
+
+
+            //отправить письмо техподдержке, админу и юзеру, если заполнены все поля!!!
+            //отправляем уведомление (проверка на коннект в листенере)
+            //--------------------------------------------------
+            $email_admin = 'm-a-grigoreva@yandex.ru';
+            $email_arr = [
+                $email,
+                $email_admin
+            ];
+            //сообщение в письмо перердаем напрямую отсюда через событие, а не через компоузер
+            event(new ContactsEvent($email_arr, $message));
+            //---------------------------------------------------
+
+        }
+        else{
             //вывести сообщение, что форма не заполнена
         }
 
-
-      //  $contacts_composer = new ContactsComposer(['email'=>'dfgdfgdg']);
-        //$contacts_composer->compose();
-
-
-
-        //отправить письмо техподдержке, админу и юзеру
-        //отправляем уведомление (проверка на коннект в листенере)
-        //--------------------------------------------------
-        $email_admin = 'm-a-grigoreva@yandex.ru';
-        $email_arr = [
-            $email,
-            $email_admin
-        ];
-        event(new ContactsEvent($email_arr));
-        //---------------------------------------------------
 
         return redirect()->action('contacts\ContactsController@index');
     }

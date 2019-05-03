@@ -1,16 +1,5 @@
 
 
-{{--{{ print_r($email) }}--}}
-
-{{--@foreach($current_user_id_db as $current_user_id)--}}
-{{--{{ $current_user_id }}--}}
-{{--@endforeach--}}
-
-{{--{{ print_r($current_user_id_db) }}--}}
-{{--{{ print_r($current_user_email) }}--}}
-
-
-
 <div class="py-5 bg-light">
     <div class="container">
         <div class="row">
@@ -22,10 +11,10 @@
                     <p class="mb-4">г.Москва, ул. Правды, д.1</p>
 
                     <p class="mb-0 font-weight-bold">Телефон</p>
-                    <p class="mb-4"><a class="a-link" href="{{ __('+7-(999)-876-54-32') }}">+7-(999)-876-54-32</a></p>
+                    <p class="mb-4">&#9742; <a class="a-link" href="{{ __('+7-(999)-876-54-32') }}">+7-(999)-876-54-32</a></p>
 
                     <p class="mb-0 font-weight-bold">Email-адрес</p>
-                    <p class="mb-4"><a class="a-link" href="mailto:support@sport.ru">support@sport.ru</a></p>
+                    <p class="mb-4">&#9993; <a class="a-link" href="mailto:m-a-grigoreva@yandex.ru">support@sportfit.ru</a></p>
 
                 </div>
 

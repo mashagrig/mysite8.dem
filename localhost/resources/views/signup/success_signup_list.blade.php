@@ -23,9 +23,9 @@
                     @if(isset($max_date_select) && !empty($max_date_select))
                         @if(isset($each_check_shedule_info) && !empty($each_check_shedule_info))
 
-                            @if(isset($message) && ($message !== ''))
-                                <h2 class="site-section-heading text-center">{{ $message }}</h2>
-                            @endif
+                            {{--@if(isset($message) && ($message !== ''))--}}
+                                {{--<h2 class="site-section-heading text-center">{{ $message }}</h2>--}}
+                            {{--@endif--}}
                             <h2 class="site-section-heading text-center">Вы успешно запсаны на занятия:</h2>
 
                             @can("manipulate", "App\SheduleUser")

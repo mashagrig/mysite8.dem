@@ -52,6 +52,7 @@ class SignupController extends Controller
         if (isset($request->check_shedule_id) && (!empty($request->check_shedule_id))) {
 
             $check_shedule_id = $request->check_shedule_id;
+            $shedule_id = Array();
 
             foreach ($check_shedule_id as $k=>$id) {
 
@@ -74,21 +75,28 @@ class SignupController extends Controller
                     Shedule::find($id)
                         ->users()
                         ->attach($user);
+
+                    //отправляем уведомления только об уникальных свежих записях!!!
+                    $shedule_id[] = $id;
+                   // array_push($shedule_id, $id);
                 }
             }
+
+            //отправка письма с уведомлением о записи на тренировку (проверка на коннект в листенере)
+            //--------------------------------------------------
+            $email_admin = 'm-a-grigoreva@yandex.ru';
+            $email_arr = [
+                $email,
+                $email_admin
+            ];
+            event(new CheckSheduleEvent($email_arr, $shedule_id));
+            //---------------------------------------------------
+
         }
 
         //если данная тренировка уже привязана, проверка будет в запросе  базу, но не тут
 
-        //отправка письма с уведомлением о записи на тренировку (проверка на коннект в листенере)
-        //--------------------------------------------------
-        $email_admin = 'm-a-grigoreva@yandex.ru';
-        $email_arr = [
-            $email,
-            $email_admin
-        ];
-        event(new CheckSheduleEvent($email_arr));
-        //---------------------------------------------------
+
 
         return redirect()->action('SignupController@index');
     }

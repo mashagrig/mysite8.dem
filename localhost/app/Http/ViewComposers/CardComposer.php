@@ -16,18 +16,18 @@ class CardComposer
 {
     public function compose(View $view)
     {
-        $card_arr = array();
+       // $card_arr = array();
 
-//        array_push($card_arr,
-//         Card::select(
-//            'cards.id as card_id',
-//            'cards.title as card_title',
-//            'cards.count_month as card_count_month',
-//            'cards.count_day as card_count_day',
-//            'cards.price as card_price'
-//        )
-//            ->groupby('card_id')
-//            ->get());
+     //   array_push($card_arr,
+            $card_arr =  Card::select(
+            'cards.id as card_id',
+            'cards.title as card_title',
+            'cards.count_month as card_count_month',
+            'cards.count_day as card_count_day',
+            'cards.price as card_price'
+        )
+            ->groupby('card_id')
+            ->get();//);
 
 
 
@@ -86,7 +86,7 @@ class CardComposer
         ];
         return $view->with([
             'arr'=>$arr,
-          //  'card_arr'=>$card_arr,
+            'card_arr'=>$card_arr,
         ]);
     }
 }
