@@ -19,11 +19,11 @@ class CheckSheduleEvent
      *
      * @return void
      */
-    public $email;
+    public $email_arr;
 
-    public function __construct($email)
+    public function __construct($email_arr)
     {
-        $this->email = $email;
+        $this->email_arr = $email_arr;
     }
 
     /**

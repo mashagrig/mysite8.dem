@@ -19,7 +19,7 @@ class CheckCardEmail extends Mailable implements ShouldQueue
      */
 
 
-    public $email;
+    public $email;//не $email_arr, т.к. отправка письма для каждого емейла
     public $card_id;
 
     public function __construct($email, $card_id)

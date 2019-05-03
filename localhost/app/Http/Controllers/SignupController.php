@@ -80,21 +80,15 @@ class SignupController extends Controller
 
         //если данная тренировка уже привязана, проверка будет в запросе  базу, но не тут
 
+        //отправка письма с уведомлением о записи на тренировку (проверка на коннект в листенере)
+        //--------------------------------------------------
         $email_admin = 'm-a-grigoreva@yandex.ru';
         $email_arr = [
             $email,
             $email_admin
         ];
-        try{
-            event(new CheckSheduleEvent($email_arr));
-        }  catch(Swift_TransportException $e)
-        {
-          //  $message = 'нет подключения к интернету';
-          //  $message_composer = new MessageComposer($message);
-
-            redirect()->back();
-        }
-//        event(new CheckSheduleEvent($email_arr));
+        event(new CheckSheduleEvent($email_arr));
+        //---------------------------------------------------
 
         return redirect()->action('SignupController@index');
     }

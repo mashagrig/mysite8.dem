@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\contacts;
 
 use App\Content;
+use App\Events\Contacts\ContactsEvent;
 use App\Http\ViewComposers\ContactsComposer;
 use App\Personalinfo;
 use App\User;
@@ -143,6 +144,19 @@ class ContactsController extends Controller
 
       //  $contacts_composer = new ContactsComposer(['email'=>'dfgdfgdg']);
         //$contacts_composer->compose();
+
+
+
+        //отправить письмо техподдержке, админу и юзеру
+        //отправляем уведомление (проверка на коннект в листенере)
+        //--------------------------------------------------
+        $email_admin = 'm-a-grigoreva@yandex.ru';
+        $email_arr = [
+            $email,
+            $email_admin
+        ];
+        event(new ContactsEvent($email_arr));
+        //---------------------------------------------------
 
         return redirect()->action('contacts\ContactsController@index');
     }

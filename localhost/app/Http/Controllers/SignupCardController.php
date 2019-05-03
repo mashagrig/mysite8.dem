@@ -83,37 +83,25 @@ class SignupCardController extends Controller
                     ]);
 
 
-               //отправляем уведомление о заказе карты с проверкой -----------------------
+               //отправляем уведомление о заказе карты с проверкой в листенере-----------------------
             $email_admin = 'm-a-grigoreva@yandex.ru';
             $email_arr = [
                 $email,
                 $email_admin
             ];
-
-
-            try{
-                event(new CheckCardEvent($email_arr, $card_id));
-            }
-            catch(Swift_TransportException $e)
-            {
-//                $message = 'нет подключения к интернету';
-//                $message_composer = new MessageComposer($message);
-
-                redirect()->back();
-            }
+            event(new CheckCardEvent($email_arr, $card_id));
             //----------------------------------------------------------------------
+
 //            $message = 'Вам на почту было выслано письмо с информацие о Вашей заявки на получение клюбной карты';
 //            $message_composer = new MessageComposer();
-           // $message_composer->message = $message;
+//            $message_composer->message = $message;
+
             return redirect()->action('SignupCardController@index');
 
         }
-        //если такая карта уже привязана, то просто вернуться на карты
-      //  return redirect()->action('cards\CardsController@index');
-       // return redirect()->route('cards');
-
-
-
+//        если такая карта уже привязана, то просто вернуться на карты
+//        return redirect()->action('cards\CardsController@index');
+//        return redirect()->route('cards');
 
 //        $message = 'Данная карта уже выбрна Вами';
 //        $message_composer = new MessageComposer($message);

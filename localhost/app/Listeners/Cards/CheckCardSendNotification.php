@@ -23,7 +23,7 @@ class CheckCardSendNotification
      */
     public function __construct()
     {
-        ////нельзя передавать никакие парпметры в конструктор, даже если в событие передаются!!!
+        ////нельзя передавать никакие параметры в конструктор, даже если в событие передаются!!!
     }
 
 
@@ -58,11 +58,13 @@ class CheckCardSendNotification
      */
     public function handle(CheckCardEvent $event)
     {
-        try{
-    Mail::to($event->email)->queue(new CheckCardEmail($event->email, $event->card_id));//send
-    }  catch(Swift_TransportException $e)
-        {
-            redirect()->back()->with(['message'=>'нет подключения к интернету']);
+        foreach ($event->email_arr as $email){
+            try{
+                Mail::to($email)->queue(new CheckCardEmail($email, $event->card_id));//send
+            }  catch(Swift_TransportException $e)
+            {
+                redirect()->back();//->with(['message'=>'нет подключения к интернету']);
+            }
         }
     }
 }

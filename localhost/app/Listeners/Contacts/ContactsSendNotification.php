@@ -1,39 +1,37 @@
 <?php
 
-namespace App\Listeners\Shedules;
+namespace App\Listeners\Contacts;
 
-use App\Events\Shedules\CheckSheduleEvent;
-use App\Mail\Shedules\CheckSheduleEmail;
+use App\Events\Contacts\ContactsEvent;
+use App\Mail\Contacts\ContactsEmail;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;
 use Swift_TransportException;
 
-class CheckSheduleSendNotification
+class ContactsSendNotification
 {
     /**
      * Create the event listener.
      *
      * @return void
      */
-
-
     public function __construct()
     {
-      //нельзя передавать никакие парпметры в конструктор, даже если в событие передаются!!!
+        //нельзя передавать никакие параметры в конструктор, даже если в событие передаются!!!
     }
 
     /**
      * Handle the event.
      *
-     * @param  CheckSheduleEvent  $event
+     * @param  ContactsEvent  $event
      * @return void
      */
-    public function handle(CheckSheduleEvent $event)
+    public function handle(ContactsEvent $event)
     {
         foreach ($event->email_arr as $email){
             try{
-                Mail::to($email)->queue(new CheckSheduleEmail($email));//send
+                Mail::to($email)->queue(new ContactsEmail($email));//send
             }  catch(Swift_TransportException $e)
             {
                 redirect()->back();//->with(['message'=>'нет подключения к интернету']);
