@@ -32,8 +32,8 @@ class Shedule extends Model
 //        return $this->belongsToMany("App\User", "shedule_user", "shedule_id", "user_id");
 
         return $this->belongsToMany('App\User', 'shedule_user')
+            ->withPivot('status')
             ->withTimestamps()
-           // ->withPivot('created_at', 'updated_at')
             ->using('App\SheduleUser');
         //это первая связываемая таблица, поэтому прописываем связующую таблицу, поле первой (первой_id), поле второй (имя имя второй_id)
     }

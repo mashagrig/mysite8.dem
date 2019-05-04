@@ -17,6 +17,7 @@ class CreateSheduleUserTable extends Migration {
 			$table->increments('id');
 			$table->integer('user_id')->unsigned()->nullable()->index('fk_shedule_user_user_id_idx');
 			$table->integer('shedule_id')->unsigned()->nullable()->index('fk_shedule_user_shedule_id_idx');
+            $table->string('status')->nullable();
             $table->timestamps();
 		});
 	}
