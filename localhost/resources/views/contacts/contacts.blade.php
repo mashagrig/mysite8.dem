@@ -11,7 +11,7 @@
                     <p class="mb-4">г.Москва, ул. Правды, д.1</p>
 
                     <p class="mb-0 font-weight-bold">Телефон</p>
-                    <p class="mb-4">&#9742; <a class="a-link" href="{{ __('+7-(999)-876-54-32') }}">+7-(999)-876-54-32</a></p>
+                    <p class="mb-4">&#9742; <a class="a-link" href="tel:{{ __('+7-(999)-876-54-32') }}">+7-(999)-876-54-32</a></p>
 
                     <p class="mb-0 font-weight-bold">Email-адрес</p>
                     <p class="mb-4">&#9993; <a class="a-link" href="mailto:m-a-grigoreva@yandex.ru">support@sportfit.ru</a></p>

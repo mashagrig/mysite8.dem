@@ -5,6 +5,7 @@
 
 <!-- CSRF Token -->
 <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="format-detection" content="telephone=no">
 
 {{--<title>{{ config('app.name', 'Laravel') }}</title>--}}
     <title>@yield('title', 'SPORTFIT')</title>

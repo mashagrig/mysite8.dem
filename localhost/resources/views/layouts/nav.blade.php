@@ -2,7 +2,7 @@
 
 
 <div class="text-right top-line">
-    <a class="orange" href="{{ __('8-999-876-54-32') }}">&#9742; 8-999-876-54-32</a>
+    <a class="orange" href="tel:{{ __('8-999-876-54-32') }}">&#9742; 8-999-876-54-32</a>
     <a class="top-register" href="{{ route('contacts') }}"> ул. Правды, д.1</a>
 
     <!-- Right Side Of Navbar -->

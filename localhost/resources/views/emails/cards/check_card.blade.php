@@ -57,7 +57,7 @@ switch ($card_title) {
 
                             <small>Контакная информация клуба {{ config('app.name') }}<br />
                                 Адрес: г.Москва, ул. Правды, д.1<br />
-                                &#9742; <a class="a-link" href="{{ __('+7-(999)-876-54-32') }}">+7-(999)-876-54-32</a><br />
+                                &#9742; <a class="a-link" href="tel:{{ __('+7-(999)-876-54-32') }}">+7-(999)-876-54-32</a><br />
                                 &#9993; <a class="a-link" href="mailto:support@sportfit.ru">support@sportfit.ru</a></small>
 
                             <p></p>

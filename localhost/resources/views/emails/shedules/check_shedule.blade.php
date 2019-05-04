@@ -31,37 +31,17 @@ $now_max_date_select = array_unique($now_check_shedules_dates);
 
 @component('mail::message')
 
-
-    <div class="container">
-
-        <div class="row mb-5">
-            <h3>Спасибо, что выбрали наш клуб!</h3>
-        </div>
-
-        <div class="row mb-5">
-            <div>
-                <h4>Вы записались на тренировку</h4>
-{{----------------------------------------------------------}}
-                {{--Для каждой уникальной даты из расписания создаем таблицу--}}
-                @foreach($now_max_date_select as $k =>$date)
-                    <?php
+#### Спасибо, что выбрали наш клуб!
+Вы записались на тренировку:
+@foreach($now_max_date_select as $k =>$date)
+<?php
                     setlocale(LC_TIME, 'ru_RU.utf8');
                     $format_date = strftime("%a %e %B %G", strtotime($date));
-                    ?>
-
-                    <span
-                        class="text-black">Запись на <strong>{{ $format_date }}</strong></span>
-
-
-                    <div>
-                        {{--Для каждой записи (неуникальной) из расписания--}}
-                        @foreach($now_check_shedules as $kk=>$singup)
-                            {{--@foreach($singup as $k=>$v)--}}
-
-                                {{--Для каждой уникальной даты из расписания выводим все записи для этой даты--}}
-                                @if((strtotime($singup['date_training']) === strtotime($date)))
-
-                                    <?php
+?>
+{{--Запись на <b>{{ $format_date }}</b>--}}
+@foreach($now_check_shedules as $kk=>$singup)
+@if((strtotime($singup['date_training']) === strtotime($date)))
+<?php
                                     $section = $singup['section_title'];
 
                                     switch ($singup['section_title']) {
@@ -84,40 +64,32 @@ $now_max_date_select = array_unique($now_check_shedules_dates);
                                             $section = "Детсткие программы";
                                             break;
                                     }
-                                    ?>
-                                    <ul>
-                                        <li>Время: {{ date_format(date_create($singup['start_training']), 'H:i') }}
-                                            - {{ date_format(date_create($singup['stop_training']), 'H:i') }}</li>
-                                        <li>Тренер: {{ $singup['trainer_name'] }}</li>
-                                        <li>Секция: {{ $section }}</li>
-                                        <li>№ зала: {{ $singup['gym_number'] }}</li>
-                                    </ul>
-                                @endif
-                            @endforeach
-                        {{--@endforeach--}}
-                    </div>
-                @endforeach
-{{----------------------------------------------------------}}
-            </div>
+?>
+@component('mail::table')
+| Запись на | <b>{{ $format_date }}</b>       |
+|:--------------| :-------------------------|
+| <small>Время</small>   | {{ date_format(date_create($singup['start_training']), 'H:i') }} - {{ date_format(date_create($singup['stop_training']), 'H:i') }} |
+| <small>Тренер</small>  | {{ $singup['trainer_name'] }} |
+| <small>Секция</small>  | {{ $section }} |
+| <small>№ зала</small>  | {{ $singup['gym_number'] }} |
+@endcomponent
+@endif
+@endforeach
+@endforeach
 
-            <div class="row mb-5">
-                <div class="col-md-12">
-                    <small>В ближайшее время наш менеджер свяжется с Вами для уточнения записи.</small>
+<small>В ближайшее время наш менеджер свяжется с Вами для уточнения записи.</small>
 
-                    @component('mail::button', ['url' => route('login')])
-                        Смотреть подробнее в личном кабинете
-                    @endcomponent
+@component('mail::button', ['url' => route('login')])
+Смотреть подробнее в личном кабинете
+@endcomponent
+@component('mail::panel')
+<small>Контакная информация клуба {{ config('app.name') }}<br />
+Адрес: г.Москва, ул. Правды, д.1<br />
+&#9742; <a class="a-link" href="{{ __('+7-(999)-876-54-32') }}">+7-(999)-876-54-32</a><br />
+&#9993; <a class="a-link" href="mailto:support@sportfit.ru">support@sportfit.ru</a></small>
+@endcomponent
 
-                    <small>Контакная информация клуба {{ config('app.name') }}<br />
-                        Адрес: г.Москва, ул. Правды, д.1<br />
-                        &#9742; <a class="a-link" href="{{ __('+7-(999)-876-54-32') }}">+7-(999)-876-54-32</a><br />
-                        &#9993; <a class="a-link" href="mailto:support@sportfit.ru">support@sportfit.ru</a></small>
+#### С уважением, {{ config('app.name') }}
 
-                    <p></p>
-                    <h3>С уважением, {{ config('app.name') }}</h3>
-                    <p><br /></p>
-                    <small>Не отвечайте на данное письмо</small>
-                </div>
-            </div>
-        </div>
+<small>Не отвечайте на данное письмо</small>
 @endcomponent
