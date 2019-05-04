@@ -27,6 +27,11 @@ class EventServiceProvider extends ServiceProvider
        // CheckCardSendNotification::class => [
             'App\Listeners\Cards\CheckCardSendNotification',
         ],
+        //отправка писем при заказе карты
+        'App\Events\Cards\DestroyCardEvent' => [
+       // CheckCardSendNotification::class => [
+            'App\Listeners\Cards\DestroyCardSendNotification',
+        ],
         //отправка писем при записи на тренировку
         'App\Events\Shedules\CheckSheduleEvent' => [
             'App\Listeners\Shedules\CheckSheduleSendNotification',

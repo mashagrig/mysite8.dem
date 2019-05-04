@@ -65,13 +65,15 @@ $now_max_date_select = array_unique($now_check_shedules_dates);
                                             break;
                                     }
 ?>
+@component('mail::panel')
 @component('mail::table')
-| Запись на | <b>{{ $format_date }}</b>       |
+| Запись на дату: | <b>{{ $format_date }}</b>       |
 |:--------------| :-------------------------|
 | <small>Время</small>   | {{ date_format(date_create($singup['start_training']), 'H:i') }} - {{ date_format(date_create($singup['stop_training']), 'H:i') }} |
 | <small>Тренер</small>  | {{ $singup['trainer_name'] }} |
 | <small>Секция</small>  | {{ $section }} |
 | <small>№ зала</small>  | {{ $singup['gym_number'] }} |
+@endcomponent
 @endcomponent
 @endif
 @endforeach

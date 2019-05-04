@@ -61,7 +61,6 @@ class ViewServiceProvider extends ServiceProvider
 
         view()->composer([
             'shedule.for_shedule_table',
-            'emails.shedules.destroy_shedule',//письмо об отмене записи на тренировку
         ], SheduleComposer::class);
 
         view()->composer([
@@ -73,7 +72,7 @@ class ViewServiceProvider extends ServiceProvider
             'emails.shedules.destroy_shedule',//письмо об отмене записи на тренировку
         ], DestroySheduleComposer::class);
 
-
+//данные для уведомлений передаем напрямую через конструкторы и CardComposer
         view()->composer([
             'signup.success_signup_card_list',
         ], SignupCardComposer::class);
@@ -92,11 +91,12 @@ class ViewServiceProvider extends ServiceProvider
 //        ], ContactsComposer::class);
 
 
-
+//данные для уведомлений передаем напрямую через конструкторы и CardComposer
         //for_each_description page--------------------
         view()->composer([
             'cards.each_card',
             'emails.cards.check_card',//письмо о заявке на карту
+            'emails.cards.destroy_card',//письмо оо отмене заявки на карту
         ], CardComposer::class);
 
         view()->composer([

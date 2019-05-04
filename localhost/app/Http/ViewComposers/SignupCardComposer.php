@@ -79,7 +79,7 @@ class SignupCardComposer
                 //-----------------
                // ->where('shedules.date_training', '<=', "{$max_date}")
               //  ->where('shedules.date_training', '>=', "{$today}")
-                ->groupby('card_id')
+                ->orderby('card_id')
                 ->oldest('card_user.first_date_subscription')
                 ->get()
         );

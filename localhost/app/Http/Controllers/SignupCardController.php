@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Card;
 use App\Events\Cards\CheckCardEvent;
+use App\Events\Cards\DestroyCardEvent;
 use App\Http\ViewComposers\MessageComposer;
 use App\Http\ViewComposers\SignupCardComposer;
 use App\User;
@@ -153,8 +154,9 @@ class SignupCardController extends Controller
     {
         //определяем поьзоватея (в роли гостя)
         $current_user = Auth::user()->getAuthIdentifier();
+        $email = Auth::user()->email;
         $user = User::find($current_user);
-
+        $card_id = Array();
         //для всех выбранных позиций в расписании
         if (isset($request->check_card_id) && (!empty($request->check_card_id))) {
             $check_shedule_id = $request->check_card_id;
@@ -165,7 +167,17 @@ class SignupCardController extends Controller
                 Card::find($id)
                     ->users()
                     ->detach($user);
+
+                $card_id[] = $id;
             }}
+        //отправляем уведомление о заказе карты с проверкой в листенере-----------------------
+        $email_admin = 'm-a-grigoreva@yandex.ru';
+        $email_arr = [
+            $email,
+            $email_admin
+        ];
+        event(new DestroyCardEvent($email_arr, $card_id));
+        //----------------------------------------------------------------------
         return redirect()->action('SignupCardController@index');
     }
 }

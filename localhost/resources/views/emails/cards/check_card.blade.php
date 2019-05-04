@@ -32,40 +32,29 @@ switch ($card_title) {
 
 @component('mail::message')
 
+#### Спасибо, что выбрали наш клуб!
+@component('mail::panel')
+Вы заказали карту <b>&laquo;{{ $card_type }}&raquo;</b>.
 
-                <div class="container">
+Цена карты от {{ number_format($card_price, 0, '', ' ') }} руб.
+<small><br />(Цена может быть изменена по согласованию с менеджером клуба.)</small>
 
-                    <div class="row mb-5">
-                        <h3>Спасибо, что выбрали наш клуб!</h3>
-                    </div>
+@endcomponent
 
-                    <div class="row mb-5">
-                        <div class="card card-body">
-                            <p>Вы заказали карту &laquo;{{ $card_type }}&raquo;.</p>
-                            <p>Цена карты от {{ number_format($card_price, 0, '', ' ') }} руб.<br />
-                            <small>(Цена может быть изменена по согласованию с менеджером клуба.)</small></p>
-                        </div>
-                    </div>
+<small>В ближайшее время наш менеджер свяжется с Вами для уточнения заказа.</small>
 
-                    <div class="row mb-5">
-                        <div class="col-md-12">
-                            <small>В ближайшее время наш менеджер свяжется с Вами для уточнения заказа.</small>
+@component('mail::button', ['url' => route('login')])
+Смотреть подробнее в личном кабинете
+@endcomponent
+@component('mail::panel')
+<small>Контакная информация клуба {{ config('app.name') }}<br />
+Адрес: г.Москва, ул. Правды, д.1<br />
+&#9742; <a class="a-link" href="{{ __('+7-(999)-876-54-32') }}">+7-(999)-876-54-32</a><br />
+&#9993; <a class="a-link" href="mailto:support@sportfit.ru">support@sportfit.ru</a></small>
+@endcomponent
 
-                            @component('mail::button', ['url' => route('login')])
-                                Смотреть подробнее в личном кабинете
-                            @endcomponent
+#### С уважением, {{ config('app.name') }}
 
-                            <small>Контакная информация клуба {{ config('app.name') }}<br />
-                                Адрес: г.Москва, ул. Правды, д.1<br />
-                                &#9742; <a class="a-link" href="tel:{{ __('+7-(999)-876-54-32') }}">+7-(999)-876-54-32</a><br />
-                                &#9993; <a class="a-link" href="mailto:support@sportfit.ru">support@sportfit.ru</a></small>
-
-                            <p></p>
-                            <h3>С уважением, {{ config('app.name') }}</h3>
-                            <p><br /></p>
-                            <small>Не отвечайте на данное письмо</small>
-                        </div>
-                    </div>
-                </div>
+<small>Не отвечайте на данное письмо</small>
 @endcomponent
 

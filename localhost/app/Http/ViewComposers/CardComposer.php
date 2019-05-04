@@ -26,7 +26,7 @@ class CardComposer
             'cards.count_day as card_count_day',
             'cards.price as card_price'
         )
-            ->groupby('card_id')
+            ->orderby('card_id')
             ->get();//);
 
 
