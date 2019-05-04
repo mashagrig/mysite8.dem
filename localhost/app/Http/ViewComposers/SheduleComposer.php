@@ -36,21 +36,21 @@ class SheduleComposer
 
 //-------------------------------------
 
-//            if(empty($request)){
-//                $max_date_select = '';
-//                $program_select = '';
-//                $trainers_select ='';
-//                $shedule_for_date ='';
-//                $period_select ='';
-//                $check_shedule_id ='';
-//            }else{
-//                $max_date_select = $request->max_date_select;
-//                $program_select = $request->program_select;
-//                $trainers_select =$request->trainers_select;
-//                $shedule_for_date = $request->shedule_for_date;
-//                $period_select = $request->period_select;
-//                $check_shedule_id = $request->check_shedule_id;
-//            }
+            if(empty($request)){
+                $max_date_select = '';
+                $program_select = '';
+                $trainers_select ='';
+                $shedule_for_date ='';
+                $period_select ='';
+                $check_shedule_id ='';
+            }else{
+                $max_date_select = $request->max_date_select;
+                $program_select = $request->program_select;
+                $trainers_select =$request->trainers_select;
+                $shedule_for_date = $request->shedule_for_date;
+                $period_select = $request->period_select;
+                $check_shedule_id = $request->check_shedule_id;
+            }
 
 
 

@@ -9,7 +9,7 @@ foreach ($each_check_shedule_info as $kk => $singup) {
 
         if(in_array($singup[$k]['shedule_id'], $shedule_id)){
 
-                $now_check_shedules[] =
+            $now_check_shedules[] =
                 [
                     'shedule_id' => $singup[$k]['shedule_id'],
                     'date_training' => $singup[$k]['date_training'],
@@ -40,8 +40,8 @@ $now_max_date_select = array_unique($now_check_shedules_dates);
 
         <div class="row mb-5">
             <div>
-                <h4>Вы записались на тренировку</h4>
-{{----------------------------------------------------------}}
+                <h4>Вы отменили запись на тренировку</h4>
+                {{----------------------------------------------------------}}
                 {{--Для каждой уникальной даты из расписания создаем таблицу--}}
                 @foreach($now_max_date_select as $k =>$date)
                     <?php
@@ -58,51 +58,51 @@ $now_max_date_select = array_unique($now_check_shedules_dates);
                         @foreach($now_check_shedules as $kk=>$singup)
                             {{--@foreach($singup as $k=>$v)--}}
 
-                                {{--Для каждой уникальной даты из расписания выводим все записи для этой даты--}}
-                                @if((strtotime($singup['date_training']) === strtotime($date)))
+                            {{--Для каждой уникальной даты из расписания выводим все записи для этой даты--}}
+                            @if((strtotime($singup['date_training']) === strtotime($date)))
 
-                                    <?php
-                                    $section = $singup['section_title'];
+                                <?php
+                                $section = $singup['section_title'];
 
-                                    switch ($singup['section_title']) {
-                                        case "morning_programs":
-                                            $section = "Утренние программы";
-                                            break;
-                                        case "body_building":
-                                            $section = "Боди билдинг";
-                                            break;
-                                        case "stretching":
-                                            $section = "Стретчинг";
-                                            break;
-                                        case "fitness":
-                                            $section = "Фитнес";
-                                            break;
-                                        case "yoga":
-                                            $section = "Йога";
-                                            break;
-                                        case "child_programs":
-                                            $section = "Детсткие программы";
-                                            break;
-                                    }
-                                    ?>
-                                    <ul>
-                                        <li>Время: {{ date_format(date_create($singup['start_training']), 'H:i') }}
-                                            - {{ date_format(date_create($singup['stop_training']), 'H:i') }}</li>
-                                        <li>Тренер: {{ $singup['trainer_name'] }}</li>
-                                        <li>Секция: {{ $section }}</li>
-                                        <li>№ зала: {{ $singup['gym_number'] }}</li>
-                                    </ul>
-                                @endif
-                            @endforeach
+                                switch ($singup['section_title']) {
+                                    case "morning_programs":
+                                        $section = "Утренние программы";
+                                        break;
+                                    case "body_building":
+                                        $section = "Боди билдинг";
+                                        break;
+                                    case "stretching":
+                                        $section = "Стретчинг";
+                                        break;
+                                    case "fitness":
+                                        $section = "Фитнес";
+                                        break;
+                                    case "yoga":
+                                        $section = "Йога";
+                                        break;
+                                    case "child_programs":
+                                        $section = "Детсткие программы";
+                                        break;
+                                }
+                                ?>
+                                <ul>
+                                    <li>Время: {{ date_format(date_create($singup['start_training']), 'H:i') }}
+                                        - {{ date_format(date_create($singup['stop_training']), 'H:i') }}</li>
+                                    <li>Тренер: {{ $singup['trainer_name'] }}</li>
+                                    <li>Секция: {{ $section }}</li>
+                                    <li>№ зала: {{ $singup['gym_number'] }}</li>
+                                </ul>
+                            @endif
+                        @endforeach
                         {{--@endforeach--}}
                     </div>
                 @endforeach
-{{----------------------------------------------------------}}
+                {{----------------------------------------------------------}}
             </div>
 
             <div class="row mb-5">
                 <div class="col-md-12">
-                    <small>В ближайшее время наш менеджер свяжется с Вами для уточнения записи.</small>
+                    <small>В ближайшее время наш менеджер свяжется с Вами для уточнения отмены записи.</small>
 
                     @component('mail::button', ['url' => route('login')])
                         Смотреть подробнее в личном кабинете

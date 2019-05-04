@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Http\ViewComposers\CardComposer;
 use App\Http\ViewComposers\ContactsComposer;
+use App\Http\ViewComposers\DestroySheduleComposer;
 use App\Http\ViewComposers\GuestComposer;
 use App\Http\ViewComposers\IconBlocks\IconCardsComposer;
 use App\Http\ViewComposers\IconBlocks\IconPartnersComposer;
@@ -60,12 +61,17 @@ class ViewServiceProvider extends ServiceProvider
 
         view()->composer([
             'shedule.for_shedule_table',
+            'emails.shedules.destroy_shedule',//письмо об отмене записи на тренировку
         ], SheduleComposer::class);
 
         view()->composer([
             'signup.success_signup_list',
             'emails.shedules.check_shedule',//письмо о записи на тренировку
         ], SignupComposer::class);
+
+        view()->composer([
+            'emails.shedules.destroy_shedule',//письмо об отмене записи на тренировку
+        ], DestroySheduleComposer::class);
 
 
         view()->composer([

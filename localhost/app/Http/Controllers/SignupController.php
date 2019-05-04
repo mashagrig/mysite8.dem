@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Events\Shedules\CheckSheduleEvent;
+use App\Events\Shedules\DestroySheduleEvent;
 use App\Http\ViewComposers\MessageComposer;
+use App\Http\ViewComposers\SheduleComposer;
 use App\Http\ViewComposers\SignupComposer;
 use App\Shedule;
 use App\User;
@@ -94,7 +96,7 @@ class SignupController extends Controller
 
         }
 
-        //если данная тренировка уже привязана, проверка будет в запросе  базу, но не тут
+        //если данная тренировка уже привязана, проверка будет в запросе  базу (в компоузере), но не тут
 
 
 
@@ -143,12 +145,15 @@ class SignupController extends Controller
      */
     public function destroy(Request $request)
     {
+        $shedule_id = Array();
         //определяем поьзоватея (в роли гостя)
         $current_user = Auth::user()->getAuthIdentifier();
         $user = User::find($current_user);
+        $email = Auth::user()->email;
 
         //для всех выбранных позиций в расписании
         if (isset($request->check_shedule_id) && (!empty($request->check_shedule_id))) {
+
             $check_shedule_id = $request->check_shedule_id;
 
             foreach ($check_shedule_id as $k => $id) {
@@ -157,7 +162,20 @@ class SignupController extends Controller
                 Shedule::find($id)
                     ->users()
                     ->detach($user);
+
+                $shedule_id[] = $id;
             }}
+
+        //отправка письма с уведомлением о записи на тренировку (проверка на коннект в листенере)
+        //--------------------------------------------------
+        $email_admin = 'm-a-grigoreva@yandex.ru';
+        $email_arr = [
+            $email,
+            $email_admin
+        ];
+        event(new DestroySheduleEvent($email_arr, $shedule_id));
+        //---------------------------------------------------
+
 
         return redirect()->action('SignupController@index');
     }

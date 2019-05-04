@@ -31,6 +31,10 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\Shedules\CheckSheduleEvent' => [
             'App\Listeners\Shedules\CheckSheduleSendNotification',
         ],
+        //отправка писем при отмене записи на тренировку
+        'App\Events\Shedules\DestroySheduleEvent' => [
+            'App\Listeners\Shedules\DestroySheduleSendNotification',
+        ],
         //отправка писем при обращении на сайт через форму контактов
         'App\Events\Contacts\ContactsEvent' => [
             'App\Listeners\Contacts\ContactsSendNotification',

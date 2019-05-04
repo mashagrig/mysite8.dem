@@ -53,7 +53,7 @@
                         {{--}"--}}
                         >
                             <option value="" hidden></option>
-                            <option value="" @if($program_select === "")  selected @endif>Все программы</option>
+                            <option value="" selected>Все программы</option>
                             <option value="morning_programs" @if($program_select === "morning_programs")  selected @endif>Утренние программы</option>
                             <option value="body_building" @if($program_select === "body_building")  selected @endif>Боди билдинг</option>
                             <option value="stretching" @if($program_select === "stretching")  selected @endif>Стретчинг</option>

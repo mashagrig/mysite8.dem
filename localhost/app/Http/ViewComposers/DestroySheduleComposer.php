@@ -2,28 +2,22 @@
 /**
  * Created by PhpStorm.
  * User: masha
- * Date: 26.04.19
- * Time: 2:23
+ * Date: 04.05.19
+ * Time: 0:44
  */
 
 namespace App\Http\ViewComposers;
 
 
 use App\Shedule;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
-class SignupComposer
+class DestroySheduleComposer
 {
-//    public function __construct(Request $request)
-//    {
-//        $this->request = $request;
-//    }
-
     public function compose(View $view)
     {
-      //  $request = $this->request;
+        //  $request = $this->request;
 
 
         $check_shedule_id = array();
@@ -78,9 +72,9 @@ class SignupComposer
 //            })
                 //-----------------
                 //user
-                ->whereHas('users', function ($q) use($current_user){
-                    $q->where('users.id', '=', "{$current_user}");
-                })
+//                ->whereHas('users', function ($q) use($current_user){
+//                    $q->where('users.id', '=', "{$current_user}");
+//                })
                 //-----------------
                 ->join('roles', function ($join) {
                     $join->on('roles.id', '=', 'users.role_id')
