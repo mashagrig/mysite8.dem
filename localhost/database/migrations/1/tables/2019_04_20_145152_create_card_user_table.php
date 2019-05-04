@@ -18,6 +18,7 @@ class CreateCardUserTable extends Migration {
 			$table->integer('user_id')->unsigned()->nullable()->index('fk_card_user_user_id_idx');
 			$table->integer('card_id')->unsigned()->nullable()->index('fk_card_user_card_id_idx');
 			$table->date('first_date_subscription')->nullable();
+			$table->string('status')->nullable();
             $table->timestamps();
 		});
 	}

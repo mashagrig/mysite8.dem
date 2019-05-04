@@ -9,6 +9,7 @@ class Card extends Model
     protected $table = "cards";
     protected $guarded = [];
 
+
     //1-m
     public function users(){
 
@@ -18,7 +19,7 @@ class Card extends Model
 
 
        return $this->belongsToMany('App\User', 'card_user')
-            ->withPivot('first_date_subscription')
+            ->withPivot('first_date_subscription', 'status')
            ->withTimestamps()
             ->using('App\CardUser');
     }
