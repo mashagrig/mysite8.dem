@@ -63,7 +63,8 @@ class SignupComposer
                 'trainingtimes.stop_training as stop_training',
                 'shedules.section_id as section_id',
                 'shedules.gym_id as gym_id',
-                'gyms.number as gym_number'
+                'gyms.number as gym_number',
+                'shedule_user.status as status'
             )
                 //trainer
                 ->join('users', function ($join) {
@@ -81,6 +82,17 @@ class SignupComposer
                 ->whereHas('users', function ($q) use($current_user){
                     $q->where('users.id', '=', "{$current_user}");
                 })
+
+
+                ->join('shedule_user', function ($join) use($current_user) {
+                    $join->on('shedules.id', '=', 'shedule_user.shedule_id');
+                })
+//                ->join('users', function ($join) use($current_user) {
+//                    $join->on('shedules.id', '=','shedule_user.shedule_id' );
+//                    $join->on('shedule_user.user_id', '=', 'users.id');
+//                      //  ->where('shedule_user.user_id', '=', "{$current_user}");
+//                })
+
                 //-----------------
                 ->join('roles', function ($join) {
                     $join->on('roles.id', '=', 'users.role_id')

@@ -52,6 +52,7 @@ class SignupCardComposer
                 'cards.count_day as card_count_day',
                 'cards.price as card_price',
                 'card_user.first_date_subscription as first_date_subscription',
+                'card_user.status as status',
               //  'card_user.user_id as user_id',
                 'personalinfos.name as user_name'
             )
@@ -60,7 +61,7 @@ class SignupCardComposer
 //                    $q->where('users.id', '=', "{$current_user}");
 //                })
 
-                //это только для Model, не для Pivot
+
                 ->join('card_user', function ($join) use($current_user) {
                     $join->on('cards.id', '=', 'card_user.card_id');
                 })

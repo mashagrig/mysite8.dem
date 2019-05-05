@@ -23,7 +23,6 @@
 
 
                                 <h2 class="site-section-heading text-center">Ваши карты:</h2>
-                                <p class="orange">Вы успешно отправили заявку на получение карты нашего клуба</p>
 
                                 {{--{{ var_dump($message) }}--}}
                                 {{--@if(isset($message) && ($message !==''))--}}
@@ -48,13 +47,15 @@
 
 
 
-                                            <table class="table table-striped">
+                                            {{--<table class="table table-striped">--}}
+                                            <table class="table table-hover">
                                                 <thead class="text-black thead-dark">
                                                 <tr>
                                                     <th scope="col">Срок действия</th>
                                                     <th scope="col">Привелегии</th>
                                                     <th scope="col">Цена</th>
                                                     @can("manipulate", "App\SheduleUser")
+                                                        <th scope="col">Статус</th>
                                                         <th scope="col">Отменить</th>
                                                     @endcan
                                                 </tr>
@@ -95,32 +96,65 @@
                                                                     break;
                                                             }
 
+                                                            $status = $singup[$k]['status'];
+                                                            $status_color = '';
+                                                            $status_tr_style = '';
+                                                            $status_check_style = '';
+                                                            switch ($singup[$k]['status']) {
+                                                                case "active":
+                                                                    $status = "Активна";
+                                                                    $status_tr_style = 'table-warning';
+                                                                    break;
+                                                                case "inactive":
+                                                                    $status = "Не активна";
+                                                                    $status_tr_style = 'table-secondary';
+                                                                    $status_check_style = 'd-none';
+                                                                    break;
+                                                                case "cancelled":
+                                                                    $status = "Заявка на карту отменена";
+                                                                    $status_tr_style = 'table-secondary';
+                                                                    $status_check_style = 'd-none';
+                                                                    break;
+                                                                case "expired":
+                                                                    $status = "Истек срок действия";
+                                                                    $status_tr_style = 'table-secondary';
+                                                                    $status_check_style = 'd-none';
+                                                                    break;
+                                                                case "awaiting":
+                                                                    $status = "Ожидает подтверджения";
+                                                                    $status_color = "#fd7e14";
+                                                                    break;
+                                                            }
+
 
 
                                                             $month_count = $singup[$k]['card_count_month'];
                                                           //  $month_day = $singup[$k]['card_count_day'];
-                                                            $date_car = new DateTime($singup[$k]['first_date_subscription']);
-                                                            $date_car->modify("+{$month_count} month -1 day");
+                                                           $date_carrent = new DateTime($singup[$k]['first_date_subscription']);
+                                                           $last = $date_carrent->modify("+{$month_count} month -1 day");
                                                           //  $date_car->modify("+{$month_day} day");
-                                                            $last_date_subscription = $date_car->format('Y-m-d');
+                                                            $first_date_subscription = date_format(date_create($singup[$k]['first_date_subscription']), 'd-m-Y');
+                                                            $last_date_subscription = $last->format('d-m-Y');
                                                             ?>
 
-                                                            <tr>
-                                                                <td>{{ $singup[$k]['first_date_subscription'] }} - {{ $last_date_subscription }}</td>
+                                                            <tr class="{{ $status_tr_style }}">
+                                                                <td>{{ $first_date_subscription }} - {{ $last_date_subscription }}</td>
                                                                 <td>{{ $card_type }}</td>
                                                                 <td>{{ number_format($singup[$k]['card_price'], 0, '', ' ') }}</td>
-
+                                                                @can("manipulate", "App\SheduleUser")
+                                                                    <td style="color: {{$status_color}}!important;">{{ $status }}</td>
                                                                     <td>
                                                                         <label for="check_card_id">
                                                                             <input id="check_card_id" type="checkbox"
                                                                                    name="check_card_id[]"
-                                                                                   value="{{ $singup[$k]['card_id'] }}"> -
+                                                                                   value="{{ $singup[$k]['card_id'] }}"
+                                                                                   class="{{ $status_check_style }}"> -
                                                                             {{ $singup[$k]['card_id'] }}
 
 
                                                                         </label>
                                                                     </td>
-
+                                                                @endcan
                                                             </tr>
                                                         @endif
                                                     @endforeach

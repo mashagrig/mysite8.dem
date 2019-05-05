@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Http\ViewComposers\CardComposer;
+use App\Http\ViewComposers\CardStatusComposer;
 use App\Http\ViewComposers\ContactsComposer;
 use App\Http\ViewComposers\DestroySheduleComposer;
 use App\Http\ViewComposers\GuestComposer;
@@ -12,6 +13,7 @@ use App\Http\ViewComposers\IconBlocks\IconPogramsComposer;
 use App\Http\ViewComposers\MessageComposer;
 use App\Http\ViewComposers\ProgramComposer;
 use App\Http\ViewComposers\SheduleComposer;
+use App\Http\ViewComposers\SheduleStatusComposer;
 use App\Http\ViewComposers\SignupCardComposer;
 use App\Http\ViewComposers\SignupComposer;
 use App\Http\ViewComposers\Sliders\SliderCommentsComposer;
@@ -58,7 +60,7 @@ class ViewServiceProvider extends ServiceProvider
             'welcome',
             'about.page_about',
         ], GuestComposer::class);
-
+//----Shedule-----------------------------------------
         view()->composer([
             'shedule.for_shedule_table',
         ], SheduleComposer::class);
@@ -72,11 +74,30 @@ class ViewServiceProvider extends ServiceProvider
             'emails.shedules.destroy_shedule',//письмо об отмене записи на тренировку
         ], DestroySheduleComposer::class);
 
+        view()->composer([
+            'shedule.for_shedule_table',
+            'signup.success_signup_list',
+        ], SheduleStatusComposer::class);
+
+
+//----Card-----------------------------------------
 //данные для уведомлений передаем напрямую через конструкторы и CardComposer
         view()->composer([
             'signup.success_signup_card_list',
         ], SignupCardComposer::class);
 
+//данные для уведомлений передаем напрямую через конструкторы и CardComposer
+        //for_each_description page--------------------
+        view()->composer([
+            'cards.each_card',
+            'emails.cards.check_card',//письмо о заявке на карту
+            'emails.cards.destroy_card',//письмо оо отмене заявки на карту
+        ], CardComposer::class);
+
+        view()->composer([
+            'cards.each_card',
+            'signup.success_signup_card_list',
+        ], CardStatusComposer::class);
 
 //
 //        View::composer([
@@ -91,14 +112,9 @@ class ViewServiceProvider extends ServiceProvider
 //        ], ContactsComposer::class);
 
 
-//данные для уведомлений передаем напрямую через конструкторы и CardComposer
-        //for_each_description page--------------------
-        view()->composer([
-            'cards.each_card',
-            'emails.cards.check_card',//письмо о заявке на карту
-            'emails.cards.destroy_card',//письмо оо отмене заявки на карту
-        ], CardComposer::class);
 
+
+//-----Program-------------------
         view()->composer([
             'programs.each_program',
         ], ProgramComposer::class);
