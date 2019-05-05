@@ -74,7 +74,7 @@
 
                 $status_color = '';
                 $status_check_style = '';
-                $status_tr_style = '';
+                $status_tr_style = 'table-light-new';
                 $message = '';
 
                 switch ($status) {

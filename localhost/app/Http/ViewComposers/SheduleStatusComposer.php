@@ -55,6 +55,7 @@ class SheduleStatusComposer
 
                 ->join('shedule_user', function ($join) use($current_user) {
                     $join->on('shedules.id', '=', 'shedule_user.shedule_id');
+//                    $join->on('users.id', '=', "{$current_user}");
                 })
                 //-----------------
                 ->join('roles', function ($join) {
@@ -74,9 +75,10 @@ class SheduleStatusComposer
                 ->join('gyms', function ($join) {
                     $join->on('gyms.id', '=', 'shedules.gym_id');
                 })
+                ->where('shedule_user.user_id', "{$current_user}")
 //                ->where('shedules.date_training', '<=', "{$max_date}")
 //                ->where('shedules.date_training', '>=', "{$today}")
-                ->groupby('shedule_id')
+               // ->groupby('shedule_id')
                 ->oldest('date_training')
                 ->oldest('start_training')
                 ->get();
