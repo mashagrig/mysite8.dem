@@ -229,11 +229,11 @@ a.nav-link:before {
 
 
 .table-secondary-new {
-    background-color: rgba(0, 0, 0, 0.03)!important;
+    background-color: rgba(0, 0, 0, 0.1)!important;
     color: rgba(0, 0, 0, 0.3);
 
 }.table-secondary-new:hover {
-     background-color: rgba(0, 0, 0, 0.03)!important;
+     background-color: rgba(0, 0, 0, 0.1)!important;
  }
 
 .table-light-new {

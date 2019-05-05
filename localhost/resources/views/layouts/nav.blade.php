@@ -108,8 +108,11 @@
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown " class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre> {{ Auth::user()->name }}<span class="caret"></span></a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('privacy') }}">{{ __('Тренировки') }}</a>
-                            <a class="dropdown-item" href="{{ route('privacy.cards') }}">{{ __('Карты') }}</a>
+                            <a class="dropdown-item" href="{{ route('privacy.profile') }}">{{ __('Мой профиль') }}</a>
+                            <a class="dropdown-item" href="{{ route('privacy.shedules') }}">{{ __('Мои тренировки') }}</a>
+                            <a class="dropdown-item" href="{{ route('privacy.cards') }}">{{ __('Мои карты') }}</a>
+                            <a class="dropdown-item" href="{{ route('privacy.comments') }}">{{ __('Мои отзывы') }}</a>
+                            <a class="dropdown-item" href="{{ route('privacy.faq') }}">{{ __('Обратная связь') }}</a>
                             {{--<a class="dropdown-item" href="{{ route('privacy') }}">{{ __('Настройки') }}</a>--}}
                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">{{ __('Выход') }}</a>

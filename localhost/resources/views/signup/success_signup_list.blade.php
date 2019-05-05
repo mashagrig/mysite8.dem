@@ -1,10 +1,6 @@
 
 @extends('privacy')
-
-@section('privacy_guest')
-
-
-
+@section('signup_shedule')
 
 @if(isset($each_check_shedule_info) && $each_check_shedule_info!=='')
 
@@ -12,7 +8,7 @@
         <div class="container">
             <div class="row  mb-5">
                 <div class="col-md-12">
-                    <h2 class="site-section-heading text-center">Добро пожаловать в Ваш личный кабинет:)</h2>
+                    <h2 class="site-section-heading text-center">Мои тренровки</h2>
                 </div>
             </div>
             <div class="row">
@@ -22,11 +18,6 @@
 
                     @if(isset($max_date_select) && !empty($max_date_select))
                         @if(isset($each_check_shedule_info) && !empty($each_check_shedule_info))
-
-                            {{--@if(isset($message) && ($message !== ''))--}}
-                                {{--<h2 class="site-section-heading text-center">{{ $message }}</h2>--}}
-                            {{--@endif--}}
-                            <h2 class="site-section-heading text-center">Вы успешно запсаны на занятия:</h2>
 
                             @can("manipulate", "App\SheduleUser")
                                     <form method='POST' action="{{ action('SignupController@destroy') }}" class="row">

@@ -5,12 +5,15 @@
 
     @include('sliders.slider_top', [
     'bg_1'=>'hero_bg_1_one.jpg',
-    'top_slider_h1_1'=>'Ваш личный кабинет',
+    'top_slider_h1_1'=>'Личный кабинет',
     'top_slider_test_1'=>'Идивидуальный подход для эффективной тренировки'
     ])
 
-    @yield('signup_guest_card')
-    @yield('privacy_guest')
+    @yield('profile')
+    @yield('signup_shedule')
+    @yield('signup_card')
+    @yield('comments')
+    @yield('faq')
 
 
 

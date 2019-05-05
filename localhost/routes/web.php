@@ -50,14 +50,49 @@ Route::group(['middleware' => 'guest'], function() {
         'middleware' => 'CheckIfGuest',
         'prefix' => '/privacy',
         ], function() {
-        Route::get('/', 'SignupController@index')->name('privacy');
-      //  Route::post('/privacy', 'SignupController@index');
-        Route::post('/', 'SignupController@store');
-        Route::post('/destroy', 'SignupController@destroy');
+        Route::group([
+            'prefix' => '/profile',
+        ], function() {
+            Route::get('/', 'ProfileController@index')->name('privacy.profile');
+            Route::post('/', 'ProfileController@store');
+            Route::post('/destroy', 'ProfileController@destroy');
+        });
+        Route::group([
+            'prefix' => '/shedules',
+        ], function() {
+            Route::get('/', 'SignupController@index')->name('privacy.shedules');
+            Route::post('/', 'SignupController@store');
+            Route::post('/destroy', 'SignupController@destroy');
+        });
+        Route::group([
+            'prefix' => '/cards',
+        ], function() {
+            Route::get('/', 'SignupCardController@index')->name('privacy.cards');
+            Route::post('/', 'SignupCardController@store');
+            Route::post('/destroy', 'SignupCardController@destroy');
+        });
+        Route::group([
+            'prefix' => '/comments',
+        ], function() {
+            Route::get('/', 'CommentsController@index')->name('privacy.comments');
+            Route::post('/', 'CommentsController@store');
+            Route::post('/destroy', 'CommentsController@destroy');
+        });
+        Route::group([
+            'prefix' => '/faq',
+        ], function() {
+            Route::get('/', 'FaqController@index')->name('privacy.faq');
+            Route::post('/', 'FaqController@store');
+            Route::post('/destroy', 'FaqController@destroy');
+        });
 
-        Route::get('/cards', 'SignupCardController@index')->name('privacy.cards');
-        Route::post('/cards', 'SignupCardController@store');
-        Route::post('/cards/destroy', 'SignupCardController@destroy');
+//        Route::get('/shedules', 'SignupController@index')->name('privacy.shedules');
+//        Route::post('/shedules', 'SignupController@store');
+//        Route::post('/shedules/destroy', 'SignupController@destroy');
+
+//        Route::get('/cards', 'SignupCardController@index')->name('privacy.cards');
+//        Route::post('/cards', 'SignupCardController@store');
+//        Route::post('/cards/destroy', 'SignupCardController@destroy');
 
 
 });

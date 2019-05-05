@@ -1,6 +1,6 @@
-@extends('privacy')
 
-@section('signup_guest_card')
+@extends('privacy')
+@section('signup_card')
 
 
 
@@ -10,7 +10,7 @@
             <div class="container">
                 <div class="row  mb-5">
                     <div class="col-md-12">
-                        <h2 class="site-section-heading text-center">Добро пожаловать в Ваш личный кабинет:)</h2>
+                        <h2 class="site-section-heading text-center">Мои клубные карты</h2>
                     </div>
                 </div>
                 <div class="row">
@@ -20,9 +20,6 @@
 
                         @if(isset($max_date_select) && !empty($max_date_select))
                             @if(isset($each_check_card_info) && !empty($each_check_card_info))
-
-                                <h2 class="site-section-heading text-center">Ваши карты:</h2>
-
 
                                     <form method='POST' action="{{ action('SignupCardController@destroy') }}" class="row">
                                         @csrf
@@ -160,7 +157,6 @@
                                             </table>
                                         @endforeach
 
-
                                             @if($format_date!=='')
                                                 <div class="col text-md-right  mb-3">
                                                     <input type="submit" class="btn btn-primary rounded text-white px-4" value="Отменить">
@@ -168,8 +164,6 @@
                                             @endif
                                     </form>
 
-
-                                <p>В ближайшее время наш менеджер свяжется с Вами для подтверждения заявки на получение Клубной карты.</p>
                             @endif
                         @endif
                         {{--------------------------------------------------}}
