@@ -82,7 +82,8 @@ class ContactsController extends Controller
                     .$message;
 
                 Content::create([
-                    'title' => 'Вопрос из формы контактов',
+                    'title' => 'question_from_contacts',
+                    'status' => 'moderating',
                     'text' => $message_db,
                 ])->users()->attach($current_user_db);
 
@@ -121,7 +122,8 @@ class ContactsController extends Controller
                         .$message;
 
                     Content::create([
-                        'title' => 'Вопрос из формы контактов',
+                        'title' => 'question_from_contacts',
+                        'status' => 'moderating',
                         'text' => $message_db,
                     ])->users()->attach($current_user);
                 }

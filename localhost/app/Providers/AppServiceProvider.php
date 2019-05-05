@@ -54,7 +54,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Content::observe(ContentObserver::class);
+        //создание слага по добавлению в бд
+       // Content::observe(ContentObserver::class);
 
         //-------------------------------
 //        Queue::failing(function (CheckCardEvent $event) {

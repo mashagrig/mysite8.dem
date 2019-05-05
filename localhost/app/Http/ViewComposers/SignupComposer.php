@@ -112,6 +112,7 @@ class SignupComposer
                 ->join('gyms', function ($join) {
                     $join->on('gyms.id', '=', 'shedules.gym_id');
                 })
+                ->where('shedule_user.user_id', "{$current_user}")
                 ->where('shedules.date_training', '<=', "{$max_date}")
                 ->where('shedules.date_training', '>=', "{$today}")
                 ->groupby('shedule_id')

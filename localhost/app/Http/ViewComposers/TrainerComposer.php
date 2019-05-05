@@ -41,7 +41,7 @@ class TrainerComposer
 
                 'contents.id as contents_id',
                 'contents.title as contents_title',
-                'contents.slug as contents_slug',
+                'contents.status as status_content',
                 'contents.text as contents_text',
                 'contents.created_at as contents_created_at',
                 'contents.updated_at as contents_updated_at'

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Http\ViewComposers\CardComposer;
 use App\Http\ViewComposers\CardStatusComposer;
+use App\Http\ViewComposers\CommentsComposer;
 use App\Http\ViewComposers\ContactsComposer;
 use App\Http\ViewComposers\DestroySheduleComposer;
 use App\Http\ViewComposers\GuestComposer;
@@ -59,7 +60,13 @@ class ViewServiceProvider extends ServiceProvider
             'home',
             'welcome',
             'about.page_about',
-        ], GuestComposer::class);
+        ], CommentsComposer::class);
+
+//        view()->composer([
+//            'home',
+//            'welcome',
+//            'about.page_about',
+//        ], GuestComposer::class);
 //----Shedule-----------------------------------------
         view()->composer([
             'shedule.for_shedule_table',
