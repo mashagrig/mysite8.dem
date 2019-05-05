@@ -20,8 +20,13 @@ class CardStatusComposer
     {
         $status_card = array();
 
+        $current_user = '';
+
+        if(Auth::user() !== null){
+            $current_user = Auth::user()->getAuthIdentifier();
+        }
+
         //--------------------------------------------------------
-        $current_user = Auth::user()->getAuthIdentifier();
 
       //  array_push($each_check_card_info,
             $status_card =  Card::select(

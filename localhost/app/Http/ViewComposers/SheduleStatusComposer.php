@@ -21,10 +21,13 @@ class SheduleStatusComposer
 
 
         $status_shedule = array();
+        $current_user = '';
+
+        if(Auth::user() !== null){
+            $current_user = Auth::user()->getAuthIdentifier();
+        }
 
         //--------------------------------------------------------
-        $current_user = Auth::user()->getAuthIdentifier();
-
 
        // array_push($status_shedule,
             $status_shedule = Shedule::select(
