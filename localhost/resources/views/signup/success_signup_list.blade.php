@@ -47,9 +47,7 @@
                                             <span
                                                 class="text-black">Запись на  &bullet; <strong>{{ $format_date }}</strong></span>
 
-
-
-                                            <table class="table table-striped">
+                                            <table class="table  table-hover">
                                                 <thead class="text-black thead-dark">
                                                 <tr>
                                                     <th scope="col">Время</th>
@@ -57,6 +55,7 @@
                                                     <th scope="col">Секция</th>
                                                     <th scope="col">№ зала</th>
                                            @can("manipulate", "App\SheduleUser")
+                                                        <th scope="col">Статус</th>
                                                         <th scope="col">Отменить</th>
                                             @endcan
                                                 </tr>
@@ -96,20 +95,53 @@
                                                                 $section = "Детсткие программы";
                                                                 break;
                                                         }
+
+                                                        $status = $singup[$k]['status'];
+                                                        $status_color = '';
+                                                        $status_tr_style = '';
+                                                        $status_check_style = '';
+                                                        switch ($singup[$k]['status']) {
+                                                            case "confirmed":
+                                                                $status = "Запись подтверждена";
+                                                                $status_tr_style = 'table-warning-new';
+                                                                break;
+                                                            case "cancelled":
+                                                                $status = "Запись отменена";
+                                                                $status_tr_style = 'table-secondary-new';
+                                                                $status_check_style = 'd-none';
+                                                                break;
+                                                            case "visited":
+                                                                $status = "Тренировка посещена";
+                                                                $status_tr_style = 'table-secondary-new';
+                                                                $status_check_style = 'd-none';
+                                                                break;
+                                                            case "notvisited":
+                                                                $status = "Тренировка не была посещена";
+                                                                $status_tr_style = 'table-secondary-new';
+                                                                $status_check_style = 'd-none';
+                                                                break;
+                                                            case "awaiting":
+                                                                $status = "Ожидает подтверджения";
+                                                                $status_color = "#fd7e14";
+                                                                $status_tr_style = 'table-light-new';
+                                                                break;
+                                                        }
                                                         ?>
 
-                                                        <tr>
+                                                        <tr class="{{ $status_tr_style }}">
                                                             <td>{{ date_format(date_create($singup[$k]['start_training']), 'H:i') }}
                                                                 - {{ date_format(date_create($singup[$k]['stop_training']), 'H:i') }}</td>
                                                             <td>{{ $singup[$k]['trainer_name'] }}</td>
                                                             <td>{{ $section }}</td>
                                                             <td>{{ $singup[$k]['gym_number'] }}</td>
                                               @can("manipulate", "App\SheduleUser")
+                                                                <td style="color: {{$status_color}}!important;">{{ $status }}</td>
                                                                 <td>
                                                                     <label for="check_shedule_id">
                                                                         <input id="check_shedule_id" type="checkbox"
                                                                                name="check_shedule_id[]"
-                                                                               value="{{ $singup[$k]['shedule_id'] }}"> -
+                                                                               value="{{ $singup[$k]['shedule_id'] }}"
+                                                                               class="{{ $status_check_style }}"> -
                                                                         {{ $singup[$k]['shedule_id'] }}
 
 

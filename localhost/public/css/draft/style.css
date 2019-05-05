@@ -228,6 +228,26 @@ a.nav-link:before {
 
 
 
+.table-secondary-new {
+    background-color: rgba(0, 0, 0, 0.03)!important;
+    color: rgba(0, 0, 0, 0.3);
+
+}.table-secondary-new:hover {
+     background-color: rgba(0, 0, 0, 0.03)!important;
+ }
+
+.table-light-new {
+    background-color: rgba(0, 0, 0, 0.03)!important;
+}.table-light-new:hover {
+     background-color: rgba(0, 0, 0, 0.1)!important;
+ }
+
+.table-warning-new {
+    background-color: rgba(253, 198, 27, 0.3) !important;
+}.table-warning-new:hover {
+     background-color: rgba(253, 170, 24, 0.5) !important;
+ }
+
 
 
 
@@ -291,8 +311,6 @@ a.nav-link:before {
     background-color: #000;
     color: #fd7e14;
 }
-
-
 
 
 

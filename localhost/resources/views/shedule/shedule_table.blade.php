@@ -11,8 +11,6 @@
 
             <?php $format_date = '';?>
 
-
-
 {{--Для каждой уникальной даты из расписания создаем таблицу--}}
 @foreach($max_date_select as $k =>$date)
 
@@ -24,9 +22,8 @@
 
     <span class="text-black">Расписание на  &bullet; <strong>{{ $format_date }}</strong></span>
 
-    {{--<span class="text-black">Расписание на {{ $date }}</span>--}}
-
-<table class="table table-striped">
+{{--<table class="table table-striped">--}}
+<table class="table  table-hover">
     <thead class="text-black thead-dark">
     <tr>
         {{--<th scope="col">Дата</th>--}}
@@ -70,8 +67,48 @@
                             $section = "Детсткие программы";
                             break;
                     }
+                $status = '';
+                if($status_shedule->where('status_shedule_id', $shedule->shedule_id)->first() !== null){
+                    $status = $status_shedule->where('status_shedule_id', $shedule->shedule_id)->first()->status_shedule;
+                }
+
+                $status_color = '';
+                $status_check_style = '';
+                $status_tr_style = '';
+                $message = '';
+
+                switch ($status) {
+                    case "confirmed":
+                        $status = "Запись подтверждена";
+                        $status_tr_style = 'table-warning-new';
+                        $status_check_style = 'd-none';
+                        $message = $status;
+                        break;
+                    case "cancelled":
+                        $status = "Запись отменена";
+                        $status_tr_style = 'table-secondary-new';
+                        $status_check_style = 'd-none';
+                        break;
+                    case "visited":
+                        $status = "Тренировка посещена";
+                        $status_tr_style = 'table-secondary-new';
+                        $status_check_style = 'd-none';
+                        break;
+                    case "notvisited":
+                        $status = "Тренировка не была посещена";
+                        $status_tr_style = 'table-secondary-new';
+                        $status_check_style = 'd-none';
+                        break;
+                    case "awaiting":
+                        $status = "Ожидает подтверджения";
+                        $status_color = "#fd7e14";
+                        $status_tr_style = 'table-light-new';
+                        $status_check_style = 'd-none';
+                        $message = $status;
+                        break;
+                }
                 ?>
-        <tr>
+                <tr class="{{ $status_tr_style }}">
             {{--<td>{{ date_format(date_create($shedule->date_training), 'd-m-Y') }}</td>--}}
             <td>{{ date_format(date_create($shedule->start_training), 'H:i') }} - {{ date_format(date_create($shedule->stop_training), 'H:i') }}</td>
             <td>{{ $shedule->trainer_name }}</td>
@@ -80,8 +117,14 @@
 
             @can("manipulate", "App\SheduleUser")
                 <td>
+                <span style="color: {{$status_color}}!important;">{{ $message }}</span>
                     <label for="check_shedule_id">
-                        <input id="check_shedule_id" type="checkbox" name="check_shedule_id[]" value="{{ $shedule->shedule_id }}">{{ $shedule->shedule_id }}
+                        <input id="check_shedule_id"
+                               type="checkbox"
+                               name="check_shedule_id[]"
+                               value="{{ $shedule->shedule_id }}"
+                               class="{{ $status_check_style }}">
+                        {{ $shedule->shedule_id }}
                     </label>
                 </td>
             @endcan

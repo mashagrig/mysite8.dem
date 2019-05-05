@@ -21,13 +21,8 @@
                         @if(isset($max_date_select) && !empty($max_date_select))
                             @if(isset($each_check_card_info) && !empty($each_check_card_info))
 
-
                                 <h2 class="site-section-heading text-center">Ваши карты:</h2>
 
-                                {{--{{ var_dump($message) }}--}}
-                                {{--@if(isset($message) && ($message !==''))--}}
-                                {{--<p class="orange">{{ $message }}</p>--}}
-                                {{--@endif--}}
 
                                     <form method='POST' action="{{ action('SignupCardController@destroy') }}" class="row">
                                         @csrf
@@ -48,7 +43,7 @@
 
 
                                             {{--<table class="table table-striped">--}}
-                                            <table class="table table-hover">
+                                            <table class="table table-hover table-striped">
                                                 <thead class="text-black thead-dark">
                                                 <tr>
                                                     <th scope="col">Срок действия</th>
@@ -103,26 +98,27 @@
                                                             switch ($singup[$k]['status']) {
                                                                 case "active":
                                                                     $status = "Активна";
-                                                                    $status_tr_style = 'table-warning';
+                                                                    $status_tr_style = 'table-warning-new';
                                                                     break;
                                                                 case "inactive":
                                                                     $status = "Не активна";
-                                                                    $status_tr_style = 'table-secondary';
+                                                                    $status_tr_style = 'table-secondary-new';
                                                                     $status_check_style = 'd-none';
                                                                     break;
                                                                 case "cancelled":
                                                                     $status = "Заявка на карту отменена";
-                                                                    $status_tr_style = 'table-secondary';
+                                                                    $status_tr_style = 'table-secondary-new';
                                                                     $status_check_style = 'd-none';
                                                                     break;
                                                                 case "expired":
                                                                     $status = "Истек срок действия";
-                                                                    $status_tr_style = 'table-secondary';
+                                                                    $status_tr_style = 'table-secondary-new';
                                                                     $status_check_style = 'd-none';
                                                                     break;
                                                                 case "awaiting":
                                                                     $status = "Ожидает подтверджения";
                                                                     $status_color = "#fd7e14";
+                                                                    $status_tr_style = 'table-light-new';
                                                                     break;
                                                             }
 
