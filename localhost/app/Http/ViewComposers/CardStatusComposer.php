@@ -55,6 +55,7 @@ class CardStatusComposer
                     $join->on('personalinfos.id', '=', 'users.personalinfo_id');
                 })
                 //-----------------
+                ->where('card_user.user_id', "{$current_user}")
                 ->orderby('card_id')
                 ->oldest('card_user.first_date_subscription')
                 ->get();
