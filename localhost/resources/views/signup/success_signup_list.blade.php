@@ -8,7 +8,7 @@
         <div class="container">
             <div class="row  mb-5">
                 <div class="col-md-12">
-                    <h2 class="site-section-heading text-center">Мои тренровки</h2>
+                    <h2 class="site-section-heading text-center">Мои тренировки</h2>
                 </div>
             </div>
             <div class="row">

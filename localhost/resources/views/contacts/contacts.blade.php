@@ -34,8 +34,10 @@
 
                         if(Auth::user()!== null){
                             $email = Auth::user()->email;
-                            $name = Auth::user()->personalinfo()->get('name')[0]->name;
-                            $phone = Auth::user()->personalinfo()->get('telephone')[0]->telephone;
+                            if( Auth::user()->personalinfo_id !== null){
+                                $name = Auth::user()->personalinfo()->get('name')[0]->name;
+                                $phone = Auth::user()->personalinfo()->get('telephone')[0]->telephone;
+                            }
                         }
 
                         ?>
