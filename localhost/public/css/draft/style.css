@@ -190,6 +190,11 @@ a.nav-link:before {
 }
 
 
+a.nav-link.active {
+    color: #fd7e14 !important;
+}
+
+
 
 
 /*Гамбургер*/
@@ -221,7 +226,15 @@ a.nav-link:before {
 }
 .dropdown-item:active{
     color: #fd7e14;
+    background-color: #000!important;
+}
+.dropdown-item:focus{
+    color: #fd7e14;
     background-color: #000;
+}
+.dropdown-item.active{
+    color: #fd7e14!important;
+    background-color: #000!important;
 }
 
 

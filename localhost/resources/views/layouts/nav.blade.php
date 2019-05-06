@@ -56,7 +56,7 @@
             <ul class="navbar-nav ml-auto">
                 {{--------------about---------------}}
                 <li class="nav-item dropdown">
-                    <a id="navbarDropdown " class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>Клуб<span class="caret"></span></a>
+                    <a id="navbarDropdown " class="nav-link dropdown-toggle {{ Request::is('about*') ? 'active' : '' }}" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>Клуб<span class="caret"></span></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{ route('about') }}">{{ __('О нас') }}</a>
                         <a class="dropdown-item" href="{{ route('photo') }}">{{ __('Фото галерея') }}</a>
@@ -69,7 +69,7 @@
 
                 {{--------------programs---------------}}
                 <li class="nav-item dropdown">
-                    <a id="navbarDropdown " class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>Программы<span class="caret"></span></a>
+                    <a id="navbarDropdown " class="nav-link dropdown-toggle {{ Request::is('programs*') ? 'active' : '' }}" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>Программы<span class="caret"></span></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{ route('morning_programs') }}">{{ __('Утренние программы') }}</a>
                         <a class="dropdown-item" href="{{ route('body_building') }}">{{ __('Боди билдинг') }}</a>
@@ -81,7 +81,7 @@
                 </li>
                 {{--------------cards---------------}}
                 <li class="nav-item dropdown">
-                    <a id="navbarDropdown " class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>Карты<span class="caret"></span></a>
+                    <a id="navbarDropdown " class="nav-link dropdown-toggle {{ Request::is('cards*') ? 'active' : '' }}" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>Карты<span class="caret"></span></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{ route('cards') }}">{{ __('Все карты') }}</a>
                         <a class="dropdown-item" href="{{ route('cards_year') }}">{{ __('Год') }}</a>
@@ -93,12 +93,12 @@
                     </div>
                 </li>
                 {{--------------trainers---------------}}
-                <li class="nav-item"><a class="nav-link" href="{{ route('trainers') }}">{{ __('Тренеры') }}</a></li>
+                <li class="nav-item"><a class="nav-link {{ Request::is('trainers') ? 'active' : '' }}" href="{{ route('trainers') }}">{{ __('Тренеры') }}</a></li>
 
                 {{--------------shedule---------------}}
-                <li class="nav-item"><a class="nav-link" href="{{ route('shedule') }}">{{ __('Расписание') }}</a></li>
+                <li class="nav-item"><a class="nav-link {{ Request::is('shedule') ? 'active' : '' }}" href="{{ route('shedule') }}">{{ __('Расписание') }}</a></li>
                 {{--------------contacts---------------}}
-                <li class="nav-item"><a class="nav-link" href="{{ route('contacts') }}">{{ __('Контакты') }}</a></li>
+                <li class="nav-item"><a class="nav-link {{ Request::is('contacts') ? 'active' : '' }}" href="{{ route('contacts') }}">{{ __('Контакты') }}</a></li>
 
 
 
@@ -106,13 +106,18 @@
 
                @auth
                     <li class="nav-item dropdown">
-                        <a id="navbarDropdown " class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre> {{ Auth::user()->name }}<span class="caret"></span></a>
+                        <a id="navbarDropdown " class="nav-link dropdown-toggle {{ Request::is('privacy*') ? 'active' : '' }}" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre> {{ Auth::user()->name }}<span class="caret"></span></a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('privacy.profile') }}">{{ __('Мой профиль') }}</a>
-                            <a class="dropdown-item" href="{{ route('privacy.shedules') }}">{{ __('Мои тренировки') }}</a>
-                            <a class="dropdown-item" href="{{ route('privacy.cards') }}">{{ __('Мои карты') }}</a>
-                            <a class="dropdown-item" href="{{ route('privacy.comments') }}">{{ __('Мои отзывы') }}</a>
-                            <a class="dropdown-item" href="{{ route('privacy.faq') }}">{{ __('Обратная связь') }}</a>
+                            <a class="dropdown-item {{ Request::is('*privacy/profile*') ? 'active' : '' }}"
+                               href="{{ route('privacy.profile') }}">{{ __('Мой профиль') }}</a>
+                            <a class="dropdown-item {{ Request::is('*privacy/shedules*') ? 'active' : '' }}"
+                               href="{{ route('privacy.shedules') }}">{{ __('Мои тренировки') }}</a>
+                            <a class="dropdown-item {{ Request::is('*privacy/cards*') ? 'active' : '' }}"
+                               href="{{ route('privacy.cards') }}">{{ __('Мои карты') }}</a>
+                            <a class="dropdown-item {{ Request::is('*privacy/comments*') ? 'active' : '' }}"
+                               href="{{ route('privacy.comments') }}">{{ __('Мои отзывы') }}</a>
+                            <a class="dropdown-item {{ Request::is('*privacy/faq*') ? 'active' : '' }}"
+                               href="{{ route('privacy.faq') }}">{{ __('Обратная связь') }}</a>
                             {{--<a class="dropdown-item" href="{{ route('privacy') }}">{{ __('Настройки') }}</a>--}}
                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">{{ __('Выход') }}</a>
