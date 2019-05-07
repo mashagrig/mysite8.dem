@@ -107,8 +107,8 @@ if (Auth::user() !== null) {
                 ?>
             <div class="row right">
                 <div class="col-lg-4"></div>
-                <div class="col-lg-8 mb-4 right">{{$question->contents_id}}
-                    <p>Мой впорос от {{date_format(date_create($question->contents_updated_at), 'd-m-Y H:i')}}
+                <div class="col-lg-8 mb-4 right">
+                    <p>Мой впорос #{{$question->contents_id}} от {{date_format(date_create($question->contents_updated_at), 'd-m-Y H:i')}}
                         &bullet; <span  style="color: {{$status_color}}!important;">{{ $status_comment }}</span></p>
                     <div class="border p-4 text-with-icon  bg-white {{ $status_tr_style }}">
                         <p>&ldquo;{{ $question->contents_text }}&rdquo;</p>
@@ -121,8 +121,8 @@ if (Auth::user() !== null) {
                         @foreach($answers as $answer)
                             @if($question->contents_id === (int)$answer->question_id)
                             <div class="row left">
-                                <div class="col-lg-8 mb-4 left">{{$answer->question_id}}
-                                    <p>Ответ на мой вопрос от {{date_format(date_create($answer->contents_updated_at), 'd-m-Y H:i')}}</p>
+                                <div class="col-lg-8 mb-4 left">
+                                    <p>Ответ на мой вопрос #{{$answer->question_id}} от {{date_format(date_create($answer->contents_updated_at), 'd-m-Y H:i')}}</p>
                                     <div class="border p-4 text-with-icon  bg-white">
                                         <p>&ldquo;{{ $answer->contents_text }}&rdquo;</p>
                                     </div>

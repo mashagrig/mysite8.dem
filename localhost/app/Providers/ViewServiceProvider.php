@@ -6,7 +6,8 @@ use App\Http\ViewComposers\AnswersComposer;
 use App\Http\ViewComposers\CardComposer;
 use App\Http\ViewComposers\CardStatusComposer;
 use App\Http\ViewComposers\CommentsComposer;
-use App\Http\ViewComposers\ContactsComposer;
+use App\Http\ViewComposers\ProfileComposer;
+use App\Http\ViewComposers\QuestionsComposer;
 use App\Http\ViewComposers\DestroySheduleComposer;
 use App\Http\ViewComposers\GuestComposer;
 use App\Http\ViewComposers\IconBlocks\IconCardsComposer;
@@ -110,14 +111,16 @@ class ViewServiceProvider extends ServiceProvider
 
 
         view()->composer([
-            'contacts.page_contacts',
-            'contacts.contacts',
             'signup.faq',
-        ], ContactsComposer::class);
+        ], QuestionsComposer::class);
 
         view()->composer([
             'signup.faq',
         ], AnswersComposer::class);
+
+        view()->composer([
+            'signup.profile',
+        ], ProfileComposer::class);
 
 
 

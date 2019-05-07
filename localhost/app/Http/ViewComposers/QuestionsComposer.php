@@ -16,7 +16,7 @@ use Illuminate\View\View;
 
 //use Illuminate\Support\Facades\View;
 
-class ContactsComposer
+class QuestionsComposer
 {
   //  protected $request= array();
     public function __construct()
