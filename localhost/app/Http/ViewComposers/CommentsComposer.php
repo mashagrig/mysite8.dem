@@ -82,9 +82,10 @@ class CommentsComposer
 
             ->where('roles.title', 'like', '%guest%')
             ->where('contents.title', 'like', '%comment%')
-            ->where('contents.status', 'like', '%public%')
+        //    ->where('contents.status', 'like', '%public%')
+        //  ->where('contents.status', 'like', '%moderating%', "or")
             ->orderBy('contents.updated_at', 'desc')
-            ->get()
+          //  ->get()
         );
     }
 }

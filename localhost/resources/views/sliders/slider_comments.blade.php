@@ -13,7 +13,9 @@
                 <div class="nonloop-block-14 owl-carousel">
 
 
-                    @foreach($comments as $comment)
+                    @foreach($comments
+                    ->where('contents.status', 'like', '%public%')->get()
+                     as $comment)
 
                         <div class="p-5">
                             <div class="block-testimony">

@@ -2,6 +2,10 @@
 
 $count=1;
 
+$status_comment = '';
+$status_color = '';
+$status_tr_style = '';
+
 $email = '';
 $name = '';
 $phone = '';
@@ -83,15 +87,42 @@ if(Auth::user()!== null){
                 </div>
             </div>
             {{---------------------------------------------------------------------------}}
-        @foreach($comments as $comment)
+        @foreach($comments
+        ->where('contents.status', 'like', '%public%')
+        ->where('contents.status', 'like', '%moderating%', "or")
+        ->where('contents.status', 'like', '%denied%', "or")
+        ->get()
+             as $comment)
+
+            <?php
+                switch ($comment->status_content){
+                    case "moderating":
+                        $status_comment = 'После проверки модератором отзыв будет опубликован на сайте';
+                        $status_color = "#fd7e14";
+                        $status_tr_style = 'table-light-new';
+                        break;
+                    case "public":
+                        $status_comment = 'Отзыв опубликован';
+                        $status_color = "";
+                        $status_tr_style = '';
+                        break;
+                    case "denied":
+                        $status_comment = 'Отзыв отклонен модератором';
+                        $status_color = "red";
+                        $status_tr_style = 'table-secondary-new';
+                        break;
+                }
+                ?>
+
 
             <div class="row">
                 @if($count%2 === 0)
                 <div class="col-lg-4"></div>
                 @endif
                 <div class="col-lg-8 mb-4">
-                    <p>Мой отзыв от {{date_format(date_create($comment->contents_updated_at), 'd-m-Y H:i')}}</p>
-                    <div class="border p-4 text-with-icon  bg-white">
+                    <p>Мой отзыв от {{date_format(date_create($comment->contents_updated_at), 'd-m-Y H:i')}}
+                        &bullet; <span  style="color: {{$status_color}}!important;">{{ $status_comment }}</span></p>
+                    <div class="border p-4 text-with-icon  bg-white {{ $status_tr_style }}">
                         <p>&ldquo;{{ $comment->contents_text }}&rdquo;</p>
                     </div>
                 </div>
