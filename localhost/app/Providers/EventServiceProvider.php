@@ -44,6 +44,10 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\Contacts\ContactsEvent' => [
             'App\Listeners\Contacts\ContactsSendNotification',
         ],
+        //отправка писем при отправке отзыва на сайт через форму Мои отзывы
+        'App\Events\Comments\AddCommentEvent' => [
+            'App\Listeners\Comments\AddCommentSendNotification',
+        ],
 
     ];
 

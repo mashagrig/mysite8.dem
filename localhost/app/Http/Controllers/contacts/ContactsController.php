@@ -47,6 +47,8 @@ class ContactsController extends Controller
         $current_user_id_db = '';
         $current_user_email = '';
         $current_user_id = '';
+        $title = 'question_from_contacts';
+        $status = 'moderating';
 
         $name = $request->name;
         $email = $request->email;
@@ -72,19 +74,11 @@ class ContactsController extends Controller
 
                 $current_user_db = User::where('email', $email)->get();
                 //чтобы не обновлять данные зареганного пользователя
-                $message_db =
-                    $name
-                    .', '
-                    .$email
-                    .', '
-                    .$phone
-                    .', '
-                    .$message;
 
                 Content::create([
-                    'title' => 'question_from_contacts',
-                    'status' => 'moderating',
-                    'text' => $message_db,
+                    'title' => $title,
+                    'status' => $status,
+                    'text' => $message,
                 ])->users()->attach($current_user_db);
 
 //
@@ -112,19 +106,10 @@ class ContactsController extends Controller
                         'telephone' => $phone
                     ])->users()->save($current_user);
 
-                    $message_db =
-                        $name
-                        .', '
-                        .$email
-                        .', '
-                        .$phone
-                        .', '
-                        .$message;
-
                     Content::create([
-                        'title' => 'question_from_contacts',
-                        'status' => 'moderating',
-                        'text' => $message_db,
+                        'title' => $title,
+                        'status' => $status,
+                        'text' => $message,
                     ])->users()->attach($current_user);
                 }
 
@@ -148,7 +133,8 @@ class ContactsController extends Controller
         }
 
 
-        return redirect()->action('contacts\ContactsController@index');
+        return redirect()->back();
+      //  return redirect()->action('contacts\ContactsController@index');
     }
 
     /**

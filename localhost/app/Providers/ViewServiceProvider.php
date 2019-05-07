@@ -60,6 +60,7 @@ class ViewServiceProvider extends ServiceProvider
             'home',
             'welcome',
             'about.page_about',
+            'signup.comments',
         ], CommentsComposer::class);
 
 //        view()->composer([

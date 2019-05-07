@@ -13,19 +13,19 @@
                 <div class="nonloop-block-14 owl-carousel">
 
 
-                    @foreach($guests as $guest)
+                    @foreach($comments as $comment)
 
                         <div class="p-5">
                             <div class="block-testimony">
 
                                     <div class="person row  align-items-end">
                                           <div class="col-md-auto">
-                                        <img src="{{ asset("{$guest->binaryfiles_file_src}") }}" alt="Image"
+                                        <img src="{{ asset("{$comment->binaryfiles_file_src}") }}" alt="Image"
                                              class="img-fluid rounded-circle" style="width: 70px!important;">
                                           </div>
 
                                         <div class="col-md-auto text-left">
-                                              <span class=" post-date">{{$guest->contents_updated_at}} <h2> {{$guest->users_name}}</h2></span>
+                                              <span class=" post-date">{{$comment->contents_updated_at}} <h2> {{$comment->users_name}}</h2></span>
                                         </div>
                                     </div>
 
@@ -34,7 +34,7 @@
                                 <div class="row">
                                   <div class="col">
 
-                                        <blockquote>&ldquo;{{ $guest->contents_text }}&rdquo;
+                                        <blockquote>&ldquo;{{ $comment->contents_text }}&rdquo;
                                         </blockquote>
                                     </div>
                                  </div>

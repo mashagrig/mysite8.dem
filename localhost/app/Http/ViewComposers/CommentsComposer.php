@@ -16,7 +16,7 @@ class CommentsComposer
 {
     public function compose(View $view)
     {
-        return $view->with('guests', $guests = User::select(
+        return $view->with('comments', $comments = User::select(
             'users.id as users_id',
             'users.email as users_email',
             'users.name as users_name',//login
@@ -83,6 +83,7 @@ class CommentsComposer
             ->where('roles.title', 'like', '%guest%')
             ->where('contents.title', 'like', '%comment%')
             ->where('contents.status', 'like', '%public%')
+            ->orderBy('contents.updated_at', 'desc')
             ->get()
         );
     }

@@ -1,3 +1,21 @@
+<?php
+
+$count=1;
+
+$email = '';
+$name = '';
+$phone = '';
+
+if(Auth::user()!== null){
+    $email = Auth::user()->email;
+    if( Auth::user()->personalinfo_id !== null){
+        $name = Auth::user()->personalinfo()->get('name')[0]->name;
+        $phone = Auth::user()->personalinfo()->get('telephone')[0]->telephone;
+    }
+}
+?>
+
+
 @extends('privacy')
 @section('comments')
     <div class="site-section  block-14 bg-light nav-direction-white">
@@ -17,24 +35,8 @@
                     <div class="p-4 bg-white  mb-3">
                         <h3 class="h5 text-black mb-3">Добавить отзыв</h3>
                         {{--<div class="col-md-12 col-lg-8 mb-5  bg-white">--}}
-                        <form method='POST' action="{{ action('contacts\ContactsController@store') }}" class="mb-0 bg-white">
+                        <form method='POST' action="{{ action('CommentsController@store') }}" class="mb-0 bg-white">
                             @csrf
-
-                            <?php
-                            $email = '';
-                            $name = '';
-                            $phone = '';
-
-                            if(Auth::user()!== null){
-                                $email = Auth::user()->email;
-                                if( Auth::user()->personalinfo_id !== null){
-                                    $name = Auth::user()->personalinfo()->get('name')[0]->name;
-                                    $phone = Auth::user()->personalinfo()->get('telephone')[0]->telephone;
-                                }
-                            }
-
-                            ?>
-
 
                             <div class="row form-group" hidden>
                                 <div class="col-md-12 mb-3 mb-md-0">
@@ -62,8 +64,8 @@
 
                             <div class="row form-group">
                                 <div class="col-md-12">
-                                    <label class="font-weight-bold" for="message">Сообщение</label>
-                                    <textarea name="message" name="message" id="message" cols="30" rows="3" class="form-control" placeholder="Сообщение..."></textarea>
+                                    <label class="font-weight-bold" for="message" hidden>Сообщение</label>
+                                    <textarea name="message" name="message" id="message" cols="30" rows="4" class="form-control" placeholder="Отзыв..."></textarea>
                                 </div>
                             </div>
 
@@ -81,29 +83,24 @@
                 </div>
             </div>
             {{---------------------------------------------------------------------------}}
+        @foreach($comments as $comment)
 
-            {{--@foreach($arr as $k=>$v)--}}
-            <div class="row right">
+            <div class="row">
+                @if($count%2 === 0)
                 <div class="col-lg-4"></div>
-                <div class="col-lg-8 mb-4 right">
-                    <p>Мой отзыв</p>
+                @endif
+                <div class="col-lg-8 mb-4">
+                    <p>Мой отзыв от {{date_format(date_create($comment->contents_updated_at), 'd-m-Y H:i')}}</p>
                     <div class="border p-4 text-with-icon  bg-white">
-                        <p>рмоьрмлооилоил оилооооооооооооооооооооо оооооооооооооооооо оооооооооооооооо оооооооо</p>
+                        <p>&ldquo;{{ $comment->contents_text }}&rdquo;</p>
                     </div>
                 </div>
+                    @if($count%2 === 0)
+                        <div class="col-lg-4"></div>
+                    @endif
             </div>
-            {{--@endforeach--}}
-            {{--@foreach($arr as $k=>$v)--}}
-            <div class="row left">
-                <div class="col-lg-8 mb-4 left">
-                    <p>Мой отзыв</p>
-                    <div class="border p-4 text-with-icon  bg-white">
-                        <p>рмоьрмлооилоилои лоооооооооооооооооооооооо ооооооооооооооооо оооооооооооооо оооооооо</p>
-                    </div>
-                </div>
-                <div class="col-lg-4"></div>
-            </div>
-            {{--@endforeach--}}
+                <?php $count++?>
+            @endforeach
 
             {{---------------------------------------------------------------------------}}
 
