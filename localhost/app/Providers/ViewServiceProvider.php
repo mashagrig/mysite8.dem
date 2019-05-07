@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Http\ViewComposers\AnswersComposer;
 use App\Http\ViewComposers\CardComposer;
 use App\Http\ViewComposers\CardStatusComposer;
 use App\Http\ViewComposers\CommentsComposer;
@@ -107,17 +108,16 @@ class ViewServiceProvider extends ServiceProvider
             'signup.success_signup_card_list',
         ], CardStatusComposer::class);
 
-//
-//        View::composer([
-//            'contacts.page_contacts',
-//            'contacts.contacts',
-//        ],  'App\Http\ViewComposers\ContactsComposer'
-//        );
 
-//        view()->composer([
-//            'contacts.page_contacts',
-//            'contacts.contacts',
-//        ], ContactsComposer::class);
+        view()->composer([
+            'contacts.page_contacts',
+            'contacts.contacts',
+            'signup.faq',
+        ], ContactsComposer::class);
+
+        view()->composer([
+            'signup.faq',
+        ], AnswersComposer::class);
 
 
 

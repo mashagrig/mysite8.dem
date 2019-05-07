@@ -10,12 +10,19 @@ namespace App\Http\ViewComposers;
 
 
 use App\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class CommentsComposer
 {
     public function compose(View $view)
     {
+        $current_user = '';
+
+        if(Auth::user() !== null){
+            $current_user = Auth::user()->getAuthIdentifier();
+        }
+
         return $view->with('comments', $comments = User::select(
             'users.id as users_id',
             'users.email as users_email',
@@ -79,7 +86,7 @@ class CommentsComposer
 //
 //            ->join('shedule_user', 'shedule_user.user_id', '=', 'users.id', 'inner')
 //            ->join('shedules', 'shedules.id', '=','shedule_user.shedule_id',  'inner')
-
+            ->where('content_user.user_id', "{$current_user}")
             ->where('roles.title', 'like', '%guest%')
             ->where('contents.title', 'like', '%comment%')
         //    ->where('contents.status', 'like', '%public%')

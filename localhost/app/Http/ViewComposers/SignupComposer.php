@@ -33,7 +33,12 @@ class SignupComposer
         //--------------------------------------------------------
 
         //определяем поьзоватея (в роли гостя)
-        $current_user = Auth::user()->getAuthIdentifier();
+       // $current_user = Auth::user()->getAuthIdentifier();
+        $current_user = '';
+
+        if(Auth::user() !== null){
+            $current_user = Auth::user()->getAuthIdentifier();
+        }
 //
 //        $trainer_id = User::select(
 //            'users.id as trainer_id',
