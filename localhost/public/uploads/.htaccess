@@ -1,0 +1,35 @@
+#
+##Запрет на загрузку файлов
+#<FilesMatch ".(htaccess|htpasswd|ini|phps|fla|psd|log|sh)$">
+# Order Allow,Deny
+# Deny from all
+# </FilesMatch>
+# #Разрешение на загрузку файлов
+#<FilesMatch ".(jpeg|gif|png)$">
+# Order Allow,Deny
+# Allow from all
+# </FilesMatch>
+#
+# php_value upload_max_filesize 128M
+# php_value max_file_uploads 100
+#
+##Если при передаче файлов через формы (при указанном enctype="multipart/form-data") бинарные данные повреждаются
+#CharsetRecodeMultipartForms Off
+
+#<IfModule mod_mime.c>
+#  <Files ~ "\.(php[2-7]?|phtml|pl|asp|aspx|cgi|dll|exe|ico|shtm|shtml|fcg|fcgi|fpl|asmx|pht|py|psp|rb|var|jsp)$">
+#      SetHandler text/plain
+#      ForceType text/plain
+#      #Deny from all
+#  </Files>
+#</IfModule>
+#<IfModule mod_mime.c>
+#  RemoveHandler      .php .php3 .php4 .php5 .php6 .phtml .pl .asp .aspx .cgi .dll .exe .shtm .shtml .fcg .fcgi .fpl .asmx .pht
+#  AddType text/plain .php .php3 .php4 .php5 .php6 .phtml .pl .asp .aspx .cgi .dll .exe .shtm .shtml .fcg .fcgi .fpl .asmx .pht
+#</IfModule>
+#<IfModule mod_php5.c>
+#  php_flag engine off
+#</IfModule>
+#<IfModule mod_php7.c>
+#  php_flag engine off
+#</IfModule>

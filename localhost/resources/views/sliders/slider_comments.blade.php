@@ -1,5 +1,4 @@
 
-
 <div id="{{ $slider_id }}" class="site-section  block-14 bg-light nav-direction-white">
     <div class="container">
         <div class="row  mb-5">

@@ -415,6 +415,54 @@ jQuery(document).ready(function($) {
    //      });
    // }
 
+    //jquery подключаем в подвале, поэтому вызов в коде не сработает
+    $("#file").on('change', function (e) {
+
+        //$("#choose_btn").setAttribute('disabled', 'true');
+     //   document.getElementById("choose_btn").setAttribute('disabled', 'true');
+      //  document.getElementById("choose_btn").prop('disabled', true);
+      //  document.getElementById("choose_btn").attr('disabled', true);
+      //  document.getElementById("choose_btn").disabled = true;
+      //  $("#choose_btn").prop('selected',true);
+
+        var choosed = document.getElementById("choosed");
+        // var img = document.getElementById("img_photo");
+        var fileName = e.target.files[0].name;
+       // var fileSrc = e.target.files[0];
+       // choosed.innerHTML = fileName;
+        // img.attr('src', fileName);
+        $.ajax({
+            type: 'GET',
+            url: "",
+            success: function (data) {
+              //  $("#img_photo").attr('src', fileName);
+                choosed.innerHTML = fileName;
+
+             //   $("#choose_btn").toggleClass('disabled', false);
+                $("#choose_btn").toggleClass('btn-primary-inactive', false);
+             //   $("#choose_btn").removeAttr('disabled');
+                $("#choose_btn").toggleClass('btn-primary', true);
+
+
+            }});
+    });
+
+    // $("#img_photo").on('click', function (e) {
+    //     var photo = document.getElementById("file");
+    //     var choosed = document.getElementById("choosed");
+    //     photo.click();
+    //     var fileName = e.target.files[0].name;
+    //     $.ajax({
+    //         type: 'GET',
+    //         url: "",
+    //         success: function (data) {
+    //             choosed.innerHTML = fileName;
+    //             $("#choose_btn").toggleClass('btn-primary-inactive', false);
+    //             $("#choose_btn").removeAttr('disabled');
+    //             $("#choose_btn").toggleClass('btn-primary', true);
+    //         }});
+    // });
+
 
 
 });

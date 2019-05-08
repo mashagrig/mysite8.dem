@@ -10,13 +10,22 @@ $email = '';
 $name = '';
 $phone = '';
 
+$current_user = '';
+
 if(Auth::user()!== null){
     $email = Auth::user()->email;
+    $current_user = Auth::user()->getAuthIdentifier();
     if( Auth::user()->personalinfo_id !== null){
         $name = Auth::user()->personalinfo()->get('name')[0]->name;
         $phone = Auth::user()->personalinfo()->get('telephone')[0]->telephone;
     }
 }
+$comments_user = $comments
+    ->where('content_user.user_id', "{$current_user}")
+    ->where('contents.status', 'like', '%public%')
+    ->where('contents.status', 'like', '%moderating%', "or")
+    ->where('contents.status', 'like', '%denied%', "or")
+    ->get();
 ?>
 
 
@@ -87,12 +96,7 @@ if(Auth::user()!== null){
                 </div>
             </div>
             {{---------------------------------------------------------------------------}}
-        @foreach($comments
-        ->where('contents.status', 'like', '%public%')
-        ->where('contents.status', 'like', '%moderating%', "or")
-        ->where('contents.status', 'like', '%denied%', "or")
-        ->get()
-             as $comment)
+        @foreach($comments_user  as $comment)
 
             <?php
                 switch ($comment->status_content){

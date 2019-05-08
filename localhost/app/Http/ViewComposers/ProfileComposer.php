@@ -88,6 +88,7 @@ class ProfileComposer
             ->join('shedules', 'shedules.id', '=','shedule_user.shedule_id',  'inner')
 
             ->where('users.id', "{$current_user}")
+
            // ->where('roles.title', 'like', '%guest%')
             ->get()
         );

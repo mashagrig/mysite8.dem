@@ -2,7 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Binaryfile;
+use App\Content;
+use App\Personalinfo;
+use App\User;
+use Http\Client\Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
@@ -39,7 +45,125 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //сохранение фото
+
+        $file = '';
+        $email = '';
+        $title = 'avatar';
+        $name = '';
+
+        $current_user_id_db = '';
+        $current_user_id = '';
+
+            if(Auth::user()!==null){
+                $current_user_id = Auth::user()->getAuthIdentifier();
+                $current_user_db = User::where('id', $current_user_id)->get();
+                $email = $current_user_db[0]->email;
+                $name = $current_user_db[0]->name;
+            }
+
+            //----------Загружаем фото-----------------------------------
+//                function getFileNameAndUpload()
+//                {
+//                    // Проверяем был ли выбран файл
+//                    if (isset($_FILES['file'])) {
+//
+//                        if (0 < $_FILES['file']['error']) {
+//                            if ($_FILES['file']['name'] === '') {
+//                                //  $file_name = 'error';
+//                                $file_name = "Файл не выбран";
+//
+//                            }
+//                        } else {
+//                            try {
+//                                $tmp_name = $_FILES["file"]["tmp_name"];
+//                                $file_name = basename($_FILES["file"]["name"]);
+////                                if($_FILES["filename"]["size"] > 1024*100*1024)
+////                                {
+////                                    echo("Размер файла превышает три мегабайта");
+////                                    exit;
+////                                }
+//                                move_uploaded_file($tmp_name, "../../public/uploads/" . $file_name);
+//
+//                            } catch (Exception $e) {
+//                            }
+//
+//                        }
+//                    } else {
+//                        $file_name = "error-" . $_FILES['file']['error'];
+//                        //$file_name = "свойство file из формы не попало в глобальную переменную _FILES";
+//                    }
+//
+//
+//                    return $file_name;
+//                }
+            //----------Загружаем фото-----------------------------------
+        //  $file_name = getFileNameAndUpload();
+
+
+
+        if(isset($request->file) && $request->file !== ''){
+
+            if($request->hasFile('file')){
+                $file = $request->file;
+            }
+
+
+          $b_id_arr =  Binaryfile::
+              whereHas('users', function ($q) use($current_user_id){
+                $q->where('users.id', '=', "{$current_user_id}");
+            })
+            ->where('title', 'like', "%avatar%")
+              ->pluck('id')
+              ->toArray();
+
+                $file_src = $file->storeAs('uploads', $file->getClientOriginalName(), 'public');
+
+                //    if(isset($request->file) && $request->file !== ''){
+                    if(empty($b_id_arr)){
+
+                        Binaryfile::create([
+                            'title' => $title,
+                            'file_src' => "storage/".$file->getClientOriginalName(),
+                         //   'file_src' => "storage/".$file_src,
+                            'text' => $name,
+                        ])->users()->attach($current_user_db);
+                    }
+                    else{
+                        $b_id = $b_id_arr[0];
+
+                        Binaryfile::where('id', $b_id)
+                        ->update([
+                            'title' => $title,
+                            'file_src' => "storage/".$file_src,
+                           // 'file_src' => "storage/uploads/".$file->getClientOriginalName(),
+                            //'file_src' => $file,
+                            //   'file_src' => "storage/".$file_src,
+                            'text' => $name,
+                        ]);
+                    }
+
+
+
+                }
+
+                //---------------------------------------------
+
+            //отправить письмо техподдержке, админу и юзеру, если заполнены все поля!!!
+            //отправляем уведомление (проверка на коннект в листенере)
+            //--------------------------------------------------
+            $email_admin = 'm-a-grigoreva@yandex.ru';
+            $email_arr = [
+                $email,
+                $email_admin
+            ];
+            //сообщение в письмо перердаем напрямую отсюда через событие, а не через компоузер
+          //  event(new ContactsEvent($email_arr, $message));
+            //---------------------------------------------------
+
+
+
+        return redirect()->back();
     }
 
     /**
@@ -73,7 +197,94 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $surname = '';
+        $name = '';
+        $middle_name = '';
+        $email = '';
+        $phone = '';
+        $birthdate = '';
+
+        $current_user_id_db = '';
+        $current_user_email = '';
+        $current_user_id = '';
+        $personalinfo_id = '';
+
+        $surname = $request->surname;
+        $name = $request->name;
+        $middle_name = $request->middle_name;
+        $email = $request->email;
+        $phone = $request->phone;
+        $birthdate = $request->birthdate;
+
+        if(Auth::user()!==null){
+            $current_user_id = $id;//Auth::user()->getAuthIdentifier();
+            $current_user_db = User::where('id', $current_user_id)->get();
+            $personalinfo_id = $current_user_db[0]->personalinfo_id;
+        }
+
+        if(isset($request->surname) && $request->surname !== ''){
+            Personalinfo::where('id', $personalinfo_id)
+                ->update([
+                    'surname' => $surname,
+                ]);
+        }
+        if(isset($request->name) && $request->name !== ''){
+            User::where('id', $current_user_id)
+                ->update([
+                    'name' => $name,
+                ]);
+            Personalinfo::where('id', $personalinfo_id)
+                ->update([
+                    'name' => $name,
+                ]);
+        }
+        if(isset($request->middle_name) && $request->middle_name !== ''){
+            Personalinfo::where('id', $personalinfo_id)
+                ->update([
+                    'middle_name' => $middle_name,
+                ]);
+        }
+        if(isset($request->email) && $request->email !== ''){
+            User::where('id', $current_user_id)
+                ->update([
+                    'email' => $email,
+                ]);
+            Personalinfo::where('id', $personalinfo_id)
+                ->update([
+                    'email' => $email,
+                ]);
+        }
+        if(isset($request->telephone) && $request->telephone !== ''){
+            Personalinfo::where('id', $personalinfo_id)
+                ->update([
+                    'telephone' => $phone,
+                ]);
+        }
+
+        if(isset($request->birthdate) && $request->birthdate !== ''){
+            Personalinfo::where('id', $personalinfo_id)
+                ->update([
+                    'birthdate' => $birthdate
+                ]);
+        }
+
+        //---------------------------------------------
+
+        //отправить письмо техподдержке, админу и юзеру, если заполнены все поля!!!
+        //отправляем уведомление (проверка на коннект в листенере)
+        //--------------------------------------------------
+        $email_admin = 'm-a-grigoreva@yandex.ru';
+        $email_arr = [
+            $email,
+            $email_admin
+        ];
+        //сообщение в письмо перердаем напрямую отсюда через событие, а не через компоузер
+        //  event(new ContactsEvent($email_arr, $message));
+        //---------------------------------------------------
+
+
+
+        return redirect()->back();
     }
 
     /**

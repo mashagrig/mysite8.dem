@@ -19,9 +19,9 @@ class CommentsComposer
     {
         $current_user = '';
 
-        if(Auth::user() !== null){
-            $current_user = Auth::user()->getAuthIdentifier();
-        }
+//        if(Auth::user() !== null){
+//            $current_user = Auth::user()->getAuthIdentifier();
+//        }
 
         return $view->with('comments', $comments = User::select(
             'users.id as users_id',
@@ -86,12 +86,14 @@ class CommentsComposer
 //
 //            ->join('shedule_user', 'shedule_user.user_id', '=', 'users.id', 'inner')
 //            ->join('shedules', 'shedules.id', '=','shedule_user.shedule_id',  'inner')
-            ->where('content_user.user_id', "{$current_user}")
+           // ->where('content_user.user_id', "{$current_user}")
             ->where('roles.title', 'like', '%guest%')
             ->where('contents.title', 'like', '%comment%')
+            ->where('binaryfiles.title', 'like', "%avatar%")
         //    ->where('contents.status', 'like', '%public%')
         //  ->where('contents.status', 'like', '%moderating%', "or")
             ->orderBy('contents.updated_at', 'desc')
+            ->groupBy('contents.id')
           //  ->get()
         );
     }

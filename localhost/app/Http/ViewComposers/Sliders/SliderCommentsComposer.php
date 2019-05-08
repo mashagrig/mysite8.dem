@@ -9,16 +9,18 @@
 namespace App\Http\ViewComposers\Sliders;
 
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class SliderCommentsComposer
 {
     public function compose(View $view)
     {
+
         return $view->with([
             'slider_id'=>'comments',
             'title_page'=>'Отзывы гостей нашего клуба',
-            'route'=>'comments'
+            'route'=>'comments',
         ]);
     }
 }
