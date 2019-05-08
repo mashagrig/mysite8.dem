@@ -103,6 +103,7 @@ class QuestionsComposer
             //    ->where('contents.status', 'like', '%public%')
             //  ->where('contents.status', 'like', '%moderating%', "or")
             ->orderBy('contents.updated_at', 'desc')
+            ->groupBy('contents.id')
         //  ->get()
         );
 

@@ -79,13 +79,7 @@ if (Auth::user() !== null) {
             </div>
 
             {{---------------------------------------------------------------------------}}
-            @foreach($question_from_contacts
-        ->where('contents.status', 'like', '%public%')
-        ->where('contents.status', 'like', '%moderating%', "or")
-        ->where('contents.status', 'like', '%denied%', "or")
-
-        ->get()
-         as $question)
+            @foreach($question_from_contacts->get() as $question)
                 <?php
                 switch ($question->status_content){
                     case "moderating":

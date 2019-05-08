@@ -6,6 +6,7 @@ use App\Content;
 use App\Events\Cards\CheckCardEvent;
 use App\Listeners\Cards\CheckCardSendNotification;
 use App\Observers\ContentObserver;
+use App\Observers\UserObserver;
 use App\Personalinfo;
 use App\Shedule;
 use App\User;
@@ -56,6 +57,7 @@ class AppServiceProvider extends ServiceProvider
     {
         //создание слага по добавлению в бд
        // Content::observe(ContentObserver::class);
+        User::observe(UserObserver::class);
 
         //-------------------------------
 //        Queue::failing(function (CheckCardEvent $event) {

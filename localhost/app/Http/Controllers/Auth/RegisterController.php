@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Binaryfile;
+use App\Personalinfo;
 use App\Role;
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -67,12 +70,25 @@ class RegisterController extends Controller
         $role_id = Role::where('title', 'like', "%guest%")
             ->first()->id;
 
-
-        return User::create([
-            'name' => $data['name'],
+        $personalinfo_id = Personalinfo::create([
+            'surname' =>  'Фамилия',
+            'name' =>  $data['name'],
+            'middle_name' =>  'Отчество',
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'role_id' => $role_id,
-        ]);
+        ])
+            ->id;
+
+//--------------------------------------------------
+         $new_user = User::create([
+             'name' => $data['name'],
+             'email' => $data['email'],
+             'password' => Hash::make($data['password']),
+             'role_id' => $role_id,
+             'personalinfo_id' => $personalinfo_id,
+         ]);
+//--------------------------------------------------
+
+
+        return $new_user;
     }
 }

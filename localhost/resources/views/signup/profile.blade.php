@@ -8,16 +8,25 @@ $phone = '';
 $birthdate = '';
 $binaryfiles_file_src = '';
 
-$surname = $profiles[0]->personalinfos_surname;
-$name = $profiles[0]->personalinfos_name;
-$middle_name = $profiles[0]->personalinfos_surname;
-$email = $profiles[0]->users_email;
-$phone = $profiles[0]->personalinfos_telephone;
-$birthdate = $profiles[0]->personalinfos_birthdate;
+
+
 
 
 if (Auth::user() !== null) {
     $current_user_id = Auth::user()->getAuthIdentifier();
+    $profiles_user = $profiles;//->where('users.id', "{$current_user_id}");
+
+    if($profiles_user !== null){
+        $surname =  $profiles_user[0]->personalinfos_surname;
+        $name = $profiles_user[0]->personalinfos_name;
+        $name = $profiles_user[0]->personalinfos_name;
+        $middle_name = $profiles_user[0]->personalinfos_surname;
+        $email = $profiles_user[0]->users_email;
+        $phone = $profiles_user[0]->personalinfos_telephone;
+        $birthdate = $profiles_user[0]->personalinfos_birthdate;
+    }
+
+
     $b_id_arr = \App\Binaryfile::
     whereHas('users', function ($q) use ($current_user_id) {
         $q->where('users.id', '=', "{$current_user_id}");

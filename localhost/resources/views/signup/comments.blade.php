@@ -22,9 +22,6 @@ if(Auth::user()!== null){
 }
 $comments_user = $comments
     ->where('content_user.user_id', "{$current_user}")
-    ->where('contents.status', 'like', '%public%')
-    ->where('contents.status', 'like', '%moderating%', "or")
-    ->where('contents.status', 'like', '%denied%', "or")
     ->get();
 ?>
 
