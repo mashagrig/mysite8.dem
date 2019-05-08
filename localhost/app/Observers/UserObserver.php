@@ -18,25 +18,18 @@ class UserObserver
     {
         $current_user_id = '';
         $current_user_db = '';
-        $current_user_id = '282';
+        $current_user_id = '';
 
-         //   $current_user_id =User::all()
-         //       ->reverse()->first()[0]->id+1;
+           // $current_user_id =Auth::user()->getAuthIdentifier(); //null!!!!
+            $current_user_id =User::all()
+                ->reverse()->first()->id;
 
-            $current_user_db = User::where('id', $current_user_id)->get();
-            $email = $current_user_db[0]->email;
-            $name = $current_user_db[0]->name;
-
-
-//            $current_user_id = User::all()
-//                ->reverse()->first()->id+1;
-//
-//            $current_user_db = User::where('id', $current_user_id)->get();
+            $current_user_db = User::where('id', (int)$current_user_id)->get();
 
         Binaryfile::create([
             'title' => 'avatar',
             'file_src' => "images/person_1.jpg",
-            'text' =>  $name,
+            'text' =>  '',
         ])
             ->users()->attach($current_user_db);
     }

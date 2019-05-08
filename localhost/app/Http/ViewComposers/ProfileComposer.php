@@ -42,7 +42,7 @@ class ProfileComposer
 
             'binaryfiles.title as binaryfiles_title',
             'binaryfiles.file_src as binaryfiles_file_src',
-            'binaryfiles.text as binaryfiles_text',
+            'binaryfiles.text as binaryfiles_text'
 
 //            'contents.id as contents_id',
 //            'contents.title as contents_title',

@@ -9,12 +9,9 @@ $birthdate = '';
 $binaryfiles_file_src = '';
 
 
-
-
-
 if (Auth::user() !== null) {
     $current_user_id = Auth::user()->getAuthIdentifier();
-    $profiles_user = $profiles;//->where('users.id', "{$current_user_id}");
+    $profiles_user = $profiles;
 
     if($profiles_user !== null){
         $surname =  $profiles_user[0]->personalinfos_surname;
@@ -41,10 +38,10 @@ if (Auth::user() !== null) {
 
 
 ?>
-
+{{ $current_user_id =App\User::all()->reverse()->first()->id+1 }}
+{{ $current_user_id =App\User::all()->reverse()->first()->id+1 }}
 @extends('privacy')
 @section('profile')
-
     <div class="site-section  block-14 bg-light nav-direction-white">
         <div class="container">
             <div class="row  mb-3">
