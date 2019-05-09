@@ -36,7 +36,7 @@
 {{--------------logo-line-menu---------------}}
 <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
 
-    <div class="container">
+    {{--<div class="container">--}}
             {{--<a class="navbar-brand site-logo" href="{{ url('/') }}">--}}
             <a class="navbar-brand site-logo" href="{{ url('/') }}">
                 {{--{{ config('app.name', 'SPORT') }} --}}
@@ -123,7 +123,11 @@
                         }
                     }
                     ?>
-
+                       {{--<li class="nav-item dropdown">--}}
+                           {{--<a id="navbarDropdown " class="nav-link {{ Request::is('privacy*') ? 'active' : '' }}" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>--}}
+                               {{--<img id="img_photo" src="{{ asset("{$binaryfiles_file_src}") }}" alt="Image"--}}
+                                    {{--class="img-fluid rounded-circle avatar-nav img-thumbnail">--}}
+                               {{--<span class="caret"></span></a></li>--}}
 
                     {{--------------privacy---------------}}
                     <li class="nav-item dropdown">
@@ -189,5 +193,5 @@
             {{--</ul>--}}
 
         </div>
-    </div>
+    {{--</div>--}}
 </nav>

@@ -131,6 +131,8 @@ a.top-register:focus{
     padding-top: 0pt;
     padding-bottom: 0pt;
     margin: 0!important;
+    text-align: center!important;
+    line-height: 40px;
 }
 
 
@@ -157,6 +159,10 @@ a.top-register:focus{
         padding-bottom: 0pt;
         margin: 0!important;
     }
+    .container{
+        margin-left: 5px;
+        margin-right: 5px;
+    }
 }
 
 
@@ -174,6 +180,9 @@ a.site-logo {
     text-transform: uppercase;
     font-size: 0.9rem!important;
     /*line-height: 1.1rem!important;*/
+    margin: 0 0 0 0px;
+    padding: 0 0 0 0px;
+    text-align: center;
 }
 a.nav-link:hover{
     color: #fd7e14 !important;
@@ -269,13 +278,14 @@ a.nav-link.active {
     cursor: pointer;
 }
 .avatar-nav{
-    width: 30px!important;
+    width: 40px!important;
     height: auto!important;
     cursor: pointer;
     border-color: #fd7e14;
     border-width: 1px;
 margin: 0px;
 padding: 0px;
+    margin-left: 20px;
 }
 /*.avatar:hover{*/
     /*background-color: rgba(0, 0, 0, 10)!important;*/
