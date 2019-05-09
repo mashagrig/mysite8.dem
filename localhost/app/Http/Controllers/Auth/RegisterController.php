@@ -71,9 +71,9 @@ class RegisterController extends Controller
             ->first()->id;
 
         $personalinfo_id = Personalinfo::create([
-            'surname' =>  'Фамилия',
+          //  'surname' =>  'Фамилия',
             'name' =>  $data['name'],
-            'middle_name' =>  'Отчество',
+            //'middle_name' =>  'Отчество',
             'email' => $data['email'],
         ])
             ->id;

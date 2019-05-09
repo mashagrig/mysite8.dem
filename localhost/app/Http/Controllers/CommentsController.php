@@ -52,8 +52,8 @@ class CommentsController extends Controller
         $current_user_email = '';
         $current_user_id = '';
         $title = 'comments';
-      //  $status = 'public';
-        $status = 'moderating';
+        $status = 'public';
+      //  $status = 'moderating';
 
         $name = $request->name;
         $email = $request->email;

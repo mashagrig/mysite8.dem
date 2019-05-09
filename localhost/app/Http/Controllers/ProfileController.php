@@ -9,6 +9,7 @@ use App\User;
 use Http\Client\Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class ProfileController extends Controller
 {
@@ -117,15 +118,19 @@ class ProfileController extends Controller
               ->pluck('id')
               ->toArray();
 
-                $file_src = $file->storeAs('uploads', $file->getClientOriginalName(), 'public');
+              //  $file_src = $file->storeAs('uploads', $file->getClientOriginalName(), 'public');
 
-                //    if(isset($request->file) && $request->file !== ''){
+            $ext = pathinfo($file, PATHINFO_EXTENSION);
+            $image = Image::make($file)
+                ->resize(200, 200)
+                ->save('storage/uploads/'. $file->getClientOriginalName(). $ext);
+
+
                     if(empty($b_id_arr)){
 
                         Binaryfile::create([
                             'title' => $title,
-                            'file_src' => "storage/".$file->getClientOriginalName(),
-                         //   'file_src' => "storage/".$file_src,
+                            'file_src' => "storage/uploads/".$file->getClientOriginalName(),
                             'text' => $name,
                         ])->users()->attach($current_user_db);
                     }
@@ -135,10 +140,7 @@ class ProfileController extends Controller
                         Binaryfile::where('id', $b_id)
                         ->update([
                             'title' => $title,
-                            'file_src' => "storage/".$file_src,
-                           // 'file_src' => "storage/uploads/".$file->getClientOriginalName(),
-                            //'file_src' => $file,
-                            //   'file_src' => "storage/".$file_src,
+                            'file_src' => "storage/uploads/".$file->getClientOriginalName(),
                             'text' => $name,
                         ]);
                     }
@@ -254,7 +256,7 @@ class ProfileController extends Controller
                     'email' => $email,
                 ]);
         }
-        if(isset($request->telephone) && $request->telephone !== ''){
+        if(isset($request->phone) && $request->phone !== ''){
             Personalinfo::where('id', $personalinfo_id)
                 ->update([
                     'telephone' => $phone,

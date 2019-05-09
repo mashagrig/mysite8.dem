@@ -168,6 +168,9 @@ return [
         Mews\Captcha\CaptchaServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,Way\Generators\GeneratorsServiceProvider::class,
         Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
+
+
         /*
          * Application Service Providers...
          */
@@ -232,6 +235,9 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Captcha'=>Mews\Captcha\Facades\Captcha::class,
+        'Image' => Intervention\Image\Facades\Image::class,
+
+
 
     ],
 

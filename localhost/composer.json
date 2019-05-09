@@ -23,6 +23,7 @@
         "filp/whoops": "^2.0",
         "fzaninotto/faker": "^1.4",
         "guzzlehttp/guzzle": "^6.3",
+        "intervention/image": "^2.4",
         "mews/captcha": "^2.2",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^2.0",

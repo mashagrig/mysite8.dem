@@ -28,7 +28,7 @@ class UserObserver
 
         Binaryfile::create([
             'title' => 'avatar',
-            'file_src' => "images/person_1.jpg",
+            'file_src' => "images/guest_avatar_light.png",
             'text' =>  '',
         ])
             ->users()->attach($current_user_db);

@@ -81,7 +81,7 @@ $comments_user = $comments
 
                             <div class="row form-group">
                                 <div class="col-md-12">
-                                    <input type="submit" value="Отправить" class="btn btn-primary text-white px-4 py-2">
+                                    <input type="submit" value="Добавить" class="btn btn-primary text-white px-4 py-2">
                                 </div>
                             </div>
 

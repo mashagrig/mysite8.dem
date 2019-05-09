@@ -16,8 +16,7 @@ if (Auth::user() !== null) {
     if($profiles_user !== null){
         $surname =  $profiles_user[0]->personalinfos_surname;
         $name = $profiles_user[0]->personalinfos_name;
-        $name = $profiles_user[0]->personalinfos_name;
-        $middle_name = $profiles_user[0]->personalinfos_surname;
+        $middle_name = $profiles_user[0]->personalinfos_middle_name;
         $email = $profiles_user[0]->users_email;
         $phone = $profiles_user[0]->personalinfos_telephone;
         $birthdate = $profiles_user[0]->personalinfos_birthdate;
@@ -35,13 +34,12 @@ if (Auth::user() !== null) {
         $binaryfiles_file_src = $b_id_arr[0];
     }
 }
-
-
 ?>
-{{ $current_user_id =App\User::all()->reverse()->first()->id+1 }}
-{{ $current_user_id =App\User::all()->reverse()->first()->id+1 }}
+
+
 @extends('privacy')
 @section('profile')
+
     <div class="site-section  block-14 bg-light nav-direction-white">
         <div class="container">
             <div class="row  mb-3">
@@ -67,7 +65,7 @@ if (Auth::user() !== null) {
                             <div class="col mb-3 text-center">
                                 <label for="file">
                                     <img id="img_photo" src="{{ asset("{$binaryfiles_file_src}") }}" alt="Image"
-                                         class="img-fluid rounded-circle" style="width: 140px!important; cursor: pointer;">
+                                         class="img-fluid rounded-circle avatar">
                                 </label>
                             </div>
                         </div>

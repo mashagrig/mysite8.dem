@@ -23,4 +23,6 @@
     <link href="{{ asset('css/draft/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/flaticon.css') }}" rel="stylesheet">
 
+
+
     </head>
