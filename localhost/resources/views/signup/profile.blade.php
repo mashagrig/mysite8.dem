@@ -156,7 +156,7 @@ if (Auth::user() !== null) {
                             <div class="row form-group">
                                 <div class="col-md-12 mb-3 mb-md-0">
                                     <label class="font-weight-bold" for="birthdate">Дата роджения</label>
-                                    <input type="text" name="birthdate" id="birthdate" class="form-control"
+                                    <input type="date" name="birthdate" id="birthdate" class="form-control"
                                            placeholder="гггг.мм.дд"
                                            value="{{ old('birthdate', $birthdate) }}">
                                 </div>
