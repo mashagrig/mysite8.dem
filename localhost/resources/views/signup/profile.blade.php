@@ -64,7 +64,9 @@ if (Auth::user() !== null) {
                         <div class="row bg-white">
                             <div class="col mb-3 text-center">
                                 <label for="file">
-                                    <img id="img_photo" src="{{ asset("{$avatar_src}") }}" alt="Image"
+                                    {{--<img id="img_photo" src="{{ asset("{$avatar_src}") }}" alt="Image"--}}
+                                         {{--class="img-fluid rounded-circle avatar">--}}
+                                    <img id="img_p" src="{{ asset("{$avatar_src}") }}" alt="Image"
                                          class="img-fluid rounded-circle avatar">
                                 </label>
                             </div>
@@ -80,7 +82,7 @@ if (Auth::user() !== null) {
                                 {{--@endif--}}
                             </div>
 
-                            <div class="col mb-5">
+                            <div class="col mb-5"  id="choose_btn_div">
                                 <input id="choose_btn" type="submit" value="Изменить"
                                        class="btn btn-primary-inactive text-white px-4 py-2">
                             </div>

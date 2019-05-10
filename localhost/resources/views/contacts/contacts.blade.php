@@ -74,7 +74,7 @@
                         <div class="row form-group">
                             <div class="col-md-12 mb-3 mb-md-0">
                                 <label class="font-weight-bold" for="phone">Телефон</label>
-                                <input type="text" name="phone" id="phone" class="form-control" placeholder="Телефон"
+                                <input type="text" name="phone" id="phone" class="form-control" placeholder="8(___) ___-__-__"
                                        value="{{ old('phone', $phone) }}">
                             </div>
                         </div>
