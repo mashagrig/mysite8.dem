@@ -18,7 +18,14 @@ jQuery(document).ready(function($) {
 
 	"use strict";
 
-	
+    // jQuery(function($){
+    //     $("#phone").mask("+7 (999) 999-99-99");
+    // });
+        //2. Получить элемент, к которому необходимо добавить маску
+        $("#phone").mask("8(999) 999-99-99");
+    //    $("#birthdate").mask("99.99.9999", {placeholder: "дд.мм.гггг" });
+        $("#birthdate").mask("9999.99.99", {placeholder: "гггг.мм.дд" });
+
 
 	var siteMenuClone = function() {
 

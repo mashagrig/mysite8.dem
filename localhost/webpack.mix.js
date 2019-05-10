@@ -66,7 +66,8 @@ mix.copy([
     'node_modules/purify/lib/purify.js',
     'node_modules/aos/dist/aos.js',
    'resources/js/scrollup.js',
-    'node_modules/jscroll/dist/jquery.jscroll.min.js'
+    'node_modules/jscroll/dist/jquery.jscroll.min.js',
+    'node_modules/jquery.maskedinput/src/jquery.maskedinput.js'
 
 ], 'public/js/libs');
 

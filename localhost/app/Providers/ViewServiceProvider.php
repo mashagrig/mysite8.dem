@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Http\ViewComposers\AnswersComposer;
+use App\Http\ViewComposers\AvatarComposer;
 use App\Http\ViewComposers\CardComposer;
 use App\Http\ViewComposers\CardStatusComposer;
 use App\Http\ViewComposers\CommentsComposer;
@@ -121,6 +122,10 @@ class ViewServiceProvider extends ServiceProvider
         view()->composer([
             'signup.profile',
         ], ProfileComposer::class);
+
+        view()->composer([
+            '*',
+        ], AvatarComposer::class);
 
 
 

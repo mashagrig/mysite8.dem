@@ -40,6 +40,7 @@
         "animate.css": "3.7.0",
         "bootstrap-datepicker": "1.6.4",
         "stellar": "0.0.0",
-        "jscroll": "2.4.1"
+        "jscroll": "2.4.1",
+        "jquery.maskedinput": "1.4.1"
     }
 }

@@ -23,16 +23,16 @@ if (Auth::user() !== null) {
     }
 
 
-    $b_id_arr = \App\Binaryfile::
-    whereHas('users', function ($q) use ($current_user_id) {
-        $q->where('users.id', '=', "{$current_user_id}");
-    })
-        ->where('title', 'like', "%avatar%")
-        ->pluck('file_src')
-        ->toArray();
-    if (!empty($b_id_arr)) {
-        $binaryfiles_file_src = $b_id_arr[0];
-    }
+//    $b_id_arr = \App\Binaryfile::
+//    whereHas('users', function ($q) use ($current_user_id) {
+//        $q->where('users.id', '=', "{$current_user_id}");
+//    })
+//        ->where('title', 'like', "%avatar%")
+//        ->pluck('file_src')
+//        ->toArray();
+//    if (!empty($b_id_arr)) {
+//        $binaryfiles_file_src = $b_id_arr[0];
+//    }
 }
 ?>
 
@@ -64,7 +64,7 @@ if (Auth::user() !== null) {
                         <div class="row bg-white">
                             <div class="col mb-3 text-center">
                                 <label for="file">
-                                    <img id="img_photo" src="{{ asset("{$binaryfiles_file_src}") }}" alt="Image"
+                                    <img id="img_photo" src="{{ asset("{$avatar_src}") }}" alt="Image"
                                          class="img-fluid rounded-circle avatar">
                                 </label>
                             </div>
@@ -141,7 +141,7 @@ if (Auth::user() !== null) {
                                 <div class="col-md-12 mb-3 mb-md-0">
                                     <label class="font-weight-bold" for="phone">Телефон</label>
                                     <input type="text" name="phone" id="phone" class="form-control"
-                                           placeholder="Телефон"
+                                           placeholder="8(___) ___-__-__"
                                            value="{{ old('phone', $phone) }}">
                                 </div>
                             </div>
@@ -155,7 +155,7 @@ if (Auth::user() !== null) {
                                 <div class="col-md-12 mb-3 mb-md-0">
                                     <label class="font-weight-bold" for="birthdate">Дата роджения</label>
                                     <input type="text" name="birthdate" id="birthdate" class="form-control"
-                                           placeholder="День"
+                                           placeholder="гггг.мм.дд"
                                            value="{{ old('birthdate', $birthdate) }}">
                                 </div>
                             </div>

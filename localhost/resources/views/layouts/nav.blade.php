@@ -102,37 +102,12 @@
 
 
 
-                {{--------------privacy---------------}}
-
-
+                {{-----------------------------}}
                @auth
-
-                   <?php
-                    if (Auth::user() !== null) {
-                        $current_user_id = Auth::user()->getAuthIdentifier();
-
-                        $b_id_arr = \App\Binaryfile::
-                        whereHas('users', function ($q) use ($current_user_id) {
-                            $q->where('users.id', '=', "{$current_user_id}");
-                        })
-                            ->where('title', 'like', "%avatar%")
-                            ->pluck('file_src')
-                            ->toArray();
-                        if (!empty($b_id_arr)) {
-                            $binaryfiles_file_src = $b_id_arr[0];
-                        }
-                    }
-                    ?>
-                       {{--<li class="nav-item dropdown">--}}
-                           {{--<a id="navbarDropdown " class="nav-link {{ Request::is('privacy*') ? 'active' : '' }}" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>--}}
-                               {{--<img id="img_photo" src="{{ asset("{$binaryfiles_file_src}") }}" alt="Image"--}}
-                                    {{--class="img-fluid rounded-circle avatar-nav img-thumbnail">--}}
-                               {{--<span class="caret"></span></a></li>--}}
-
                     {{--------------privacy---------------}}
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown " class="nav-link dropdown-toggle {{ Request::is('privacy*') ? 'active' : '' }}" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            <img id="img_photo" src="{{ asset("{$binaryfiles_file_src}") }}" alt="Image"
+                            <img id="img_photo" src="{{ asset("{$avatar_src}") }}" alt="Image"
                                  class="img-fluid rounded-circle avatar-nav img-thumbnail">
                             {{ Auth::user()->name }}
                             <span class="caret"></span></a>

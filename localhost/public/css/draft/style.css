@@ -277,14 +277,18 @@ a.nav-link.active {
     height: auto!important;
     cursor: pointer;
 }
+/*.avatar:hover{*/
+    /*!*border-color: #fd7e14!important;*!*/
+    /*!*border-width: 1px!important;*!*/
+/*}*/
 .avatar-nav{
     width: 40px!important;
     height: auto!important;
     cursor: pointer;
     border-color: #fd7e14;
     border-width: 1px;
-margin: 0px;
-padding: 0px;
+    margin: 0px;
+    padding: 0px;
     margin-left: 20px;
 }
 /*.avatar:hover{*/

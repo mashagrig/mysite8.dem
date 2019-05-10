@@ -66,6 +66,7 @@
 <script src="{{ asset('js/app.js') }}" type="application/javascript"></script>
 
 <script src="{{ asset('js/libs/jquery.min.js') }}"></script>
+
 <script src="{{ asset('js/libs/jquery-migrate.min.js') }}"></script>
 <script src="{{ asset('js/libs/jquery-ui.min.js') }}"></script>
 
@@ -86,7 +87,6 @@
 <script src="{{ asset('js/libs/scrollup.js') }}"></script>
 {{--<script src="{{ asset('js/libs/jquery.jscroll.min.js') }}"></script>--}}
 
-
 {{--<script src="{{ asset('js/plugins.js') }}"></script>--}}
-
+<script src="{{ asset('js/libs/jquery.maskedinput.js') }}"></script>
 <script src="{{ asset('js/draft/main.js') }}"></script>
