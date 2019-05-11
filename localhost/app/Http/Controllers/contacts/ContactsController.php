@@ -5,6 +5,7 @@ namespace App\Http\Controllers\contacts;
 use App\Content;
 use App\Events\Contacts\ContactsEvent;
 use App\Personalinfo;
+use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -54,6 +55,8 @@ class ContactsController extends Controller
         $email = $request->email;
         $phone = $request->phone;
         $message = $request->message;
+        $role_id = Role::where('title', 'like', "%guest%")
+            ->first()->id;
 
         if(
             $name !== ''
@@ -97,7 +100,7 @@ class ContactsController extends Controller
                         'name' => $name,
                         'email' => $email,
                         'phone' => $phone,
-                        'role_id' => 2
+                        'role_id' => $role_id
                     ]);
 
                     Personalinfo::create([

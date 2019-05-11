@@ -48,6 +48,10 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\Comments\AddCommentEvent' => [
             'App\Listeners\Comments\AddCommentSendNotification',
         ],
+        //отправка писем при регистрации
+        'App\Events\Users\UserRegisteredEvent' => [
+            'App\Listeners\Users\UserRegisteredSendNotification',
+        ],
 
     ];
 

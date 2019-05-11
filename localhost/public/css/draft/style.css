@@ -2039,16 +2039,16 @@ a.nav-link.active {
     /*background: #fd7e14;*/
     /*background: -webkit-linear-gradient(to right, #b6e358, #38b143);*/
     /*background: linear-gradient(to right, #b6e358, #38b143);*/
-    width: 150pt;
-    height: 150pt;
+    width: 120pt;
+    height: 120pt;
     position: fixed;
-    top: 40%;
-    left: 40%;
+    top: 45%;
+    left: 45%;
     z-index: 5000; }
 #preloader .circle-preloader {
     display: block;
-    width: 150pt;
-    height: 150pt;
+    width: 120pt;
+    height: 120pt;
     border: 10px solid rgba(0, 0, 0, 0.1);
     border-bottom-color: #fd7e14;
     border-radius: 50%;

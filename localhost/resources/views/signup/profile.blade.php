@@ -36,9 +36,9 @@ if (Auth::user() !== null) {
 }
 ?>
 
-
 @extends('privacy')
 @section('profile')
+    {{--{{App\User::where('email', 'solnce52004@yandex.ru')->get('password')[0]->password}}--}}
 
     <div class="site-section  block-14 bg-light nav-direction-white">
         <div class="container">
@@ -48,9 +48,11 @@ if (Auth::user() !== null) {
                 </div>
             </div>
             <div class="row">
+                <div class="col-lg-4">
 
+                    {{--------------Фото-------------------------------------------------------------------------------------}}
 
-                <div class="col-lg-4 mb-3">
+                <div class="mb-3">
                     <form method='POST' action="{{ action('ProfileController@store') }}" class="mb-0 bg-white"  enctype="multipart/form-data">
                         @csrf
                         {{ method_field("PUT") }}
@@ -96,7 +98,60 @@ if (Auth::user() !== null) {
                     </form>
                 </div>
 
-{{---------------------------------------------------------------------------------------------------}}
+{{-----------------------------Пароль----------------------------------------------------------------------}}
+                <div class="mb-3">
+                    <form method='POST' action="{{ action('ProfileController@edit', ['token' => $token]) }}" class="mb-0 bg-white"  enctype="multipart/form-data">
+                        @csrf
+                        {{ method_field("PUT") }}
+
+                        <input type="hidden" name="token" value="{{ $token }}">
+
+
+
+                        <div class="row p-4 bg-white">
+                            <div class="col">
+                                <h3 class="h5 text-black">Изменить пароль</h3>
+                            </div>
+                        </div>
+
+                                <div class="row  p-2 bg-white">
+                                    <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Новый пароль') }}</label>
+
+                                    <div class="col">
+                                        <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required autocomplete="new-password">
+
+                                        @if ($errors->has('password'))
+                                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="row  p-2 bg-white">
+                                    <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Повторите пароль') }}</label>
+
+                                    <div class="col">
+                                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                    </div>
+                                </div>
+
+
+                        <div class="row bg-white">
+                            <div class="col mb-5">
+                                <input type="submit" value="Изменить"
+                                       class="btn btn-primary text-white px-4 py-2">
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+
+{{----------------------------------}}
+                </div>
+
+                {{--------------------------личные данные-------------------------------------------------------------------------}}
+
                 <div class="col-lg-8 mb-3">
                     <div class="p-4 bg-white  mb-3">
                         <h3 class="h5 text-black mb-3">Мои личные данные</h3>
@@ -148,11 +203,6 @@ if (Auth::user() !== null) {
                                 </div>
                             </div>
 
-                            <?php
-//                            $date_b = date_format(date_create($birthdate), 'd') . "." .
-//                                date_format(date_create($birthdate), 'm') . '.' .
-//                                date_format(date_create($birthdate), 'Y');
-                            ?>
                             <div class="row form-group">
                                 <div class="col-md-12 mb-3 mb-md-0">
                                     <label class="font-weight-bold" for="birthdate">Дата роджения</label>

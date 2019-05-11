@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -25,7 +27,8 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+   // protected $redirectTo = '/home';
+    protected $redirectTo = '/login/success';
 
     /**
      * Create a new controller instance.
@@ -41,4 +44,23 @@ class LoginController extends Controller
 //    {
 //        return 'name';
 //    }
+
+//    protected function validateLogin(Request $request)
+//    {
+//        $request->validate([
+//            $this->username() => 'required|string',
+//            'password' => 'required|string',
+//        ], [
+//            $this->username().'required' => 'Введите адрес электронной почты',
+//            'password.required' => 'Введите пароль'
+//        ]);
+//    }
+
+
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        throw ValidationException::withMessages([
+            $this->username() => 'Пользователь с таким адресом электронной почты отсутствует в списке'
+        ]);
+    }
 }

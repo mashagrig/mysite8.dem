@@ -113,9 +113,7 @@
                             <span class="caret"></span></a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item {{ Request::is('*privacy/profile*') ? 'active' : '' }}"
-                               href="{{ route('privacy.profile') }}"
-                                {{--{{ Request::is('privacy.profile') ? 'disabled' : '' }}--}}
-                            >{{ __('Мой профиль') }}</a>
+                               href="{{ route('privacy.profile') }}">{{ __('Мой профиль') }}</a>
                             <a class="dropdown-item {{ Request::is('*privacy/shedules*') ? 'active' : '' }}"
                                href="{{ route('privacy.shedules') }}">{{ __('Мои тренировки') }}</a>
                             <a class="dropdown-item {{ Request::is('*privacy/cards*') ? 'active' : '' }}"

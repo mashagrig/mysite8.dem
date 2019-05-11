@@ -9,10 +9,15 @@ use App\User;
 use Http\Client\Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class ProfileController extends Controller
 {
+    use ResetsPasswords;
+
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +30,14 @@ class ProfileController extends Controller
 
     public function index()
     {
-        return view('signup.profile');
+        $token = Auth::user()->getRememberToken();
+
+        return view('signup.profile')->with(
+            ['token' => $token]);
+        // $token = null
+//            ->with(
+//            ['token' => $token]);
+
     }
 
     /**
@@ -179,15 +191,48 @@ class ProfileController extends Controller
         //
     }
 
+  //-----------------------------------------
+    /**
+     * Reset the given user's password.
+     *
+     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
+     * @param  string  $password
+     * @return void
+     */
+//    protected function resetPassword($user, $password)
+//    {
+//        $user->password = Hash::make($password);
+//
+//        $user->setRememberToken(Str::random(60));
+//
+//        $user->save();
+//
+//        event(new PasswordReset($user));
+//
+//        $this->guard()->login($user);
+//    }
+  //-----------------------------------------
+
+
+
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $token)
     {
-        //
+       // $token_db = Auth::user()->getRememberToken();
+        reset( $request);
+
+
+
+        return redirect()->back();
+        // $token = null
+//            ->with(
+//            ['token' => $token]);
+
     }
 
     /**

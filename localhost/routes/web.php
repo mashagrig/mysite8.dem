@@ -54,6 +54,7 @@ Route::group(['middleware' => 'guest'], function() {
             'prefix' => '/profile',
         ], function() {
             Route::get('/', 'ProfileController@index')->name('privacy.profile');
+            Route::put('/{token}', 'ProfileController@edit');
             Route::put('/{id}', 'ProfileController@update');
             Route::put('/', 'ProfileController@store');
             Route::post('/destroy', 'ProfileController@destroy');
@@ -125,7 +126,7 @@ Route::post('register', 'Auth\RegisterController@register');
 //POST запрос на выход из системы (логаут)
 //Route::post('logout', 'Auth\LoginController@logout');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
-Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+//Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 //Route::get('/logout', 'HomeController@index')->name('logout');
 
 //--------- sendResetLinkEmail -----------------
