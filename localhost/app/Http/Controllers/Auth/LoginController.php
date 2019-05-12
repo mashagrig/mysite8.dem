@@ -63,4 +63,18 @@ class LoginController extends Controller
             $this->username() => 'Пользователь с таким адресом электронной почты отсутствует в списке'
         ]);
     }
+    public function maxAttempts()
+    {
+        return property_exists($this, 'maxAttempts') ? $this->maxAttempts : 50;
+    }
+
+    /**
+     * Get the number of minutes to throttle for.
+     *
+     * @return int
+     */
+    public function decayMinutes()
+    {
+        return property_exists($this, 'decayMinutes') ? $this->decayMinutes : 1;
+    }
 }

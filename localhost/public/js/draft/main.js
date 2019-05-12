@@ -27,6 +27,26 @@ jQuery(document).ready(function($) {
       //  $("#birthdate").mask("9999.99.99", {placeholder: "гггг.мм.дд" });
 
 
+
+
+        // var btn_captcha = document.getElementById("btn-refresh");
+        // btn_captcha.addEventListener('click', function(e){
+        //     e.preventDefault();
+        //     $.ajax({
+        //          dataType: 'json',
+        //         type: 'GET',
+        //         // url: '/refresh_captcha',
+        //         url: "{{ route('refresh_captcha') }}",
+        //         success: function (data) {
+        //             $("#img_captcha").attr('src', data.captcha_src);
+        //         }, error: function (msg) {console.log(msg);}
+        //     });
+        // });
+
+
+
+
+
 	var siteMenuClone = function() {
 
 		$('.js-clone-nav').each(function() {
@@ -433,8 +453,10 @@ jQuery(document).ready(function($) {
    // }
 
 
-
+if($("#file").length > 0){
     document.getElementById("choose_btn").disabled = true;
+};
+
     //jquery подключаем в подвале, поэтому вызов в коде не сработает
     $("#file").on('change', function (e) {
         //  $("choose_btn").prop('disabled', 'disabled');

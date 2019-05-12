@@ -54,7 +54,8 @@ Route::group(['middleware' => 'guest'], function() {
             'prefix' => '/profile',
         ], function() {
             Route::get('/', 'ProfileController@index')->name('privacy.profile');
-            Route::put('/{token}', 'ProfileController@edit');
+            Route::put('/edit', 'ProfileController@edit');
+           // Route::put('/{token}', 'ProfileController@edit');
             Route::put('/{id}', 'ProfileController@update');
             Route::put('/', 'ProfileController@store');
             Route::post('/destroy', 'ProfileController@destroy');
@@ -149,13 +150,16 @@ Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm
 Route::get('/password/verification', function () {
     return view('auth.verifySuccess');
 });
-
+Route::get('/password/resetSuccess', function () {
+    return view('auth.resetSuccess');
+});
 
 // запрос для верификации - регает ссылку с RegisterContr и из шаблоне регистрации!
 Route::get('verification.send', function () {
     return view('auth.verify');
 });
 Route::get('/password/send', 'Auth\VerificationController@send')->name('verification.send');
+Route::get('/password/verify', 'Auth\VerificationController@verify')->name('verification.verify');
 
 
 // запрос для верификации - регает ссылку с RegisterContr и из шаблоне регистрации!

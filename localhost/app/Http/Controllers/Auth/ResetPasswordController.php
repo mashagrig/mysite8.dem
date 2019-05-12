@@ -27,10 +27,10 @@ class ResetPasswordController extends Controller
      * @var string
      */
     ////POST запрос для отправки email письма пользователю для сброса пароля
-    protected $redirectTo = '/password/email';//Forgot  -  sendResetLinkEmail
+   // protected $redirectTo = '/password/email';//Forgot  -  sendResetLinkEmail
     //все send методы будут от Fogot
 //Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
-   // protected $redirectTo = '/home';
+    protected $redirectTo = '/password/resetSuccess';
     //protected $redirectTo = '/privacy/profile';
 
     /**
@@ -40,7 +40,7 @@ class ResetPasswordController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+      //  $this->middleware('guest');
     }
     //Переопределяем методы из тррейта
     protected function validationErrorMessages()
@@ -53,7 +53,7 @@ class ResetPasswordController extends Controller
     protected function sendResetResponse(Request $request, $response)
     {
         return redirect($this->redirectPath())
-            ->with('status', "Сброс пароля упешно выполнен");
+            ->with('status', "Вы успешно изменили пароль");
     }
 
     protected function sendResetFailedResponse(Request $request, $response)

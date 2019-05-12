@@ -81,6 +81,9 @@ if (Auth::user() !== null) {
             {{---------------------------------------------------------------------------}}
             @foreach($question_from_contacts->get() as $question)
                 <?php
+                $status_comment = '';
+                $status_color = "";
+                $status_tr_style = '';
                 switch ($question->status_content){
                     case "moderating":
                         $status_comment = 'В ближайшее время менеджер ответит на Ваш вопрос';

@@ -42,11 +42,25 @@ if (Auth::user() !== null) {
 
     <div class="site-section  block-14 bg-light nav-direction-white">
         <div class="container">
-            <div class="row  mb-3">
-                <div class="col-md-12">
+
+            <div class="row  mb-3  text-center">
+                <div class="col-md-12  text-center">
                     <h2 class="site-section-heading text-center">Мой профиль</h2>
                 </div>
             </div>
+            {{--------------status-------------------------------------------------------------------------------------}}
+            @if (session('status'))
+            <div class="row  text-center">
+                <div class="col-md-12  text-center">
+                        <div class="form-group row  text-center">
+                            <div class="alert alert-success" role="alert">
+                                {{ session('status') }}
+                            </div>
+                        </div>
+
+                </div></div>
+            @endif
+            {{------------------------------------------------------------}}
             <div class="row">
                 <div class="col-lg-4">
 
@@ -100,51 +114,105 @@ if (Auth::user() !== null) {
 
 {{-----------------------------Пароль----------------------------------------------------------------------}}
                 <div class="mb-3">
-                    <form method='POST' action="{{ action('ProfileController@edit', ['token' => $token]) }}" class="mb-0 bg-white"  enctype="multipart/form-data">
+
+                    <form method="POST" action="{{ route('password.email') }}">
                         @csrf
-                        {{ method_field("PUT") }}
-
-                        <input type="hidden" name="token" value="{{ $token }}">
-
-
 
                         <div class="row p-4 bg-white">
                             <div class="col">
                                 <h3 class="h5 text-black">Изменить пароль</h3>
                             </div>
                         </div>
+                        <div class="row p-2 bg-white">
+                            <div class="col">
+                            <label class="font-weight-bold" for="email">E-Mail</label>
 
-                                <div class="row  p-2 bg-white">
-                                    <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Новый пароль') }}</label>
+                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email', $email) }}"  autocomplete="email" autofocus  placeholder="Email">
 
-                                    <div class="col">
-                                        <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required autocomplete="new-password">
-
-                                        @if ($errors->has('password'))
-                                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
+                                @if ($errors->has('email'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('email') }}</strong>
                                     </span>
-                                        @endif
-                                    </div>
-                                </div>
+                                @endif
+                        </div>
+                        </div>
 
-                                <div class="row  p-2 bg-white">
-                                    <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Повторите пароль') }}</label>
-
-                                    <div class="col">
-                                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                                    </div>
-                                </div>
-
-
-                        <div class="row bg-white">
-                            <div class="col mb-5">
-                                <input type="submit" value="Изменить"
-                                       class="btn btn-primary text-white px-4 py-2">
+                        <div class="row p-2 bg-white">
+                            <div class="col">
+                                <label>Для сброса пароля, нажмите на кнопку.<br />
+                                По указанному E-Mail будет отправлена ссылка на страницу переустановки пароля.</label>
+                                <p>Ссылка будет действительна в течении 60 минут.</p>
                             </div>
-
+                        </div>
+                        <div class="row  p-4 bg-white">
+                            <div class="col">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Отправить ссылку') }}
+                                </button>
+                            </div>
                         </div>
                     </form>
+
+
+                        {{--<form method='POST' action="{{ action('ProfileController@edit') }}" class="mb-0 bg-white"  enctype="multipart/form-data">--}}
+                    {{--<form method='POST' action="{{ action('Auth\ForgotPasswordController@sendResetLinkEmail') }}" class="mb-0 bg-white"  enctype="multipart/form-data">--}}
+                        {{--@csrf--}}
+                        {{--{{ method_field("PUT") }}--}}
+
+                        {{--<input type="hidden" name="token" value="{{ $token }}">--}}
+                        {{--<input type="hidden" name="token" value="{{ Auth::user()->email }}">--}}
+
+
+
+                        {{--<div class="row p-4 bg-white">--}}
+                            {{--<div class="col">--}}
+                                {{--<h3 class="h5 text-black">Изменить пароль</h3>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+
+
+                                {{--<div class="row  p-2 bg-white">--}}
+                                    {{--<label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Новый пароль') }}</label>--}}
+
+                                    {{--<div class="col">--}}
+                                        {{--<input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required autocomplete="new-password">--}}
+
+                                        {{--@if ($errors->has('password'))--}}
+                                            {{--<span class="invalid-feedback" role="alert">--}}
+                                        {{--<strong>{{ $errors->first('password') }}</strong>--}}
+                                    {{--</span>--}}
+                                        {{--@endif--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+
+                                {{--<div class="row  p-2 bg-white">--}}
+                                    {{--<label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Повторите пароль') }}</label>--}}
+
+                                    {{--<div class="col">--}}
+                                        {{--<input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+
+                        {{--@if (Route::has('password.request'))--}}
+                            {{--<div class="row bg-white">--}}
+                                {{--<div class="col mb-5">--}}
+                                    {{--<a class="a-link" href="{{ route('password.request') }}" style="padding-left: 10px">--}}
+                                    {{--<input type="submit" value="Изменить"--}}
+                                           {{--class="btn btn-primary text-white px-4 py-2"></a>--}}
+                                {{--</div>--}}
+
+                            {{--</div>--}}
+                        {{--@endif--}}
+
+
+                        {{--<div class="row bg-white">--}}
+                            {{--<div class="col mb-5">--}}
+                                {{--<input type="submit" value="Изменить"--}}
+                                       {{--class="btn btn-primary text-white px-4 py-2">--}}
+                            {{--</div>--}}
+
+                        {{--</div>--}}
+                    {{--</form>--}}
                 </div>
 
 {{----------------------------------}}

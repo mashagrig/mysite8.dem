@@ -49,7 +49,7 @@ class ContactsController extends Controller
         $current_user_email = '';
         $current_user_id = '';
         $title = 'question_from_contacts';
-        $status = 'moderating';
+        $status = '';
 
         $name = $request->name;
         $email = $request->email;
@@ -78,9 +78,15 @@ class ContactsController extends Controller
                 $current_user_db = User::where('email', $email)->get();
                 //чтобы не обновлять данные зареганного пользователя
 
+                $status_db = $email
+                        .", "
+                        .$phone
+                        .", "
+                        .$name;
+
                 Content::create([
                     'title' => $title,
-                    'status' => $status,
+                    'status' => $status_db,
                     'text' => $message,
                 ])->users()->attach($current_user_db);
 
@@ -92,28 +98,34 @@ class ContactsController extends Controller
 //                'telephone' => $phone
 //            ]);
             }
-            //нет такого пользователя в базе, создаем по нему данные
+            //нет такого пользователя в базе, создаем по нему данные ТОЛЬКО в Content!!!
             else
                 if(empty($current_user_email)){
 
-                    $current_user =  User::create([
-                        'name' => $name,
-                        'email' => $email,
-                        'phone' => $phone,
-                        'role_id' => $role_id
-                    ]);
+//                    $current_user =  User::create([
+//                        'name' => $name,
+//                        'email' => $email,
+//                        'phone' => $phone,
+//                        'role_id' => $role_id
+//                    ]);
+//
+//                    Personalinfo::create([
+//                        'name' => $name,
+//                        'email' => $email,
+//                        'telephone' => $phone
+//                    ])->users()->save($current_user);
 
-                    Personalinfo::create([
-                        'name' => $name,
-                        'email' => $email,
-                        'telephone' => $phone
-                    ])->users()->save($current_user);
+                    $status_db = $email
+                        .", "
+                        .$phone
+                        .", "
+                        .$name;
 
                     Content::create([
                         'title' => $title,
-                        'status' => $status,
+                        'status' => $status_db,
                         'text' => $message,
-                    ])->users()->attach($current_user);
+                    ]);
                 }
 
 

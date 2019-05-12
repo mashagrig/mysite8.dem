@@ -36,17 +36,18 @@ class VerificationController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('guest');
+        //$this->middleware('auth');
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
     }
-    public function send(Request $request)
+   public function send(Request $request)
     {
-        if ($request->user()->hasVerifiedEmail()) {
-            return redirect($this->redirectPath());
-        }
+//        if ($request->user()->hasVerifiedEmail()) {
+//            return redirect($this->redirectPath());
+//        }
 
-        $request->user()->sendEmailVerificationNotification();
+       $request->user()->sendEmailVerificationNotification();
 
         // return back()->with('sent', true);
         back()->with('sent', true);

@@ -30,7 +30,8 @@ class ForgotPasswordController extends Controller
     protected $redirectTo = '/password/reset';
     public function __construct()
     {
-        $this->middleware('guest');
+       // $this->middleware('guest');
+       // $this->middleware('auth');
     }
 
 
@@ -73,7 +74,7 @@ class ForgotPasswordController extends Controller
     protected function sendResetLinkResponse(Request $request, $response)
     {
         return back()
-            ->with('status', "Письмо со ссылкой на страницу сброса пароля успешно отправлено fogotcontr");
+            ->with('status', "Письмо со ссылкой на страницу сброса пароля успешно отправлено на указанный Вами адрес");
     }
 
     /**
