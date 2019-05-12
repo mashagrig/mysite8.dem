@@ -46,7 +46,7 @@ class SignupCardController extends Controller
         $card_id = '';
         $email = '';
 
-        if (isset($request->card_id)&&($request->card_id !== '')){
+        if (isset($request->card_id)&&($request->card_id !== null)){
             $card_id = $request->card_id;
         }
 

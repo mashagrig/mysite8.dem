@@ -65,6 +65,8 @@ class CommentsController extends Controller
             && $email !== ''
             && $phone !== ''
             && $message !== ''
+            && $request->email !== null
+            && $request->message !== null
         ){
 
             if(Auth::user()!==null){

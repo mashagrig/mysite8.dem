@@ -4,19 +4,47 @@
  // 	once: false
  // });
 
- var browserWindow = $(window);
+ // $('.btn').each(function() {
+ //        $(this).on('click', function () {
+ //            // $('#preloader').fadeIn('quick', function () {
+ //            //     $(this).show();
+ //            // });
+ //            $('#preloader').show();
+ //
+ //        });
+ //    });
 
- // :: 1.0 Preloader Active Code
- browserWindow.on('load', function () {
+ $(window).on('upload', function () {
+     $('#preloader').fadeIn('slow', function () {
+         $(this).show();
+     });
+    // onclick="$('#preloader').show()"
+ });
+ $(window).on('load', function () {
      $('#preloader').fadeOut('slow', function () {
          $(this).remove();
      });
 
  });
 
+
 jQuery(document).ready(function($) {
 
 	"use strict";
+// if($('.btn')){
+//     $('.btn').each(function() {
+//         // :: 1.0 Preloader Active Code
+//         $(this).on('click', function () {
+//             // $('#preloader').fadeIn('quick', function () {
+//             //     $(this).show();
+//             // });
+//             $(this).show();
+//
+//         });
+//     });
+//
+// };
+
 
     // jQuery(function($){
     //     $("#phone").mask("+7 (999) 999-99-99");

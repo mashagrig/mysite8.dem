@@ -306,7 +306,11 @@ class ProfileController extends Controller
                     'middle_name' => $middle_name,
                 ]);
         }
-        if (isset($request->email) && $request->email !== '') {
+        if (
+            isset($request->email)
+            && $request->email !== ''
+            && User::where('email', $request->email)->first() === null
+        ) {
             User::where('id', $current_user_id)
                 ->update([
                     'email' => $email,

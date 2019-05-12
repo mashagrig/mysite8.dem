@@ -2,9 +2,12 @@
 
 namespace App;
 
+use App\Mail\Users\UserPasswordResetEmail;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Mail;
+use Swift_TransportException;
 
 class User extends Authenticatable  implements MustVerifyEmail
 {
@@ -118,7 +121,27 @@ class User extends Authenticatable  implements MustVerifyEmail
 //    }
 
 
+    public function sendPasswordResetNotification($token){
 
+        $email = $this->email;
+
+        $email_admin = 'm-a-grigoreva@yandex.ru';
+        $email_arr = [
+            $email,
+            $email_admin
+        ];
+        foreach ($email_arr as $email){
+            try{
+                Mail::to($email)->queue(new UserPasswordResetEmail($email, $token));//send
+            }  catch(Swift_TransportException $e)
+            {
+                redirect()->back();//->with(['message'=>'нет подключения к интернету']);
+            }
+        }
+    }
+
+   // public function sendEmailVerificationNotification($token){
+   // }
 
 
 }

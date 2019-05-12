@@ -75,7 +75,7 @@ $comments_user = $comments
                             <div class="row form-group">
                                 <div class="col-md-12">
                                     <label class="font-weight-bold" for="message" hidden>Сообщение</label>
-                                    <textarea name="message" name="message" id="message" cols="30" rows="4" class="form-control" placeholder="Отзыв..."></textarea>
+                                    <textarea  name="message" id="message" cols="30" rows="4" class="form-control" placeholder="Отзыв..."></textarea>
                                 </div>
                             </div>
 
