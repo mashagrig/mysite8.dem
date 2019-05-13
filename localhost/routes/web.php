@@ -207,7 +207,7 @@ Route::get('/about#comments', 'about\AboutController@index')->name('comments');
 
 //--------- programs -----------------
 Route::get('/programs', 'programs\ProgramsController@index')->name('programs');
-Route::put('/programs/{id}', 'programs\ProgramsController@show');
+//Route::put('/programs/{id}', 'programs\ProgramsController@show');
 
 Route::get('/programs#morning_programs', 'programs\ProgramsController@index')->name('morning_programs');
 Route::get('/programs#body_building', 'programs\ProgramsController@index')->name('body_building');

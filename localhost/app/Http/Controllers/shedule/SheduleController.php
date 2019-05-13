@@ -198,13 +198,21 @@ class SheduleController extends Controller
      */
     public function show($id, Request $request)
     {
-        $request->trainers = '22';
-       // $request->max_date_select =  date('Y-m-d', time() + 86400*31);
-        $request->max_date_select = date('Y-m-d', time() + 86400*7);
-        $request->period = "week";
+        if(isset($request->item)&&$request->item === '$trainers_item'){
+            $request->trainers = $id;
+            $request->programs = '';
+        }
+        elseif(isset($request->item)&&$request->item === '$programs_item'){
+            $request->trainers = '';
+            $request->programs = $id;
+        }
+
+//       // $request->max_date_select =  date('Y-m-d', time() + 86400*31);
+//        $request->max_date_select = date('Y-m-d', time() + 86400*7);
+//        $request->period = "week";
 
 
-        $shedule_composer = new SheduleComposer($request);
+        $shedule_composer_s = new SheduleComposer($request);
         //return redirect()->action('shedule\SheduleController@index')->with($shedule_composer_id);
             return view('shedule.page_shedule');
 

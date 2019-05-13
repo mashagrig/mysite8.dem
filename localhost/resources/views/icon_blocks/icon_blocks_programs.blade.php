@@ -32,7 +32,7 @@
                                 <p><a class="a-link" href="{{ route("programs") }}#{{ $link }}">Подробнее</a></p>
                             </div>
                             <div class="col">
-                                <form method='POST' action="{{ action('programs\ProgramsController@show', ['id'=>$program_id]) }}">
+                                <form method='POST' action="{{ action('shedule\SheduleController@show', ['id'=>$program_id]) }}">
                                     {{ csrf_field() }}
                                     {{ method_field("PUT") }}
 
@@ -40,6 +40,7 @@
                                         {{--<label for="prog" class="a-link" style="cursor: pointer">Записаться</label>--}}
                                         {{--------------------------Mail--hidden-------------------------------------------}}
                                         <input type="text" id="programs" name="programs" value="{{ $title_bd }}" hidden>
+                                        <input id="item" type="text" name="item" value="programs_item" hidden>
                                         {{---------------------------------------------------------------------}}
                                         <input type="submit" id="prog" name="program" value="Записаться" class="btn btn-primary">
                                     </p>

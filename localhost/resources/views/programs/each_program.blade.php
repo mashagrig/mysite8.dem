@@ -35,11 +35,13 @@
                 {{--</div>--}}
 
                 {{--<p><a href="{{ route('shedule') }}" class="btn btn-outline-primary py-2 px-4">Записаться</a></p>--}}
-                <form method='POST' action="{{ action('programs\ProgramsController@show', ['id'=>$program_id]) }}">
+                {{--<form method='POST' action="{{ action('programs\ProgramsController@show', ['id'=>$program_id]) }}">--}}
+                <form method='POST' action="{{ action('shedule\SheduleController@show', ['id'=>$program_id]) }}">
                     {{ csrf_field() }}
                     {{ method_field("PUT") }}
                     {{--------------------------Mail--hidden-------------------------------------------}}
                     <input id="programs" type="text" name="programs" value="{{ $title_bd }}" hidden>
+                    <input id="item" type="text" name="item" value="programs_item" hidden>
                     {{---------------------------------------------------------------------}}
                 <p><input type="submit" value="Записаться" class="btn btn-primary text-white px-4 py-2"></p>
                 </form>
