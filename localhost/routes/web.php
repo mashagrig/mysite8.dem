@@ -226,7 +226,8 @@ Route::get('/cards#cards_child', 'cards\CardsController@index')->name('cards_chi
 Route::get('/trainers', 'trainers\TrainersController@index')->name('trainers');
 //--------- shedule -----------------
 Route::get('/shedule', 'shedule\SheduleController@index')->name('shedule');
-Route::post('/shedule/', 'shedule\SheduleController@show');
+//Route::post('/shedule', 'shedule\SheduleController@show');
+Route::put('/shedule/{id}', 'shedule\SheduleController@show');
 Route::post('/shedule', 'shedule\SheduleController@store');
 
 

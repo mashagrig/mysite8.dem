@@ -18,6 +18,7 @@ use Illuminate\View\View;
 
 class SheduleComposer
 {
+    public $request;
         public function __construct(Request $request)
     {
         $this->request = $request;
@@ -34,8 +35,10 @@ class SheduleComposer
         $period_select ='';
         $check_shedule_id ='';
 
+      //  $period_select ='month';
+      //  $max_date_select = date('Y-m-d', time() + 86400*31);
 //-------------------------------------
-
+        $period_select ='month';
             if(empty($request)){
                 $max_date_select = '';
                 $program_select = '';
@@ -63,11 +66,10 @@ class SheduleComposer
             $count_month = 1;
             $last_date = date_modify($date, "+{$count_month} month")->format('Y-m-d');
 
-            if(isset($request->period))
-            {
+            if(isset($request->period)&& !empty($request->period)) {
                 $period_select = $request->period;
-
-                switch ( $request->period) {
+            }
+                switch ( $period_select) {
                     case "today":
                         $max_date_select = date("Y-m-d");
                         break;
@@ -91,7 +93,7 @@ class SheduleComposer
 
 
                 }
-                if(isset($request->trainers))
+                if(isset($request->trainers)&&!empty($request->trainers))
                 {
                     $trainers_select = $request->trainers;
                 }
@@ -139,6 +141,7 @@ class SheduleComposer
                         ->where('shedules.date_training', '>=', "{$today}")
                         ->where('sections.title', 'like', "%{$program_select}%")
                         ->where('users.id', 'like', "%{$trainers_select}%")
+                      //  ->where('shedules.user_id', 'like', "%{$trainers_select}%")
                         ->oldest('date_training')
                         ->oldest('start_training')
 //                ->groupby('shedules.date_training')
@@ -164,7 +167,7 @@ class SheduleComposer
 
 
 
-            }
+           // }
 
 
             if(isset($request->check_shedule_id) && (!empty($request->check_shedule_id)))

@@ -28,7 +28,7 @@
                     <div class="tolbar-select">
                         <label class="mr-sm-2" for="period">Показать расписание на период:</label><br/>
                         <select id="period" name="period">
-                            <option  value="" hidden></option>
+                            {{--<option  value="" hidden></option>--}}
                             <option value="today"  @if($period_select === "today")  selected @endif>Сегодня</option>
                             <option value="week" @if($period_select === "week")  selected @endif>На неделю</option>
                             <option value="month"  selected>На месяц</option>
@@ -52,7 +52,7 @@
                      {{--//   $('#trainers option:contains('Все тренеры')').prop('selected', true);--}}
                         {{--}"--}}
                         >
-                            <option value="" hidden></option>
+                            {{--<option value="" hidden></option>--}}
                             <option value="" selected>Все программы</option>
                             <option value="morning_programs" @if($program_select === "morning_programs")  selected @endif>Утренние программы</option>
                             <option value="body_building" @if($program_select === "body_building")  selected @endif>Боди билдинг</option>
@@ -70,14 +70,14 @@
                     <div class="tolbar-select">
                         <label class="mr-sm-2" for="trainers">Выберете тренера:</label><br/>
                         <select id="trainers" name="trainers">
-                            <option hidden></option>
+                            <option value="" hidden></option>
                             <option value="" selected>Все тренеры</option>
                             {{--<option value="" @if($trainers_select === "")  selected @endif>Все тренеры</option>--}}
 
                             @if(isset($shedule_for_date) && $shedule_for_date!=='')
 
                                 <?php
-                                $shedule_for_date_u =  $shedule_for_date//->unique('trainer_id')
+                                $shedule_for_date_u =  $shedule_for_date->unique('trainer_id')
                                 ?>
 
                                     @foreach($shedule_for_date_u as $shedule)

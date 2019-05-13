@@ -16,24 +16,17 @@ class SheduleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-//        $max_date_select = '';
-//        $program_select = '';
-//        $trainers_select ='';
-//        $shedule_for_date ='';
-//        $period_select ='';
-//        $check_shedule_id ='';
+//        $request = new Request();
+//        $request->program_select = '';
+//        $request->trainers_select = '22';
+//        $request->shedule_for_date = '';
+//        $request->check_shedule_id = '';
 
-//        return view('shedule.page_shedule', [
-//            'max_date_select' => $max_date_select,
-//            'program_select' => $program_select,
-//            'trainers_select' => $trainers_select,
-//            'shedule_for_date' => $shedule_for_date,
-//            'period_select' => $period_select,
-//            'check_shedule_id'=>$check_shedule_id
-//        ]);
-
+        $request->max_date_select =  date('Y-m-d', time() + 86400*31);
+        $request->period_select = "month";
+        $shedule_composer = new SheduleComposer($request);
         return view('shedule.page_shedule');
 
     }
@@ -203,9 +196,14 @@ class SheduleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
+        $request->trainers_select = '22';
+        $request->max_date_select =  date('Y-m-d', time() + 86400*31);
+        $request->period_select = "month";
 
+
+        $shedule_composer = new SheduleComposer($request);
         return view('shedule.page_shedule');
 
     }
