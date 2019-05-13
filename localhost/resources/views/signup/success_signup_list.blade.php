@@ -14,8 +14,19 @@
             <div class="row">
                 <div class="col-md-12">
 
-                    {{----------------будет удаление----------------------------------}}
+                    {{--------------status-------------------------------------------------------------------------------------}}
+                    @if (session('status'))
+                        <div class="row  text-center">
+                            <div class="col-md-12  text-center">
+                                <div class="form-group row  text-center">
+                                    <div class="alert alert-success" role="alert">
+                                        {{ session('status') }}
+                                    </div>
+                                </div>
 
+                            </div></div>
+                    @endif
+                    {{------------------------------------------------------------}}
                     @if(isset($max_date_select) && !empty($max_date_select))
                         @if(isset($each_check_shedule_info) && !empty($each_check_shedule_info))
 

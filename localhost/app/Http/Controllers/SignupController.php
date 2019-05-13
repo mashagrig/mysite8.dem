@@ -23,7 +23,7 @@ class SignupController extends Controller
     public function index()
     {
         $singup_composer = new SignupComposer();
-                return view('signup.success_signup_list');
+                return view('signup.success_signup_list')->with('status');
     }
 
     /**
@@ -95,12 +95,10 @@ class SignupController extends Controller
             //---------------------------------------------------
 
         }
-
         //если данная тренировка уже привязана, проверка будет в запросе  базу (в компоузере), но не тут
 
-
-
-        return redirect()->action('SignupController@index');
+        $message = 'Вы успешно записались на тренировку. В ближайшее время наш менеджер свяжется с Вами для уточнения записи.';
+        return redirect()->action('SignupController@index')->with('status', $message);
     }
 
     /**
@@ -175,8 +173,7 @@ class SignupController extends Controller
         ];
         event(new DestroySheduleEvent($email_arr, $shedule_id));
         //---------------------------------------------------
-
-
-        return redirect()->action('SignupController@index');
+        $message = 'Вы успешно отменили запись на тренировку. В ближайшее время наш менеджер свяжется с Вами для уточнения отмены записи.';
+        return redirect()->action('SignupController@index')->with('status', $message);
     }
 }

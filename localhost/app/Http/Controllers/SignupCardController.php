@@ -22,7 +22,7 @@ class SignupCardController extends Controller
     public function index()
     {
       //  $singup_card_composer = new SignupCardComposer();
-        return view('signup.success_signup_card_list');
+        return view('signup.success_signup_card_list')->with('status');
     }
 
     /**
@@ -93,11 +93,12 @@ class SignupCardController extends Controller
             event(new CheckCardEvent($email_arr, $card_id));
             //----------------------------------------------------------------------
 
-//            $message = 'Вам на почту было выслано письмо с информацие о Вашей заявки на получение клюбной карты';
+            $message = 'Вы успешно отправили заявку на получение клубной карты. В ближайшее время наш менеджер свяжется с Вами для уточнения заказа.';
 //            $message_composer = new MessageComposer();
 //            $message_composer->message = $message;
 
-            return redirect()->action('SignupCardController@index');
+         //   return redirect()->back()->with('status', $message);
+            return redirect()->action('SignupCardController@index')->with('status', $message);
 
         }
 //        если такая карта уже привязана, то просто вернуться на карты
@@ -178,6 +179,8 @@ class SignupCardController extends Controller
         ];
         event(new DestroyCardEvent($email_arr, $card_id));
         //----------------------------------------------------------------------
-        return redirect()->action('SignupCardController@index');
+        $message = 'Вы успешно отменили заявку на получение клубной карты. В ближайшее время наш менеджер свяжется с Вами для уточнения отмены заказа.';
+
+        return redirect()->action('SignupCardController@index')->with('status', $message);
     }
 }

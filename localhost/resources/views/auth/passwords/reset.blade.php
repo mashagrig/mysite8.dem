@@ -1,3 +1,10 @@
+<?php
+$email = '';
+if (Auth::user() !== null) {
+    $email = Auth::user()->email;
+    }
+?>
+
 @extends('layouts.app')
 
 @section('content')

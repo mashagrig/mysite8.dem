@@ -169,6 +169,7 @@ class User extends Authenticatable  implements MustVerifyEmailContracts
 
     public function sendEmailVerificationNotification(){
 
+        //InfoNotification - это копия Illuminate\Auth\Notifications\VerifyEmail, в которой я ссылаюсь на свой маркдаун
         $this->notify(new InfoNotification());
     }
 }
