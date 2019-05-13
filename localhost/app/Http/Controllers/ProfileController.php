@@ -222,6 +222,7 @@ class ProfileController extends Controller
         //   reset( $request);
 
         if (!empty($request)) {
+            if (!empty($request->email)&&!empty($request->password)) {
             $email = $request->email;
             $password = $request->password;
 
@@ -241,13 +242,9 @@ class ProfileController extends Controller
             return redirect()->back()
                 ->with('status', "Вы успешно обновили пароль!");
         }
-
-
-        //  return redirect()->back();
-        // $token = null
-//            ->with(
-//            ['token' => $token]);
-
+            return redirect()->back()->with('status', "Вы не заполнили поля для смены пароля");
+        }
+        return redirect()->back()->with('status', "Вы не заполнили поля для смены пароля");
     }
 
     /**
@@ -282,74 +279,77 @@ class ProfileController extends Controller
             $current_user_id = $id;//Auth::user()->getAuthIdentifier();
             $current_user_db = User::where('id', $current_user_id)->get();
             $personalinfo_id = $current_user_db[0]->personalinfo_id;
-        }
 
-        if (isset($request->surname) && $request->surname !== '') {
-            Personalinfo::where('id', $personalinfo_id)
-                ->update([
-                    'surname' => $surname,
-                ]);
-        }
-        if (isset($request->name) && $request->name !== '') {
-            User::where('id', $current_user_id)
-                ->update([
-                    'name' => $name,
-                ]);
-            Personalinfo::where('id', $personalinfo_id)
-                ->update([
-                    'name' => $name,
-                ]);
-        }
-        if (isset($request->middle_name) && $request->middle_name !== '') {
-            Personalinfo::where('id', $personalinfo_id)
-                ->update([
-                    'middle_name' => $middle_name,
-                ]);
-        }
-        if (
-            isset($request->email)
-            && $request->email !== ''
-            && User::where('email', $request->email)->first() === null
-        ) {
-            User::where('id', $current_user_id)
-                ->update([
-                    'email' => $email,
-                ]);
-            Personalinfo::where('id', $personalinfo_id)
-                ->update([
-                    'email' => $email,
-                ]);
-        }
-        if (isset($request->phone) && $request->phone !== '') {
-            Personalinfo::where('id', $personalinfo_id)
-                ->update([
-                    'telephone' => $phone,
-                ]);
-        }
+            if (!empty($request)) {
+                if (isset($request->surname) && $request->surname !== null) {
+                    Personalinfo::where('id', $personalinfo_id)
+                        ->update([
+                            'surname' => $surname,
+                        ]);
+                }
+                if (isset($request->name) && $request->name !== null) {
+                    User::where('id', $current_user_id)
+                        ->update([
+                            'name' => $name,
+                        ]);
+                    Personalinfo::where('id', $personalinfo_id)
+                        ->update([
+                            'name' => $name,
+                        ]);
+                }
+                if (isset($request->middle_name) && $request->middle_name !== null) {
+                    Personalinfo::where('id', $personalinfo_id)
+                        ->update([
+                            'middle_name' => $middle_name,
+                        ]);
+                }
+                if (
+                    isset($request->email)
+                    && $request->email !== null
+                    && User::where('email', $request->email)->first() === null
+                ) {
+                    User::where('id', $current_user_id)
+                        ->update([
+                            'email' => $email,
+                        ]);
+                    Personalinfo::where('id', $personalinfo_id)
+                        ->update([
+                            'email' => $email,
+                        ]);
+                }
+                if (isset($request->phone) && $request->phone !== null) {
+                    Personalinfo::where('id', $personalinfo_id)
+                        ->update([
+                            'telephone' => $phone,
+                        ]);
+                }
 
-        if (isset($request->birthdate) && $request->birthdate !== '') {
-            Personalinfo::where('id', $personalinfo_id)
-                ->update([
-                    'birthdate' => $birthdate
-                ]);
+                if (isset($request->birthdate) && $request->birthdate !== null) {
+                    Personalinfo::where('id', $personalinfo_id)
+                        ->update([
+                            'birthdate' => $birthdate
+                        ]);
+                }
+
+                //---------------------------------------------
+
+                //отправить письмо техподдержке, админу и юзеру, если заполнены все поля!!!
+                //отправляем уведомление (проверка на коннект в листенере)
+                //--------------------------------------------------
+//        $email_admin = 'm-a-grigoreva@yandex.ru';
+//        $email_arr = [
+//            $email,
+//            $email_admin
+//        ];
+                //сообщение в письмо перердаем напрямую отсюда через событие, а не через компоузер
+                //  event(new ContactsEvent($email_arr, $message));
+                //---------------------------------------------------
+
+
+                return redirect()->back()->with('status', "Вы успешно обновили личные данные");
+            }
+           // return redirect()->back()->with('status', "Вы не внесли изменения в данные");
         }
-
-        //---------------------------------------------
-
-        //отправить письмо техподдержке, админу и юзеру, если заполнены все поля!!!
-        //отправляем уведомление (проверка на коннект в листенере)
-        //--------------------------------------------------
-        $email_admin = 'm-a-grigoreva@yandex.ru';
-        $email_arr = [
-            $email,
-            $email_admin
-        ];
-        //сообщение в письмо перердаем напрямую отсюда через событие, а не через компоузер
-        //  event(new ContactsEvent($email_arr, $message));
-        //---------------------------------------------------
-
-
-        return redirect()->back();
     }
 
     /**

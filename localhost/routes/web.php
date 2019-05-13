@@ -55,7 +55,7 @@ Route::group(['middleware' => 'guest'], function() {
         ], function() {
             Route::get('/', 'ProfileController@index')->name('privacy.profile');
             Route::put('/edit', 'ProfileController@edit');
-           // Route::put('/{token}', 'ProfileController@edit');
+           // Route::post('/{token}', 'ProfileController@edit');
             Route::put('/{id}', 'ProfileController@update');
             Route::put('/', 'ProfileController@store');
             Route::post('/destroy', 'ProfileController@destroy');
