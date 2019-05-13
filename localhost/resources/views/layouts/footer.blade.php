@@ -10,7 +10,19 @@
                     новейшие тренажеры и <br />
                     качественный инвентарь. <br />
                     {{--Современный подход к фитнесу.</p>--}}
-                <p><a href="{{ route('about') }}" class="btn btn-primary rounded text-white px-4">Подробнее</a></p>
+                <p class="mb-4"><a href="{{ route('about') }}" class="btn btn-primary rounded text-white px-4">Подробнее</a></p>
+
+
+               <h3 class="footer-heading mb-4 text-white">Мы в сетях</h3>
+
+                    <p>
+                        <a href="#" class="pb-2 pr-2 pl-0"><span class="icon-facebook"></span></a>
+                        <a href="#" class="p-2"><span class="icon-twitter"></span></a>
+                        <a href="#" class="p-2"><span class="icon-instagram"></span></a>
+                        <a href="#" class="p-2"><span class="icon-vimeo"></span></a>
+                    </p>
+
+
             </div>
             <div class="col-md-5 ml-auto">
                 <div class="row">
@@ -39,21 +51,37 @@
                 </div>
             </div>
             <div class="col-md-2">
-                <div class="col-md-12"><h3 class="footer-heading mb-4 text-white">Мы в сетях</h3></div>
-                <div class="col-md-12">
-                    <p>
-                        <a href="#" class="pb-2 pr-2 pl-0"><span class="icon-facebook"></span></a>
-                        <a href="#" class="p-2"><span class="icon-twitter"></span></a>
-                        <a href="#" class="p-2"><span class="icon-instagram"></span></a>
-                        <a href="#" class="p-2"><span class="icon-vimeo"></span></a>
-                    </p>
+
+                {{--<div class="col-md-12"><h3 class="footer-heading mb-4 text-white">Мы в сетях</h3></div>--}}
+                {{--<div class="col-md-12">--}}
+                    {{--<p>--}}
+                        {{--<a href="#" class="pb-2 pr-2 pl-0"><span class="icon-facebook"></span></a>--}}
+                        {{--<a href="#" class="p-2"><span class="icon-twitter"></span></a>--}}
+                        {{--<a href="#" class="p-2"><span class="icon-instagram"></span></a>--}}
+                        {{--<a href="#" class="p-2"><span class="icon-vimeo"></span></a>--}}
+                    {{--</p>--}}
+                {{--</div>--}}
+
+                <h3 class="footer-heading mb-4 text-white">Контакты</h3>
+
+                    <p class="mb-0 font-weight-bold">Адрес клуба</p>
+                    <p class="mb-2"><a href="{{ route('contacts') }}">г.Москва, ул. Правды, д.1</a></p>
+
+                    <p class="mb-0 font-weight-bold">Телефон</p>
+                    <p class="mb-2">&#9742; <a class="a-link" href="tel:{{ __('+7-(999)-876-54-32') }}">+7-(999)-876-54-32</a></p>
+
+                    <p class="mb-0 font-weight-bold">Email-адрес</p>
+                    <p class="mb-0">&#9993; <a class="a-link" href="mailto:m-a-grigoreva@yandex.ru">support@sportfit.ru</a></p>
+
                 </div>
+
+
             </div>
         </div>
-        <div class="row pt-5 mt-5 text-center">
+        <div class="row p-4 text-center">
             <div class="col-md-12">
                 <small>
-                    &copy; <script>document.write(new Date().getFullYear());</script> Сайт разработан <i class="icon-heart text-danger" aria-hidden="true"></i>  <a href="#" >Григорьевой Марией</a> на Laravel5
+                    &copy; <script>document.write(new Date().getFullYear());</script> Сайт разработан <i class="icon-heart text-danger" aria-hidden="true"></i>  <a href="mailto:m-a-grigoreva@yandex.ru">Григорьевой Марией</a> на Laravel5
                 </small>
             </div>
         </div>

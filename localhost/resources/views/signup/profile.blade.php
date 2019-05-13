@@ -71,14 +71,14 @@ if (Auth::user() !== null) {
                         @csrf
                         {{ method_field("PUT") }}
 
-                        <div class="row p-4 bg-white" style="padding-bottom: 0px!important;">
-                            <div class="col">
+                        <div class="row p-4 bg-white">
+                            <div class="col mb-0">
                                 <h3 class="h5 text-black">Мое фото</h3>
                             </div>
                         </div>
 
                         <div class="row bg-white">
-                            <div class="col mb-3 text-center">
+                            <div class="col mb-2 text-center">
                                 <label for="file">
                                     {{--<img id="img_photo" src="{{ asset("{$avatar_src}") }}" alt="Image"--}}
                                          {{--class="img-fluid rounded-circle avatar">--}}
@@ -89,7 +89,7 @@ if (Auth::user() !== null) {
                         </div>
 
                         <div class="row bg-white text-center">
-                            <div class="col mb-5">
+                            <div class="col mb-3" style="padding-top: 0px!important;padding-bottom: 0px!important;">
                                 <label for="file" class="btn btn-primary text-white px-4 py-2">Выбрать</label>
                                 <input type="file" name="file" id="file" hidden>
 
@@ -98,14 +98,14 @@ if (Auth::user() !== null) {
                                 {{--@endif--}}
                             </div>
 
-                            <div class="col mb-5"  id="choose_btn_div">
+                            <div class="col mb-3"  id="choose_btn_div" style="padding-top: 0px!important;padding-bottom: 0px!important;">
                                 <input id="choose_btn" type="submit" value="Изменить"
                                        class="btn btn-primary-inactive text-white px-4 py-2">
                             </div>
 
                         </div>
-                        <div class="row bg-white">
-                            <div class="col mb-3 text-center">
+                        <div class="row bg-white" style="padding-top: 0px!important;padding-bottom: 10px!important;">
+                            <div class="col text-center">
                                 <span id="choosed"></span>
                             </div>
                         </div>
@@ -141,14 +141,14 @@ if (Auth::user() !== null) {
                         </div>
 
                         <div class="row p-2 bg-white">
-                            <div class="col md-0">
+                            <div class="col mb-3">
                             <label for="password-confirm" class="font-weight-bold">{{ __('Повторите пароль') }}</label>
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation"  autocomplete="new-password">
                             </div>
                         </div>
 
-                        <div class="row p-2 bg-white" style="padding-top: 10px!important;padding-bottom: 25px!important;">
-                            <div class="col">
+                        <div class="row p-2 bg-white">
+                            <div class="col  mb-4">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Установить новый пароль') }}
                                 </button>
