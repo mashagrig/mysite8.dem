@@ -1,16 +1,20 @@
 <?php
 
 namespace App;
+use App\Notifications\InfoNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use App\Mail\Users\UserPasswordResetEmail;
 use App\Mail\Users\UserVerificationEmail;
+use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContracts;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Mail;
 use Swift_TransportException;
+use Illuminate\Auth\Notifications\VerifyEmail as VerifyEmail;
 
 class User extends Authenticatable  implements MustVerifyEmailContracts
 {
@@ -143,8 +147,10 @@ class User extends Authenticatable  implements MustVerifyEmailContracts
         }
     }
 
+
 //    public function sendEmailVerificationNotification(){
 //        $email = $this->email;
+//       // $u = $this->verificationUrl($notifiable);
 //
 //        $email_admin = 'm-a-grigoreva@yandex.ru';
 //        $email_arr = [
@@ -161,5 +167,8 @@ class User extends Authenticatable  implements MustVerifyEmailContracts
 //        }
 //    }
 
+    public function sendEmailVerificationNotification(){
 
+        $this->notify(new InfoNotification());
+    }
 }

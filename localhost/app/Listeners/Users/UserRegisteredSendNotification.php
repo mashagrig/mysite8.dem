@@ -27,16 +27,22 @@ class UserRegisteredSendNotification
      * @param  UserRegisteredEvent  $event
      * @return void
      */
-    public function handle(UserRegisteredEvent $event)
+//    public function handle(UserRegisteredEvent $event)
+//    {
+//
+//        foreach ($event->email_arr as $email){
+//            try{
+//                Mail::to($email)->queue(new UserRegisteredEmail($email, $event->user, $event->password));//send
+//            }  catch(Swift_TransportException $e)
+//            {
+//                redirect()->back();//->with(['message'=>'нет подключения к интернету']);
+//            }
+//        }
+//    }
+    public function handle(Registered $event)
     {
-
-        foreach ($event->email_arr as $email){
-            try{
-                Mail::to($email)->queue(new UserRegisteredEmail($email, $event->user, $event->password));//send
-            }  catch(Swift_TransportException $e)
-            {
-                redirect()->back();//->with(['message'=>'нет подключения к интернету']);
-            }
+        if ($event->user instanceof MustVerifyEmail && ! $event->user->hasVerifiedEmail()) {
+            $event->user->sendEmailVerificationNotification();
         }
     }
 }

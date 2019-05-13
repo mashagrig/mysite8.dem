@@ -9,7 +9,7 @@
 <small><br />После подтверждения email для Вас доступны все услуги сайта и возможность редактировать данные в Личном кабинете.</small>
 @endcomponent
 
-@component('mail::button', ['url' => route('verifySuccess')])
+@component('mail::button', ['url' => $route])
 Подтвердить email и войти на сайт
 @endcomponent
 
