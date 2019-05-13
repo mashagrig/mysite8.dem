@@ -34,9 +34,29 @@ $section = '';
                 </div></div>
         @endif
         {{------------------------------------------------------------}}
+        {{--<script type="text/javascript">--}}
+            {{--window.addEventListener('DOMContentLoaded', function () {--}}
+                {{--$("select").change( function (e) {--}}
+                    {{--e.preventDefault();--}}
+                    {{--$.ajax({--}}
+                        {{--data: $("#form").serialize(),--}}
+                        {{--type: 'POST',--}}
+                        {{--url: "{{ action('shedule\SheduleController@store') }}",--}}
+                        {{--success: function (data) {--}}
+
+                            {{--console.log(data);--}}
+                         {{--//   $('#btn_show').click();--}}
+                        {{--}, error: function (msg) {--}}
+                       {{--//     console.log(msg);--}}
+                        {{--}--}}
+                    {{--});--}}
+                {{--});--}}
+            {{--});--}}
+        {{--</script>--}}
+        {{------------------------------------------------------------}}
 
         <div class="row">
-            <form method='POST' action="{{ action('shedule\SheduleController@store') }}" class="row">
+            <form method='POST' id="form" action="{{ action('shedule\SheduleController@store') }}" class="row">
                 {{--<input name="_token" type="hidden" value="{{ csrf_token() }}">--}}
                 {{ csrf_field() }}
 
@@ -48,8 +68,8 @@ $section = '';
                         <select id="period" name="period">
                             {{--<option  value="" hidden></option>--}}
                             <option value="today"  @if($period_select === "today")  selected @endif>Сегодня</option>
-                            <option value="week" @if($period_select === "week")  selected @endif>На неделю</option>
-                            <option value="month"  selected>На месяц</option>
+                            <option value="week" @if($period_select === "week")  selected @endif >На неделю</option>
+                            <option value="month" @if($period_select === "month")  selected @endif>На месяц</option>
 
                             {{--<option value="week" @if($program_select === "week")  selected @endif>На неделю</option>--}}
                             {{--<option value="week" {{ old('period') === "week" ? 'selected' : '' }}>На неделю</option>--}}
@@ -64,10 +84,10 @@ $section = '';
                         <label class="mr-sm-2" for="programs">Выберете программу:</label><br/>
                         <select id="programs" name="programs"
                                 {{--onchange="function f() {--}}
-                           {{--$('#trainers option').prop('selected', false);--}}
-                            {{--$('#trainers option:eq(1)').prop('selected',true)--}}
-                    {{--//    $('#trainers option[value=]').prop('selected', true);--}}
-                     {{--//   $('#trainers option:contains('Все тренеры')').prop('selected', true);--}}
+                                    {{--$.ajax({--}}
+                                    {{----}}
+                                    {{--});--}}
+                           {{--$('#btn_show').click();--}}
                         {{--}"--}}
                         >
                             {{--<option value="" hidden></option>--}}
@@ -158,7 +178,7 @@ $section = '';
             <div class="col  text-md-right bg-white  mb-3">
                 {{--<div class="text-md-right">--}}
                     <br/>
-                    <input type="submit" class="btn btn-primary rounded text-white px-4" value="Показать">
+                    <input type="submit" id="btn_show" class="btn btn-primary rounded text-white px-4" value="Показать">
                 {{--</div>--}}
             </div>
             </form>

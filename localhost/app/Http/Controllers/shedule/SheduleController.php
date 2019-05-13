@@ -18,17 +18,7 @@ class SheduleController extends Controller
      */
     public function index()
     {
-//        $request = new Request();
-//        $request->program_select = '';
-//        $request->trainers_select = '22';
-//        $request->shedule_for_date = '';
-//        $request->check_shedule_id = '';
-
-//        $request->max_date_select =  date('Y-m-d', time() + 86400*31);
-//        $request->period = "month";
-//        $shedule_composer_ind = new SheduleComposer($request);
         return view('shedule.page_shedule');
-
     }
 
     /**
@@ -186,8 +176,7 @@ class SheduleController extends Controller
 
         $shedule_composer = new SheduleComposer($request);
 
-                return view('shedule.page_shedule');
-
+                return view('shedule.page_shedule')->with('shedule_composer',$shedule_composer);
     }
 
     /**

@@ -34,8 +34,8 @@ class SheduleComposer
         $shedule_for_date ='';
         $period_select ='';
         $check_shedule_id ='';
-        $request->max_date_select =  date('Y-m-d', time() + 86400*31);
-        $request->period = "month";
+       // $max_date_select =  date('Y-m-d', time() + 86400*31);
+
 //-------------------------------------
         $period_select ='month';
             if(empty($request)){
@@ -61,10 +61,13 @@ class SheduleComposer
         {
             $trainers_select = $request->trainers;
         }
-        if(isset($request->period)&& !empty($request->period)) {
-            $period_select = $request->period;
-        }
 
+        if(isset($request->period)&& $request->period!== null) {
+            $period_select = $request->period;
+        }else{
+            $period_select ='month';
+            $max_date_select =  date('Y-m-d', time() + 86400*31);
+        }
 
 
 
