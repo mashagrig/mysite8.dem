@@ -61,7 +61,7 @@ class InfoNotification extends Notification
         ->markdown('emails.users.user_verification', [
               'route'=>$r,
         ])
-            ->subject(  "SportFit: Регистрация на сайте - верификсмсмация")
+            ->subject(  "SportFit: Регистрация на сайте")
             ->from("m-a-grigoreva@yandex.ru");
     }
 

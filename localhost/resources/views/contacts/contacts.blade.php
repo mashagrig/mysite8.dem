@@ -2,6 +2,19 @@
 
 <div class="py-5 bg-light">
     <div class="container">
+        {{--------------status-------------------------------------------------------------------------------------}}
+        @if (session('status'))
+            <div class="row  text-center">
+                <div class="col-md-12  text-center">
+                    <div class="form-group row  text-center">
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    </div>
+
+                </div></div>
+        @endif
+        {{------------------------------------------------------------}}
         <div class="row">
 
             <div class="col-lg-4">

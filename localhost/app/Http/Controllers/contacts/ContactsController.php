@@ -20,7 +20,7 @@ class ContactsController extends Controller
      */
     public function index()
     {
-        return view('contacts.page_contacts');
+        return view('contacts.page_contacts')->with('status');
     }
 
     /**
@@ -147,10 +147,12 @@ class ContactsController extends Controller
         }
         else{
             //вывести сообщение, что форма не заполнена
+            $message = 'Вы заполнили не все поля.';
+            return redirect()->back()->with('status', $message);
         }
 
-
-        return redirect()->back();
+        $message = 'Вы успешно отправили сообщение. В ближайшее время наш менеджер свяжется с Вами.';
+        return redirect()->back()->with('status', $message);
       //  return redirect()->action('contacts\ContactsController@index');
     }
 
