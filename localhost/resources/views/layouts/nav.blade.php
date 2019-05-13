@@ -71,6 +71,7 @@
                 <li class="nav-item dropdown">
                     <a id="navbarDropdown " class="nav-link dropdown-toggle {{ Request::is('programs*') ? 'active' : '' }}" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>Программы<span class="caret"></span></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ route('programs') }}">{{ __('Все программы') }}</a>
                         <a class="dropdown-item" href="{{ route('morning_programs') }}">{{ __('Утренние программы') }}</a>
                         <a class="dropdown-item" href="{{ route('body_building') }}">{{ __('Боди билдинг') }}</a>
                         <a class="dropdown-item" href="{{ route('stretching') }}">{{ __('Стретчинг') }}</a>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\programs;
 
+use App\Http\ViewComposers\SheduleComposer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -44,9 +45,17 @@ class ProgramsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
-        //
+//        $request->programs = $id;
+//        // $request->max_date_select =  date('Y-m-d', time() + 86400*31);
+//        $request->max_date_select = date('Y-m-d', time() + 86400*7);
+//        $request->period = "week";
+
+
+        $shedule_composer = new SheduleComposer($request);
+        //return redirect()->action('shedule\SheduleController@index')->with($shedule_composer_id);
+        return view('shedule.page_shedule');
     }
 
     /**

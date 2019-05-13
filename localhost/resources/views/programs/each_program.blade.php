@@ -6,6 +6,8 @@
 
     $file = $arr[$k]['file'];
     $title = $arr[$k]['title'];
+    $program_id = $arr[$k]['program_id'];
+    $title_bd = $arr[$k]['title_bd'];
     $text = $arr[$k]['text'];
     $link = $arr[$k]['link'];
     ?>
@@ -32,7 +34,15 @@
                     {{--<div><img src="images/person_3.jpg" alt="Image" class="rounded-circle trainer" data-toggle="tooltip" data-placement="top" title="Ben Smith"></div>--}}
                 {{--</div>--}}
 
-                <p><a href="{{ route('shedule') }}" class="btn btn-outline-primary py-2 px-4">Записаться</a></p>
+                {{--<p><a href="{{ route('shedule') }}" class="btn btn-outline-primary py-2 px-4">Записаться</a></p>--}}
+                <form method='POST' action="{{ action('programs\ProgramsController@show', ['id'=>$program_id]) }}">
+                    {{ csrf_field() }}
+                    {{ method_field("PUT") }}
+                    {{--------------------------Mail--hidden-------------------------------------------}}
+                    <input id="programs" type="text" name="programs" value="{{ $title_bd }}" hidden>
+                    {{---------------------------------------------------------------------}}
+                <p><input type="submit" value="Записаться" class="btn btn-primary text-white px-4 py-2"></p>
+                </form>
             </div>
 
                 @if($count%2 !== 0)
@@ -41,6 +51,7 @@
                 </div>
                 @endif
                 <?php $count ++; ?>
+
         </div>
     </div>
 </div>

@@ -34,9 +34,8 @@ class SheduleComposer
         $shedule_for_date ='';
         $period_select ='';
         $check_shedule_id ='';
-
-      //  $period_select ='month';
-      //  $max_date_select = date('Y-m-d', time() + 86400*31);
+        $request->max_date_select =  date('Y-m-d', time() + 86400*31);
+        $request->period = "month";
 //-------------------------------------
         $period_select ='month';
             if(empty($request)){
@@ -48,12 +47,23 @@ class SheduleComposer
                 $check_shedule_id ='';
             }else{
                 $max_date_select = $request->max_date_select;
-                $program_select = $request->program_select;
-                $trainers_select =$request->trainers_select;
+                $program_select = $request->programs;
+                $trainers_select =$request->trainers;
                 $shedule_for_date = $request->shedule_for_date;
-                $period_select = $request->period_select;
+                $period_select = $request->period;
                 $check_shedule_id = $request->check_shedule_id;
             }
+        if(isset($request->programs)&&!empty($request->programs))
+        {
+            $program_select = $request->programs;
+        }
+        if(isset($request->trainers)&&!empty($request->trainers))
+        {
+            $trainers_select = $request->trainers;
+        }
+        if(isset($request->period)&& !empty($request->period)) {
+            $period_select = $request->period;
+        }
 
 
 
@@ -66,9 +76,7 @@ class SheduleComposer
             $count_month = 1;
             $last_date = date_modify($date, "+{$count_month} month")->format('Y-m-d');
 
-            if(isset($request->period)&& !empty($request->period)) {
-                $period_select = $request->period;
-            }
+
                 switch ( $period_select) {
                     case "today":
                         $max_date_select = date("Y-m-d");
@@ -87,16 +95,7 @@ class SheduleComposer
 //                    break;
                 }
 
-                if(isset($request->programs))
-                {
-                    $program_select = $request->programs;
 
-
-                }
-                if(isset($request->trainers)&&!empty($request->trainers))
-                {
-                    $trainers_select = $request->trainers;
-                }
                 //только если выбран период для фильтра расписания!!!
                 view()->share('shedule_for_date',
                     $shedule_for_date = Shedule::select(

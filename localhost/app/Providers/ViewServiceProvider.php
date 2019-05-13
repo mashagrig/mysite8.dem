@@ -8,6 +8,7 @@ use App\Http\ViewComposers\CardComposer;
 use App\Http\ViewComposers\CardStatusComposer;
 use App\Http\ViewComposers\CommentsComposer;
 use App\Http\ViewComposers\ProfileComposer;
+use App\Http\ViewComposers\ProgramComposer;
 use App\Http\ViewComposers\QuestionsComposer;
 use App\Http\ViewComposers\DestroySheduleComposer;
 use App\Http\ViewComposers\GuestComposer;
@@ -15,7 +16,6 @@ use App\Http\ViewComposers\IconBlocks\IconCardsComposer;
 use App\Http\ViewComposers\IconBlocks\IconPartnersComposer;
 use App\Http\ViewComposers\IconBlocks\IconPogramsComposer;
 use App\Http\ViewComposers\MessageComposer;
-use App\Http\ViewComposers\ProgramComposer;
 use App\Http\ViewComposers\SheduleComposer;
 use App\Http\ViewComposers\SheduleStatusComposer;
 use App\Http\ViewComposers\SignupCardComposer;
@@ -132,6 +132,7 @@ class ViewServiceProvider extends ServiceProvider
 
 //-----Program-------------------
         view()->composer([
+         //   'programs.page_programs',
             'programs.each_program',
         ], ProgramComposer::class);
 
