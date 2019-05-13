@@ -36,7 +36,8 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/login/success';
+    protected $redirectTo = 'verification.send';
+ //   protected $redirectTo = '/login/success';
  //   protected $generatedPassword;
     /**
      * Create a new controller instance.
@@ -114,7 +115,6 @@ class RegisterController extends Controller
 
                 //--------------------------------------------------
             }
-
 
             return $new_user;
         }

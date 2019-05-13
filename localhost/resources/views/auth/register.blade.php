@@ -98,28 +98,25 @@
                         </div>
 
 
-                        <div class="form-group row">
-                            <div class="col-md-4"></div>
-                            <div class="col-md-6">
+                        {{--<div class="form-group row">--}}
+                            {{--<div class="col-md-4"></div>--}}
+                            {{--<div class="col-md-6">--}}
+                                    {{--<img src="{{ captcha_src('flat') }}" alt="" id="img_captcha">--}}
+                                    {{--<a  id="btn-refresh" class="a-link" href="">Обновить</a>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                        {{--<div class="form-group row">--}}
+                            {{--<label for="captcha" class="col-md-4 col-form-label text-md-right">{{ __('Введите символы, указанные на картинке') }}</label>--}}
+                            {{--<div class="col-md-6">--}}
+                                    {{--<input id="captcha"  class="form-control{{ $errors->has('captcha') ? ' is-invalid' : '' }}" name="captcha" value="">--}}
 
-                                    <img src="{{ captcha_src('flat') }}" alt="" id="img_captcha">
-                                    <a  id="btn-refresh" class="a-link" href="">Обновить</a>
-
-
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="captcha" class="col-md-4 col-form-label text-md-right">{{ __('Введите символы, указанные на картинке') }}</label>
-                            <div class="col-md-6">
-                                    <input id="captcha"  class="form-control{{ $errors->has('captcha') ? ' is-invalid' : '' }}" name="captcha" value="">
-
-                                    @if ($errors->has('captcha'))
-                                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('captcha') }}</strong>
-                                    </span>
-                                    @endif
-                            </div>
-                        </div>
+                                    {{--@if ($errors->has('captcha'))--}}
+                                        {{--<span class="invalid-feedback" role="alert">--}}
+                                        {{--<strong>{{ $errors->first('captcha') }}</strong>--}}
+                                    {{--</span>--}}
+                                    {{--@endif--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
 
 
 

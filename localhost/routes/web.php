@@ -144,22 +144,24 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('passw
 //страница с формой для сброса пароля
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 
+Route::get('/password/resetSuccess', function () {
+    return view('auth.resetSuccess');
+});
 //--------- password - verification -----------------
+//\Illuminate\Support\Facades\Auth::routes(['verify' => true]);
 
 //просто страница с формой для верификации пароля - регает ссылку с VerifContr после всех успешно выполненных методов и действий
 Route::get('/password/verification', function () {
     return view('auth.verifySuccess');
-});
-Route::get('/password/resetSuccess', function () {
-    return view('auth.resetSuccess');
-});
+})->name('verifySuccess');
+
 
 // запрос для верификации - регает ссылку с RegisterContr и из шаблоне регистрации!
 Route::get('verification.send', function () {
     return view('auth.verify');
 });
 Route::get('/password/send', 'Auth\VerificationController@send')->name('verification.send');
-Route::get('/password/verify', 'Auth\VerificationController@verify')->name('verification.verify');
+//Route::get('/password/verify', 'Auth\VerificationController@verify')->name('verification.verify');
 
 
 // запрос для верификации - регает ссылку с RegisterContr и из шаблоне регистрации!
@@ -175,6 +177,10 @@ Route::get('/password/resend', 'Auth\VerificationController@resend')->name('veri
 //Route::get('/password/resend', 'Auth\VerificationController@verify');
 
 
+
+Route::get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
+Route::get('email/verify/{id}', 'Auth\VerificationController@verify')->name('verification.verify');
+//Route::get('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
 //--------- refresh_captcha -----------------
 
 Route::get('/register/refresh_captcha', 'Auth\RegisterController@refreshCaptcha')->name('refresh_captcha');
