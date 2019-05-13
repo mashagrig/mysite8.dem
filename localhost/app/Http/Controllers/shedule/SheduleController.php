@@ -199,12 +199,12 @@ class SheduleController extends Controller
     public function show($id, Request $request)
     {
         if(isset($request->item)&&$request->item === '$trainers_item'){
-            $request->trainers = $id;
+         //   $request->trainers = $id;
             $request->programs = '';
         }
         elseif(isset($request->item)&&$request->item === '$programs_item'){
             $request->trainers = '';
-            $request->programs = $id;
+          //  $request->programs = $id;
         }
 
 //       // $request->max_date_select =  date('Y-m-d', time() + 86400*31);

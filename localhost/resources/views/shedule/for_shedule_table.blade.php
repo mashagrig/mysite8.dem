@@ -15,8 +15,6 @@
         </div>
 
 
-
-
         <div class="row">
             <form method='POST' action="{{ action('shedule\SheduleController@store') }}" class="row">
                 {{--<input name="_token" type="hidden" value="{{ csrf_token() }}">--}}
@@ -82,14 +80,14 @@
 
                                     @foreach($shedule_for_date_u as $shedule)
 
-                                    {{--<option value="{{ $shedule->trainer_id }}"--}}
-                                    {{--@if($trainers_select === "{$shedule->trainer_id }")  selected @endif>--}}
-                                    {{--{{ $shedule->trainer_name }}--}}
-                                    {{--</option>--}}
+                                        <option value="{{ $shedule->trainer_id }}"
+                                                @if($trainers_select === "{$shedule->trainer_id }")  selected @endif>
+                                         {{ $shedule->trainer_name }}
+                                        </option>
 
-                                <option value="{{ $shedule->trainer_id }}">
-                                    {{ $shedule->trainer_name }}
-                                </option>
+                                {{--<option value="{{ $shedule->trainer_id }}">--}}
+                                    {{--{{ $shedule->trainer_name }}--}}
+                                {{--</option>--}}
 
                                 @endforeach
                             @endif
