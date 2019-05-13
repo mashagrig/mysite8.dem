@@ -153,8 +153,8 @@
                                                                             <input id="check_card_id" type="checkbox"
                                                                                    name="check_card_id[]"
                                                                                    value="{{ $singup[$k]['card_id'] }}"
-                                                                                   class="{{ $status_check_style }}"> -
-                                                                            {{ $singup[$k]['card_id'] }}
+                                                                                   class="{{ $status_check_style }}">
+                                                                            {{--{{ $singup[$k]['card_id'] }}--}}
 
 
                                                                         </label>

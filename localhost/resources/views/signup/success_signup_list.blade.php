@@ -143,8 +143,8 @@
                                                                         <input id="check_shedule_id" type="checkbox"
                                                                                name="check_shedule_id[]"
                                                                                value="{{ $singup[$k]['shedule_id'] }}"
-                                                                               class="{{ $status_check_style }}"> -
-                                                                        {{ $singup[$k]['shedule_id'] }}
+                                                                               class="{{ $status_check_style }}">
+                                                                        {{--{{ $singup[$k]['shedule_id'] }}--}}
 
 
                                                                     </label>

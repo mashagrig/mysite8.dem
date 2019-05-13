@@ -170,17 +170,19 @@ class SignupCardController extends Controller
                     ->detach($user);
 
                 $card_id[] = $id;
-            }}
-        //отправляем уведомление о заказе карты с проверкой в листенере-----------------------
-        $email_admin = 'm-a-grigoreva@yandex.ru';
-        $email_arr = [
-            $email,
-            $email_admin
-        ];
-        event(new DestroyCardEvent($email_arr, $card_id));
-        //----------------------------------------------------------------------
-        $message = 'Вы успешно отменили заявку на получение клубной карты. В ближайшее время наш менеджер свяжется с Вами для уточнения отмены заказа.';
-
+            }
+            //отправляем уведомление о заказе карты с проверкой в листенере-----------------------
+            $email_admin = 'm-a-grigoreva@yandex.ru';
+            $email_arr = [
+                $email,
+                $email_admin
+            ];
+            event(new DestroyCardEvent($email_arr, $card_id));
+            //----------------------------------------------------------------------
+            $message = 'Вы успешно отменили заявку на получение клубной карты. В ближайшее время наш менеджер свяжется с Вами для уточнения отмены заказа.';
+            return redirect()->action('SignupCardController@index')->with('status', $message);
+        }
+        $message = 'Вы не выбрали ни одной карты для отмены заказа.';
         return redirect()->action('SignupCardController@index')->with('status', $message);
     }
 }

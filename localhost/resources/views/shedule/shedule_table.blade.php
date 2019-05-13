@@ -124,7 +124,7 @@
                                name="check_shedule_id[]"
                                value="{{ $shedule->shedule_id }}"
                                class="{{ $status_check_style }}">
-                        {{ $shedule->shedule_id }}
+                        {{--{{ $shedule->shedule_id }}--}}
                     </label>
                 </td>
             @endcan

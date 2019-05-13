@@ -4,27 +4,52 @@
  // 	once: false
  // });
 
- // $('.btn').each(function() {
- //        $(this).on('click', function () {
- //            // $('#preloader').fadeIn('quick', function () {
- //            //     $(this).show();
- //            // });
- //            $('#preloader').show();
- //
- //        });
- //    });
 
- $(window).on('upload', function () {
-     $('#preloader').fadeIn('slow', function () {
-         $(this).show();
+     $('.btn').on('click', function () {
+
+         $.ajax({
+             type: 'GET',
+             url: "",
+             success: function (data) {
+
+                     $('#preloader').show();
+
+             }
+         });
      });
+
+ // $('.btn').each(function () {
+ //     $(this).on('click', function () {
+ //
+ //         $.ajax({
+ //             type: 'GET',
+ //             url: "",
+ //             success: function (data) {
+ //
+ //                 $('#preloader').fadeOut('slow', function () {
+ //                     $(this).show();
+ //                 });
+ //
+ //             }
+ //         });
+ //     });
+ // });
+
+
+
+ // $(window).on('upload', function () {
+ //     $('#preloader').fadeIn('slow', function () {
+ //         $(this).show();
+ //     });
     // onclick="$('#preloader').show()"
- });
+// });
+
+
+
  $(window).on('load', function () {
      $('#preloader').fadeOut('slow', function () {
          $(this).remove();
      });
-
  });
 
 

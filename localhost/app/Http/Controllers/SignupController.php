@@ -150,7 +150,7 @@ class SignupController extends Controller
         $email = Auth::user()->email;
 
         //для всех выбранных позиций в расписании
-        if (isset($request->check_shedule_id) && (!empty($request->check_shedule_id))) {
+        if (isset($request->check_shedule_id) && ($request->check_shedule_id!==null)) {
 
             $check_shedule_id = $request->check_shedule_id;
 
@@ -162,18 +162,22 @@ class SignupController extends Controller
                     ->detach($user);
 
                 $shedule_id[] = $id;
-            }}
+            }
 
-        //отправка письма с уведомлением о записи на тренировку (проверка на коннект в листенере)
-        //--------------------------------------------------
-        $email_admin = 'm-a-grigoreva@yandex.ru';
-        $email_arr = [
-            $email,
-            $email_admin
-        ];
-        event(new DestroySheduleEvent($email_arr, $shedule_id));
-        //---------------------------------------------------
-        $message = 'Вы успешно отменили запись на тренировку. В ближайшее время наш менеджер свяжется с Вами для уточнения отмены записи.';
+            //отправка письма с уведомлением о записи на тренировку (проверка на коннект в листенере)
+            //--------------------------------------------------
+            $email_admin = 'm-a-grigoreva@yandex.ru';
+            $email_arr = [
+                $email,
+                $email_admin
+            ];
+            event(new DestroySheduleEvent($email_arr, $shedule_id));
+            //---------------------------------------------------
+            $message = 'Вы успешно отменили запись на тренировку. В ближайшее время наш менеджер свяжется с Вами для уточнения отмены записи.';
+            return redirect()->action('SignupController@index')->with('status', $message);
+        }
+
+        $message = 'Вы не выбрали ни одной записидля отмены.';
         return redirect()->action('SignupController@index')->with('status', $message);
     }
 }
