@@ -133,14 +133,17 @@ class CommentsController extends Controller
             //сообщение в письмо перердаем напрямую отсюда через событие, а не через компоузер
             event(new AddCommentEvent($email_arr, $message));
             //---------------------------------------------------
-
+            $message = 'Вы успешно отправили отзыв на сайт';
+            return redirect()->back()->with('status', $message);
         }
         else{
             //вывести сообщение, что форма не заполнена
+            $message = 'Не заполнено поле отзыва для отправки на сайт';
+            return redirect()->back()->with('status', $message);
         }
 
 
-        return redirect()->back();
+     //   return redirect()->back();
         //  return redirect()->action('contacts\ContactsController@index');
     }
 

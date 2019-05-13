@@ -1,3 +1,11 @@
+<?php
+$select_trainer_name = '';
+$section = '';
+
+?>
+
+
+
 <div id="shedule" class="site-section">
     <div class="container">
         <div class="row">
@@ -13,7 +21,19 @@
 
             </div>
         </div>
+        {{--------------status-------------------------------------------------------------------------------------}}
+        @if (session('status'))
+            <div class="row  text-center">
+                <div class="col-md-12  text-center">
+                    <div class="form-group row  text-center">
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    </div>
 
+                </div></div>
+        @endif
+        {{------------------------------------------------------------}}
 
         <div class="row">
             <form method='POST' action="{{ action('shedule\SheduleController@store') }}" class="row">
@@ -62,8 +82,30 @@
                     </div>
 
                 </div>
-
-
+                @if($program_select !== "")
+                <?php
+                switch ($program_select){
+                    case "morning_programs":
+                        $section = "Утренние программы";
+                        break;
+                    case "body_building":
+                        $section = "Боди билдинг";
+                        break;
+                    case "stretching":
+                        $section = "Стретчинг";
+                        break;
+                    case "fitness":
+                        $section = "Фитнес";
+                        break;
+                    case "yoga":
+                        $section = "Йога";
+                        break;
+                    case "child_programs":
+                        $section = "Детсткие программы";
+                        break;
+                }
+                ?>
+                @endif
                 <div class="col-md-auto toolbar-form bg-white  mb-3">
                     <div class="tolbar-select">
                         <label class="mr-sm-2" for="trainers">Выберете тренера:</label><br/>
@@ -80,15 +122,19 @@
 
                                     @foreach($shedule_for_date_u as $shedule)
 
-                                        <option value="{{ $shedule->trainer_id }}"
-                                                @if($trainers_select === "{$shedule->trainer_id }")  selected @endif>
-                                         {{ $shedule->trainer_name }}
-                                        </option>
+                                        {{--<option value="{{ $shedule->trainer_id }}"--}}
+                                                {{--@if($trainers_select === "{$shedule->trainer_id }")  selected @endif>--}}
+                                         {{--{{ $shedule->trainer_name }}--}}
+                                        {{--</option>--}}
 
-                                {{--<option value="{{ $shedule->trainer_id }}">--}}
-                                    {{--{{ $shedule->trainer_name }}--}}
-                                {{--</option>--}}
-
+                                <option value="{{ $shedule->trainer_id }}">
+                                    {{ $shedule->trainer_name }}
+                                </option>
+                                        @if($trainers_select === "{$shedule->trainer_id }")
+                                           <?php
+                                          $select_trainer_name = $shedule->trainer_name;
+                                            ?>
+                                             @endif>
                                 @endforeach
                             @endif
 
@@ -117,6 +163,26 @@
             </div>
             </form>
         </div>
+        {{-----------------------------------------------------------------}}
+        <div class="p-4">
+        @if($program_select !== '')
+        <div class="row">
+            <div class="col">
+                <span>Секция: </span><span class="h3 orange">{{ $section }}</span>
+            </div>
+        </div>
+        @endif
+        @if($select_trainer_name !== '')
+        <div class="row mb-3">
+            <div class="col">
+                <span>Тренер: </span><span class="h3 orange">{{ $select_trainer_name }}</span>
+            </div>
+        </div>
+        @endif
+    </div>
+        {{-----------------------------------------------------------------}}
+
+
         <div class="row">
             <div class="col">
                     @include('shedule.shedule_table')

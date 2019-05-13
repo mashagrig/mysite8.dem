@@ -36,7 +36,19 @@ $comments_user = $comments
                 </div>
             </div>
 
+            {{--------------status-------------------------------------------------------------------------------------}}
+            @if (session('status'))
+                <div class="row  text-center">
+                    <div class="col-md-12  text-center">
+                        <div class="form-group row  text-center">
+                            <div class="alert alert-success" role="alert">
+                                {{ session('status') }}
+                            </div>
+                        </div>
 
+                    </div></div>
+            @endif
+            {{------------------------------------------------------------}}
 
             {{-----------------------------------------------------------------------}}
             <div class="row">

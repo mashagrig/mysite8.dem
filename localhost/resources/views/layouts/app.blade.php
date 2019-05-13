@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 @include('layouts.head')
 
-<body style="background-image: url('{{ asset("images/bg.jpg") }}');">
+<body style="background-image: url('{{ asset("images/bg.jpg") }}'); width: 100%!important;">
 
 
 
@@ -22,7 +22,7 @@
         width: 120pt;
         height: 120pt;
         position: fixed;
-        top: 45%;
+        top: 50%;
         left: 45%;
         z-index: 5000; }
     #preloader .circle-preloader {
@@ -86,7 +86,7 @@
 {{------------------------------------------------------------------}}
 <!-- ##### Preloader ##### -->
 <div id="preloader">
-    <i class="circle-preloader"></i>
+    <span class="circle-preloader"></span>
 </div>
 
 {{------------------------------------------------------------------}}

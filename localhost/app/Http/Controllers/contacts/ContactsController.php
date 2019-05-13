@@ -143,7 +143,8 @@ class ContactsController extends Controller
             //сообщение в письмо перердаем напрямую отсюда через событие, а не через компоузер
             event(new ContactsEvent($email_arr, $message));
             //---------------------------------------------------
-
+            $message = 'Вы успешно отправили сообщение. В ближайшее время наш менеджер свяжется с Вами.';
+            return redirect()->back()->with('status', $message);
         }
         else{
             //вывести сообщение, что форма не заполнена
@@ -151,8 +152,7 @@ class ContactsController extends Controller
             return redirect()->back()->with('status', $message);
         }
 
-        $message = 'Вы успешно отправили сообщение. В ближайшее время наш менеджер свяжется с Вами.';
-        return redirect()->back()->with('status', $message);
+
       //  return redirect()->action('contacts\ContactsController@index');
     }
 

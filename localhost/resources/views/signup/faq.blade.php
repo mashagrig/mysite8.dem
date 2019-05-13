@@ -21,7 +21,19 @@ if (Auth::user() !== null) {
                     <h2 class="site-section-heading text-center">Обратная связь</h2>
                 </div>
             </div>
+            {{--------------status-------------------------------------------------------------------------------------}}
+            @if (session('status'))
+                <div class="row  text-center">
+                    <div class="col-md-12  text-center">
+                        <div class="form-group row  text-center">
+                            <div class="alert alert-success" role="alert">
+                                {{ session('status') }}
+                            </div>
+                        </div>
 
+                    </div></div>
+            @endif
+            {{------------------------------------------------------------}}
 
             {{---------------------------------------------------------------------------}}
 

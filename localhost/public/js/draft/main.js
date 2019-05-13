@@ -5,70 +5,13 @@
  // });
 
 
-     $('.btn').on('click', function () {
 
-         $.ajax({
-             type: 'GET',
-             url: "",
-             success: function (data) {
-
-                     $('#preloader').show();
-
-             }
-         });
-     });
-
- // $('.btn').each(function () {
- //     $(this).on('click', function () {
- //
- //         $.ajax({
- //             type: 'GET',
- //             url: "",
- //             success: function (data) {
- //
- //                 $('#preloader').fadeOut('slow', function () {
- //                     $(this).show();
- //                 });
- //
- //             }
- //         });
- //     });
- // });
-
-
-
- // $(window).on('upload', function () {
- //     $('#preloader').fadeIn('slow', function () {
- //         $(this).show();
- //     });
-    // onclick="$('#preloader').show()"
-// });
-
-
-
- $(window).on('load', function () {
-     $('#preloader').fadeOut('slow', function () {
-         $(this).remove();
-     });
- });
 
 
 jQuery(document).ready(function($) {
 
 	"use strict";
-// if($('.btn')){
-//     $('.btn').each(function() {
-//         // :: 1.0 Preloader Active Code
-//         $(this).on('click', function () {
-//             // $('#preloader').fadeIn('quick', function () {
-//             //     $(this).show();
-//             // });
-//             $(this).show();
-//
-//         });
-//     });
-//
-// };
+
 
 
     // jQuery(function($){
@@ -81,7 +24,7 @@ jQuery(document).ready(function($) {
 
 
 
-
+//решение в шаблоне
         // var btn_captcha = document.getElementById("btn-refresh");
         // btn_captcha.addEventListener('click', function(e){
         //     e.preventDefault();
@@ -506,8 +449,12 @@ jQuery(document).ready(function($) {
    // }
 
 
+
+
+
+
 if($("#file").length > 0){
-    document.getElementById("choose_btn").disabled = true;
+            document.getElementById("choose_btn").disabled = true;
 };
 
     //jquery подключаем в подвале, поэтому вызов в коде не сработает
@@ -548,8 +495,32 @@ if($("#file").length > 0){
     });
 
 
+    if($(".btn").length > 0){
 
-
+    $(".btn").on('click', function () {
+        $.ajax({
+            type: 'GET',
+            url: "",
+            success: function (data) {
+                $('#preloader').fadeOut('fast', function () {
+                    $('#preloader').removeAttr('hidden');
+                });
+            }
+        });
+    });
+};
 
 });
 
+
+ // $(window).unload(function () {
+ //         $('#preloader').fadeOut('slow', function () {
+ //             $("#preloader").removeAttr('hidden');
+ //         });
+ // });
+
+ $(window).load(function () {
+         $('#preloader').fadeOut('fast', function () {
+             document.getElementById("preloader").hidden = true;
+         });
+ });

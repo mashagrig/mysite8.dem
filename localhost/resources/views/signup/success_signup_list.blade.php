@@ -163,7 +163,7 @@
                         @can("manipulate", "App\SheduleUser")
                                @if($format_date!=='')
                                   <div class="col text-md-right  mb-3">
-                                         <input type="submit" class="btn btn-primary rounded text-white px-4" value="Отменить">
+                                         <input  id="btn" type="submit" class="btn btn-primary rounded text-white px-4" value="Отменить">
                                    </div>
                                @endif
                                     </form>

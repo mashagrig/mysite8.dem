@@ -99,7 +99,7 @@ class SignupController extends Controller
             return redirect()->action('SignupController@index')->with('status', $message);
         }
         $message = 'Вы не выбрали ни одной тренировки для записи.';
-        return redirect()->action('SignupController@index')->with('status', $message);
+        return redirect()->back()->with('status', $message);
     }
 
     /**
