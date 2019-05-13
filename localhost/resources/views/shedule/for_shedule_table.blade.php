@@ -34,25 +34,25 @@ $section = '';
                 </div></div>
         @endif
         {{------------------------------------------------------------}}
-        {{--<script type="text/javascript">--}}
-            {{--window.addEventListener('DOMContentLoaded', function () {--}}
-                {{--$("select").change( function (e) {--}}
-                    {{--e.preventDefault();--}}
-                    {{--$.ajax({--}}
-                        {{--data: $("#form").serialize(),--}}
-                        {{--type: 'POST',--}}
-                        {{--url: "{{ action('shedule\SheduleController@store') }}",--}}
-                        {{--success: function (data) {--}}
+        <script type="text/javascript">
+            window.addEventListener('DOMContentLoaded', function () {
+                $("select").change( function (e) {
+                    e.preventDefault();
+                    $.ajax({
+                        data: $("#form").serialize(),
+                        type: 'POST',
+                        url: "{{ action('shedule\SheduleController@store') }}",
+                        success: function (data) {
 
-                            {{--console.log(data);--}}
-                         {{--//   $('#btn_show').click();--}}
-                        {{--}, error: function (msg) {--}}
-                       {{--//     console.log(msg);--}}
-                        {{--}--}}
-                    {{--});--}}
-                {{--});--}}
-            {{--});--}}
-        {{--</script>--}}
+                          //  console.log(data);
+                            $('#btn_show').click();
+                        }, error: function (msg) {
+                       //     console.log(msg);
+                        }
+                    });
+                });
+            });
+        </script>
         {{------------------------------------------------------------}}
 
         <div class="row">
@@ -91,7 +91,7 @@ $section = '';
                         {{--}"--}}
                         >
                             {{--<option value="" hidden></option>--}}
-                            <option value="" selected>Все программы</option>
+                            <option value="" @if($program_select === "")  selected @endif>Все программы</option>
                             <option value="morning_programs" @if($program_select === "morning_programs")  selected @endif>Утренние программы</option>
                             <option value="body_building" @if($program_select === "body_building")  selected @endif>Боди билдинг</option>
                             <option value="stretching" @if($program_select === "stretching")  selected @endif>Стретчинг</option>

@@ -53,11 +53,15 @@ class SheduleComposer
                 $period_select = $request->period;
                 $check_shedule_id = $request->check_shedule_id;
             }
-        if(isset($request->programs)&&!empty($request->programs))
+        if(isset($request->programs)&&$request->programs!==null)
         {
             $program_select = $request->programs;
+        }else{
+            $program_select = '';
         }
-        if(isset($request->trainers)&&!empty($request->trainers))
+
+
+        if(isset($request->trainers)&&$request->trainers!==null)
         {
             $trainers_select = $request->trainers;
         }
