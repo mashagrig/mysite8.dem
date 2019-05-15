@@ -31,6 +31,13 @@
                 <div class="card-header">{{ __('Подтверждение Вашего Email адреса') }}</div>
 
                 <div class="card-body">
+                    @if (session('sent'))
+                        <div class="alert alert-success" role="alert">
+                            {{--{{ __('Отправить новую сслылку для подтверждения Вашего email адреса.') }}--}}
+                            {{ __('Вам на почту было отправлено повторное письмо верификации.') }}
+                        </div>
+                    @endif
+                <div class="card-body">
                     @if (session('resent'))
                         <div class="alert alert-success" role="alert">
                             {{--{{ __('Отправить новую сслылку для подтверждения Вашего email адреса.') }}--}}

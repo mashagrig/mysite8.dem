@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Config;
 class InfoNotification extends Notification
 {
 
+    use Queueable;
+
 //    public $email;//не $email_arr, т.к. отправка письма для каждого емейла
 //    public $user;
 //    public $password;

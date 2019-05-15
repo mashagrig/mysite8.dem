@@ -30,10 +30,10 @@ class ProfileController extends Controller
 
     public function index()
     {
-        $token = Auth::user()->getRememberToken();
+      //  $token = Auth::user()->getRememberToken();
 
-        return view('signup.profile')->with(
-            ['token' => $token]);
+        return view('signup.profile');//->with(
+       //     ['token' => $token]);
         // $token = null
 //            ->with(
 //            ['token' => $token]);
@@ -276,6 +276,7 @@ class ProfileController extends Controller
         $birthdate = $request->birthdate;
 
         if (Auth::user() !== null) {
+            $user = Auth::user();
             $current_user_id = $id;//Auth::user()->getAuthIdentifier();
             $current_user_db = User::where('id', $current_user_id)->get();
             $personalinfo_id = $current_user_db[0]->personalinfo_id;
@@ -308,15 +309,26 @@ class ProfileController extends Controller
                     && $request->email !== null
                     && User::where('email', $request->email)->first() === null
                 ) {
+
+
                     User::where('id', $current_user_id)
                         ->update([
                             'email' => $email,
+                            'email_verified_at' => null,
                         ]);
                     Personalinfo::where('id', $personalinfo_id)
                         ->update([
                             'email' => $email,
                         ]);
+                  //  $user->email_verified_at = null;
+                  //  if (!$user->hasVerifiedEmail()) {
+                 //   $user->sendEmailVerificationNotification();
+                    $user->sendEmailUpdateVerificationNotification();
+                    Auth::guard()->logout();
+                        return redirect('verification/send')->with('status', 'Вам на почту было отправлено письмо для верификации Вашего email.');
+                  //  }
                 }
+
                 if (isset($request->phone) && $request->phone !== null) {
                     Personalinfo::where('id', $personalinfo_id)
                         ->update([

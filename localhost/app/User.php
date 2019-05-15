@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+use App\Notifications\EmailUpdateNotification;
 use App\Notifications\InfoNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -171,5 +172,10 @@ class User extends Authenticatable  implements MustVerifyEmailContracts
 
         //InfoNotification - это копия Illuminate\Auth\Notifications\VerifyEmail, в которой я ссылаюсь на свой маркдаун
         $this->notify(new InfoNotification());
+    }
+    public function sendEmailUpdateVerificationNotification(){
+
+        //InfoNotification - это копия Illuminate\Auth\Notifications\VerifyEmail, в которой я ссылаюсь на свой маркдаун
+        $this->notify(new EmailUpdateNotification());
     }
 }

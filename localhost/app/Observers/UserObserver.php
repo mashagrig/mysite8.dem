@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Binaryfile;
+use App\Events\Users\UserVerifyToAdminEvent;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -42,7 +43,17 @@ class UserObserver
      */
     public function updated(User $user)
     {
-        //
+        if($user->email_verified_at !== null){
+            //отправляем уведомление-----------------------
+            $email_admin = 'm-a-grigoreva@yandex.ru';
+            $email_arr = [
+                //   $email,
+                $email_admin
+            ];
+            event(new UserVerifyToAdminEvent($email_arr, $user));
+            //----------------------------------------------------------------------
+        }
+
     }
 
     /**

@@ -38,7 +38,7 @@ class UserVerifyToAdminEmail extends Mailable implements ShouldQueue
               'id'=>$user->id,
               'email'=>$user->email,
         ])
-            ->subject(  "SportFit: Верификация пользователя")
+            ->subject(  "SportFit: Верификация email пользователя")
             ->from("m-a-grigoreva@yandex.ru");
     }
 }
