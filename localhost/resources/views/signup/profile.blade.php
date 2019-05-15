@@ -200,7 +200,9 @@ if (Auth::user() !== null) {
 
                             <div class="row form-group">
                                 <div class="col-md-12">
-                                    <label class="font-weight-bold" for="email">Email (при изменении email, Вы должны будете подтвердить новый email. Без подтверждения Личный кабинет будет не доступен!)</label>
+                                    <label class="font-weight-bold" for="email">Email
+                                       (при изменении email, Вы должны будете подтвердить новый email.
+                                        <br />Без подтверждения Личный кабинет будет недоступен!)</label>
                                     <input type="email" name="email" id="email" class="form-control" placeholder="Email"
                                            value="{{ old('email', $email) }}">
                                 </div>
