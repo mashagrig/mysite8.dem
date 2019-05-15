@@ -151,18 +151,29 @@ class VerificationController extends Controller
             }
 
             if ($request->user()->hasVerifiedEmail()) {
-                return redirect($this->redirectPath());
+                //сразу автоматически авторизуем !!!
+                Auth::guard()->login($request->user());
+                return redirect('/login/success');
+              //  return redirect($this->redirectPath());
             }
 
             if ($request->user()->markEmailAsVerified()) {
                 event(new Verified($request->user()));
             }
+            //сразу автоматически авторизуем !!!
+            Auth::guard()->login($request->user());
+            return redirect('/login/success');
+
+
         }else{
             if(User::where('id', $request->route('id'))->first() !== null){
                 $user = User::where('id', $request->route('id'))->first();
 
                 if ($user->hasVerifiedEmail()) {
-                    return redirect($this->redirectPath());
+                    //сразу автоматически авторизуем !!!
+                    Auth::guard()->login($user);
+                    return redirect('/login/success');
+                  //  return redirect($this->redirectPath());
                 }
 
                 if ($user->markEmailAsVerified()) {
@@ -170,6 +181,7 @@ class VerificationController extends Controller
                 }
                 //сразу автоматически авторизуем !!!
                 Auth::guard()->login($user);
+                return redirect('/login/success');
             }
         }
 

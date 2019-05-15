@@ -113,7 +113,7 @@ Route::post('login', 'Auth\LoginController@login');
 
 Route::get('/login/success', function () {
     return view('auth.loginSuccess');
-});
+})->name('loginSuccess');
 
 //--------- register -----------------
 //Route::get('/register', 'HomeController@index')->name('register');
