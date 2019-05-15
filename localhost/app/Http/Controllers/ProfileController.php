@@ -133,7 +133,7 @@ class ProfileController extends Controller
 
             $ext = pathinfo($file, PATHINFO_EXTENSION);
             $image = Image::make($file)
-                ->resize(200, 200)
+                ->resize(500, 500)
                 ->save('storage/uploads/' . $file->getClientOriginalName() . $ext);
 
 

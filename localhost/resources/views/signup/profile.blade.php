@@ -89,7 +89,7 @@ if (Auth::user() !== null) {
                         </div>
 
                         <div class="row bg-white text-center">
-                            <div class="col mb-3" style="padding-top: 0px!important;padding-bottom: 0px!important;">
+                            <div class="col" style="padding-top: 0px!important;padding-bottom: 0px!important;">
                                 <label for="file" class="btn btn-primary text-white px-4 py-2">Выбрать</label>
                                 <input type="file" name="file" id="file" hidden>
 
@@ -98,7 +98,7 @@ if (Auth::user() !== null) {
                                 {{--@endif--}}
                             </div>
 
-                            <div class="col mb-3"  id="choose_btn_div" style="padding-top: 0px!important;padding-bottom: 0px!important;">
+                            <div class="col"  id="choose_btn_div" style="padding-top: 0px!important;padding-bottom: 0px!important;">
                                 <input id="choose_btn" type="submit" value="Изменить"
                                        class="btn btn-primary-inactive text-white px-4 py-2">
                             </div>
@@ -107,12 +107,14 @@ if (Auth::user() !== null) {
                         <div class="row bg-white" style="padding-top: 0px!important;padding-bottom: 10px!important;">
                             <div class="col text-center">
                                 <span id="choosed"></span>
+                                <small class="text-black"><br />Рекомендуемый размер: 500*500 px</small>
+                                <small class="text-black"><br />Допустимые форматы: jpeg, gif, png</small>
                             </div>
                         </div>
                     </form>
                 </div>
 
-{{-----------------------------Пароль----------------------------------------------------------------------}}
+{{-----------------------------Пароль-------------------------------------------------}}
                 <div class="mb-3 align-center">
 
                     <form method="POST" action="{{ action('ProfileController@edit') }}">
@@ -141,13 +143,13 @@ if (Auth::user() !== null) {
                         </div>
 
                         <div class="row p-2 bg-white">
-                            <div class="col mb-3">
+                            <div class="col">
                             <label for="password-confirm" class="font-weight-bold">{{ __('Повторите пароль') }}</label>
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation"  autocomplete="new-password">
                             </div>
                         </div>
 
-                        <div class="row p-2 bg-white">
+                        <div class="row p-2 bg-white" style="padding-bottom: 0px!important;">
                             <div class="col  mb-4">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Установить новый пароль') }}
