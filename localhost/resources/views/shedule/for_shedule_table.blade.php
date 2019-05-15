@@ -148,11 +148,15 @@ $section = '';
                                         {{--</option>--}}
 
                                 <option value="{{ $shedule->trainer_id }}">
-                                    {{ $shedule->trainer_name }}
+                                    {{      $shedule->trainer_surname
+                                           ." ". $shedule->trainer_name
+                                           ." ". $shedule->trainer_middle_name }}
                                 </option>
                                         @if($trainers_select === "{$shedule->trainer_id }")
                                            <?php
-                                          $select_trainer_name = $shedule->trainer_name;
+                                          $select_trainer_name =   $shedule->trainer_surname
+                                                                ." ". $shedule->trainer_name
+                                                                ." ". $shedule->trainer_middle_name ;
                                             ?>
                                              @endif>
                                 @endforeach

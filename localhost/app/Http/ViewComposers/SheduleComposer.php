@@ -114,7 +114,9 @@ class SheduleComposer
                         'trainingtimes.stop_training as stop_training',
 
                         'shedules.user_id as trainer_id',
+                        'personalinfos.surname as trainer_surname',
                         'personalinfos.name as trainer_name',
+                        'personalinfos.middle_name as trainer_middle_name',
 
                         'shedules.section_id as section_id',
                         'sections.title as section_title',

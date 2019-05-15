@@ -57,6 +57,7 @@ class ViewServiceProvider extends ServiceProvider
             'welcome',
             'about.page_about',
             'trainers.page_trainers',
+            'privacies.admin.shedule.for_shedule_table',
         ], TrainerComposer::class);
 
         view()->composer([

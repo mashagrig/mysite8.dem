@@ -15,7 +15,9 @@
                             <div class="media-image">
                                 <img src="{{ asset("{$trainers->binaryfiles_file_src}") }}" alt="Image" class="img-fluid">
                                 <div class="media-image-body">
-                                    <h2>{{ $trainers->personalinfos_name }}</h2>
+                                    <h2>{{ $trainers->personalinfos_surname
+                                                    ." ". $trainers->personalinfos_name
+                                                    ." ". $trainers->personalinfos_middle_name }}</h2>
                                     <p>{{ $trainers->personalinfos_info }}</p>
                                     <p><a href="{{ route("{$route}") }}#{{$trainers->users_id}}" class="btn btn-primary text-white px-4">
                                     <span class="caption">Подробнее</span></a></p>

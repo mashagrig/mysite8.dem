@@ -28,7 +28,7 @@ $section = '';
         {{------------------------------------------------------------}}
         <script type="text/javascript">
             window.addEventListener('DOMContentLoaded', function () {
-                $("select").change( function (e) {
+                $('#period,#programs,#trainers').change( function (e) {
                     e.preventDefault();
                     $.ajax({
                         data: $("#form").serialize(),
@@ -47,7 +47,7 @@ $section = '';
         {{------------------------------------------------------------}}
 
         <div class="row">
-            <form method='POST' id="form" action="{{ action('shedule\SheduleController@store') }}" class="row">
+            <form method='POST' id="form" action="{{ action('privacies\admin\ShedulesAdminController@show') }}" class="row">
                 {{--<input name="_token" type="hidden" value="{{ csrf_token() }}">--}}
                 {{ csrf_field() }}
 
@@ -73,15 +73,7 @@ $section = '';
                 <div class="col-md-auto toolbar-form bg-white  mb-3">
                     <div class="tolbar-select">
                         <label class="mr-sm-2" for="programs">Выберете программу:</label><br/>
-                        <select id="programs" name="programs"
-                                {{--onchange="function f() {--}}
-                                    {{--$.ajax({--}}
-                                    {{----}}
-                                    {{--});--}}
-                           {{--$('#btn_show').click();--}}
-                        {{--}"--}}
-                        >
-                            {{--<option value="" hidden></option>--}}
+                        <select id="programs" name="programs">
                             <option value="" @if($program_select === "")  selected @endif>Все программы</option>
                             <option value="morning_programs" @if($program_select === "morning_programs")  selected @endif>Утренние программы</option>
                             <option value="body_building" @if($program_select === "body_building")  selected @endif>Боди билдинг</option>
@@ -148,18 +140,6 @@ $section = '';
                                              @endif>
                                 @endforeach
                             @endif
-
-                            {{--@if(isset($all_programs_trainers_id))--}}
-                                {{--@foreach($all_programs_trainers_id as $trainer_name=>$trainer_id)--}}
-                                {{--<option value="{{ $trainer_id }}">{{ $trainer_name }}</option>--}}
-                                {{--@endforeach--}}
-                            {{--@endif--}}
-                            {{--@if(isset($all_body_building_trainers_id))--}}
-
-                                {{--@foreach($all_body_building_trainers_id as $trainer_name=>$trainer_id)--}}
-                                    {{--<option value="{{ $trainer_id }}">{{ $trainer_name }}</option>--}}
-                                {{--@endforeach--}}
-                            {{--@endif--}}
 
                         </select>
                     </div>

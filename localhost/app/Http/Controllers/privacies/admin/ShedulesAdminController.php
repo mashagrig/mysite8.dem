@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\privacies\admin;
 
+use App\Http\ViewComposers\SheduleComposer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -45,9 +46,11 @@ class ShedulesAdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        $shedule_composer = new SheduleComposer($request);
+
+        return view('privacies.admin.shedule.page_shedule');//->with('shedule_composer',$shedule_composer);
     }
 
     /**

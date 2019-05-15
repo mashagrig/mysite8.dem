@@ -14,7 +14,9 @@
         <div class="row justify-content-center">
             <div class="col-md-7 text-center">
                 <img src="{{ asset("{$trainers->binaryfiles_file_src}") }}" alt="Trainer" class="img-fluid rounded-circle w-25 mb-4">
-                <h2 class="h5 mb-4 text-white">{{ $trainers->personalinfos_name }}</h2>
+                <h2 class="h5 mb-4 text-white">{{ $trainers->personalinfos_surname
+                                                    ." ". $trainers->personalinfos_name
+                                                    ." ". $trainers->personalinfos_middle_name }}</h2>
                 <p class="text-white mb-5 lead">{{ $trainers->personalinfos_text }}</p>
 
                 <form method='POST' action="{{ action('shedule\SheduleController@show', ['id'=>$trainers->users_id]) }}">
