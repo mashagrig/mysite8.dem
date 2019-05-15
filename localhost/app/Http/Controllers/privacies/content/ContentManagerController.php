@@ -1,24 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\privacies\content;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class FaqController extends Controller
+class ContentManagerController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-//    public function __construct()
-//    {
-//        $this->middleware('auth');
-//    }
-
     public function index()
     {
-        return view('signup.faq');
+        //
     }
 
     /**

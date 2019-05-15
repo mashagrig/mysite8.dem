@@ -1,30 +1,47 @@
 
-
-@if(isset($question_from_contacts))
+@if(isset($comments))
 
 <?php
+
+$count=1;
+
+$status_comment = '';
+$status_color = '';
+$status_tr_style = '';
+
 $email = '';
 $name = '';
 $phone = '';
 
-if (Auth::user() !== null) {
+$current_user = '';
+$comments_user = '';
+
+if(Auth::user()!== null){
     $email = Auth::user()->email;
-    if (Auth::user()->personalinfo_id !== null) {
+    $current_user = Auth::user()->getAuthIdentifier();
+    if( Auth::user()->personalinfo_id !== null){
         $name = Auth::user()->personalinfo()->get('name')[0]->name;
         $phone = Auth::user()->personalinfo()->get('telephone')[0]->telephone;
     }
 }
 
+$comments_user = $comments
+    ->where('content_user.user_id', "{$current_user}")
+    ->get();
+
 ?>
+
+
 @extends('privacy')
-@section('faq')
+@section('comments')
     <div class="site-section  block-14 bg-light nav-direction-white">
         <div class="container">
             <div class="row  mb-3">
                 <div class="col-md-12">
-                    <h2 class="site-section-heading text-center">Обратная связь</h2>
+                    <h2 class="site-section-heading text-center">Мои отзывы</h2>
                 </div>
             </div>
+
             {{--------------status-------------------------------------------------------------------------------------}}
             @if (session('status'))
                 <div class="row  text-center">
@@ -39,15 +56,14 @@ if (Auth::user() !== null) {
             @endif
             {{------------------------------------------------------------}}
 
-            {{---------------------------------------------------------------------------}}
-
+            {{-----------------------------------------------------------------------}}
             <div class="row">
+
                 <div class="col-lg-12">
                     <div class="p-4 bg-white  mb-3">
-                        <h3 class="h5 text-black mb-3">Задать вопрос</h3>
+                        <h3 class="h5 text-black mb-3">Добавить отзыв</h3>
                         {{--<div class="col-md-12 col-lg-8 mb-5  bg-white">--}}
-                        <form method='POST' action="{{ action('contacts\ContactsController@store') }}"
-                              class="mb-0 bg-white">
+                        <form method='POST' action="{{ action('CommentsController@store') }}" class="mb-0 bg-white">
                             @csrf
 
                             <div class="row form-group" hidden>
@@ -69,8 +85,7 @@ if (Auth::user() !== null) {
                             <div class="row form-group" hidden>
                                 <div class="col-md-12 mb-3 mb-md-0">
                                     <label class="font-weight-bold" for="phone">Телефон</label>
-                                    <input type="text" name="phone" id="phone" class="form-control"
-                                           placeholder="Телефон"
+                                    <input type="text" name="phone" id="phone" class="form-control" placeholder="Телефон"
                                            value="{{ old('phone', $phone) }}">
                                 </div>
                             </div>
@@ -78,96 +93,68 @@ if (Auth::user() !== null) {
                             <div class="row form-group">
                                 <div class="col-md-12">
                                     <label class="font-weight-bold" for="message" hidden>Сообщение</label>
-                                    <textarea name="message" name="message" id="message" cols="30" rows="4"
-                                              class="form-control" placeholder="Вопрос..."></textarea>
+                                    <textarea  name="message" id="message" cols="30" rows="4" class="form-control" placeholder="Отзыв..."></textarea>
                                 </div>
                             </div>
 
                             <div class="row form-group">
                                 <div class="col-md-12">
-                                    <input type="submit" value="Отправить" class="btn btn-primary text-white px-4 py-2">
+                                    <input type="submit" value="Добавить" class="btn btn-primary text-white px-4 py-2">
                                 </div>
                             </div>
 
+
                         </form>
+
+
                     </div>
                 </div>
             </div>
-
             {{---------------------------------------------------------------------------}}
-            @foreach($question_from_contacts->get() as $question)
+            @foreach($comments_user  as $comment)
+
                 <?php
-                $status_comment = '';
-                $status_color = "";
-                $status_tr_style = '';
-                switch ($question->status_content){
+                switch ($comment->status_content){
                     case "moderating":
-                        $status_comment = 'В ближайшее время менеджер ответит на Ваш вопрос';
+                        $status_comment = 'После проверки модератором отзыв будет опубликован на сайте';
                         $status_color = "#fd7e14";
                         $status_tr_style = 'table-light-new';
                         break;
                     case "public":
-                        $status_comment = '';
+                        $status_comment = 'Отзыв опубликован';
                         $status_color = "";
                         $status_tr_style = '';
                         break;
                     case "denied":
-                        $status_comment = 'Вопрос отклонен модератором';
+                        $status_comment = 'Отзыв отклонен модератором';
                         $status_color = "red";
                         $status_tr_style = 'table-secondary-new';
                         break;
                 }
                 ?>
-            <div class="row right">
-                <div class="col-lg-4"></div>
-                <div class="col-lg-8 mb-4 right">
-                    <p>Мой впорос #{{$question->contents_id}} от {{date_format(date_create($question->contents_updated_at), 'd-m-Y H:i')}}
-                        &bullet; <span  style="color: {{$status_color}}!important;">{{ $status_comment }}</span></p>
-                    <div class="border p-4 text-with-icon  bg-white {{ $status_tr_style }}">
-                        <p>&ldquo;{{ $question->contents_text }}&rdquo;</p>
+
+
+                <div class="row">
+                    @if($count%2 === 0)
+                        <div class="col-lg-4"></div>
+                    @endif
+                    <div class="col-lg-8 mb-4">
+                        <p>Мой отзыв от {{date_format(date_create($comment->contents_updated_at), 'd-m-Y H:i')}}
+                            &bullet; <span  style="color: {{$status_color}}!important;">{{ $status_comment }}</span></p>
+                        <div class="border p-4 text-with-icon  bg-white {{ $status_tr_style }}">
+                            <p>&ldquo;{{ $comment->contents_text }}&rdquo;</p>
+                        </div>
                     </div>
+                    @if($count%2 === 0)
+                        <div class="col-lg-4"></div>
+                    @endif
                 </div>
-            </div>
-
-
-                        {{---------------------------------------------------------------------------}}
-                        @foreach($answers as $answer)
-                            @if($question->contents_id === (int)$answer->question_id)
-                            <div class="row left">
-                                <div class="col-lg-8 mb-4 left">
-                                    <p>Ответ на мой вопрос #{{$answer->question_id}} от {{date_format(date_create($answer->contents_updated_at), 'd-m-Y H:i')}}</p>
-                                    <div class="border p-4 text-with-icon  bg-white">
-                                        <p>&ldquo;{{ $answer->contents_text }}&rdquo;</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4"></div>
-                            </div>
-                        @endif
-                        @endforeach
-
-                        {{---------------------------------------------------------------------------}}
-
+                <?php $count++?>
             @endforeach
 
-
+            {{---------------------------------------------------------------------------}}
 
         </div>
     </div>
 @endsection
 @endif
-
-{{--<a href="{{ route("programs") }}#{{ $link }}">--}}
-{{--<span class="{{ $icon }} icon display-4 mb-4 d-block"></span>--}}
-{{--</a>--}}
-{{--<p></p>--}}
-{{--<h2 class="h5">{{ $title }}</h2>--}}
-{{--<h2 class="orange">{{ $price }}</h2>--}}
-{{--<p>{{ $text }}</p>--}}
-{{--<div class="row">--}}
-{{--<div class="col">--}}
-{{--<p><a class="a-link" href="{{ route("cards") }}#{{ $link }}">Подробнее</a></p>--}}
-{{--</div>--}}
-{{--<div class="col">--}}
-{{--<p><a class="a-link" href="{{ route("cards") }}#{{ $link }}">Заказать</a></p>--}}
-{{--</div>--}}
-{{--</div>--}}

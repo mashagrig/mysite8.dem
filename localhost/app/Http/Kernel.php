@@ -60,9 +60,15 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'CheckIfRole' => \App\Http\Middleware\Auth\CheckIfRole::class,
+        //----------------------------------------------
+        'CheckIfRole' => \App\Http\Middleware\Auth\CheckIfRole::class,//test
         'CheckIfAdmin' => \App\Http\Middleware\Auth\CheckIfAdmin::class,
         'CheckIfGuest' => \App\Http\Middleware\Auth\CheckIfGuest::class,
+        'CheckIfTrainer' => \App\Http\Middleware\Auth\CheckIfTrainer::class,
+        'CheckIfSupport' => \App\Http\Middleware\Auth\CheckIfSupport::class,
+        'CheckIfContent' => \App\Http\Middleware\Auth\CheckIfContent::class,
+        //----------------------------------------------
+
     ];
 
     /**

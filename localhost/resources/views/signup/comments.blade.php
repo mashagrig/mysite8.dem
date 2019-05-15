@@ -1,3 +1,5 @@
+
+@if(isset($comments))
 <?php
 
 $count=1;
@@ -11,6 +13,7 @@ $name = '';
 $phone = '';
 
 $current_user = '';
+$comments_user = '';
 
 if(Auth::user()!== null){
     $email = Auth::user()->email;
@@ -20,14 +23,19 @@ if(Auth::user()!== null){
         $phone = Auth::user()->personalinfo()->get('telephone')[0]->telephone;
     }
 }
-$comments_user = $comments
-    ->where('content_user.user_id', "{$current_user}")
-    ->get();
+
+    $comments_user = $comments
+        ->where('content_user.user_id', "{$current_user}")
+        ->get();
+
+
 ?>
 
 
 @extends('privacy')
 @section('comments')
+
+
     <div class="site-section  block-14 bg-light nav-direction-white">
         <div class="container">
             <div class="row  mb-3">
@@ -151,3 +159,4 @@ $comments_user = $comments
         </div>
     </div>
 @endsection
+@endif

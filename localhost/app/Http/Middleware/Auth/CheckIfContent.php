@@ -5,16 +5,8 @@ namespace App\Http\Middleware\Auth;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class CheckIfGuest
+class CheckIfContent
 {
-
-
-    //регистрировать в App\Http\Kernel
-    //blade-директивы в AppServiceProvider
-
-
-
-
     /**
      * Handle an incoming request.
      *
@@ -24,14 +16,13 @@ class CheckIfGuest
      */
     public function handle($request, Closure $next)
     {
-
         $user = $request->user();
 
         if (!isset($user)) {
             return redirect('home');
         }
 
-        if (Auth::check() && ($user->isGuest() ||  $user->isAdmin())) {
+        if (Auth::check() && ($user->isContent() ||  $user->isAdmin())) {
             return $next($request);
         }
         return redirect('login');

@@ -12,6 +12,8 @@ use App\Shedule;
 use App\User;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -66,5 +68,25 @@ class AppServiceProvider extends ServiceProvider
 //            $this->notify((new CheckCardSendNotification()));
 //        });
         //-------------------------------
+//        Blade::directive('trainer', function() {
+//            return auth()->check() && Auth::user()->isTrainer();
+//        });
+
+        Blade::if('admin', function() {
+            return auth()->check() && Auth::user()->isAdmin();
+        });
+        Blade::if('guestCheckAuth', function() {
+            return auth()->check() && Auth::user()->isGuest();//возможно добавить и isAdmin()
+        });
+        Blade::if('trainer', function() {
+            return auth()->check() && Auth::user()->isTrainer();
+        });
+        Blade::if('support', function() {
+            return auth()->check() && Auth::user()->isSupport();
+        });
+        Blade::if('content', function() {
+            return auth()->check() && Auth::user()->isContent();
+        });
+
     }
 }

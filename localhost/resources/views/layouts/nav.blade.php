@@ -103,9 +103,48 @@
 
 
 
-                {{-----------------------------}}
-               @auth
-                    {{--------------privacy---------------}}
+                {{----------privacy-------------------}}
+
+                {{--------------privacy-admin---------------}}
+               @admin
+
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown " class="nav-link dropdown-toggle {{ Request::is('privacy*') ? 'active' : '' }}" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <img id="img_photo" src="{{ asset("{$avatar_src}") }}" alt="Image"
+                                 class="img-fluid rounded-circle avatar-nav img-thumbnail">
+                            {{ Auth::user()->name }} (Админ)
+                            <span class="caret"></span></a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item {{ Request::is('*privacy/profile*') ? 'active' : '' }}"
+                               href="{{ route('privacy.profile') }}">{{ __('Мой профиль') }}</a>
+
+                            <a class="dropdown-item {{ Request::is('*privacy/admin/users*') ? 'active' : '' }}"
+                               href="{{ route('privacy.admin.users') }}">{{ __('Пользователи') }}</a>
+
+                            <a class="dropdown-item {{ Request::is('*privacy/admin/shedules*') ? 'active' : '' }}"
+                               href="{{ route('privacy.admin.shedules') }}">{{ __('Расписание') }}</a>
+
+                            <a class="dropdown-item {{ Request::is('*privacy/admin/cards*') ? 'active' : '' }}"
+                               href="{{ route('privacy.admin.cards') }}">{{ __('Карты') }}</a>
+
+                            <a class="dropdown-item {{ Request::is('*privacy/admin/comments*') ? 'active' : '' }}"
+                               href="{{ route('privacy.admin.comments') }}">{{ __('Отзывы') }}</a>
+
+                            <a class="dropdown-item {{ Request::is('*privacy/admin/faq*') ? 'active' : '' }}"
+                               href="{{ route('privacy.admin.faq') }}">{{ __('Обратная связь') }}</a>
+
+                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">{{ __('Выход') }}</a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </div>
+                    </li>
+                @endadmin
+
+{{--------------privacy-guest-auth---------------}}
+               @guestCheckAuth
+
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown " class="nav-link dropdown-toggle {{ Request::is('privacy*') ? 'active' : '' }}" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             <img id="img_photo" src="{{ asset("{$avatar_src}") }}" alt="Image"
@@ -115,15 +154,19 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item {{ Request::is('*privacy/profile*') ? 'active' : '' }}"
                                href="{{ route('privacy.profile') }}">{{ __('Мой профиль') }}</a>
+
                             <a class="dropdown-item {{ Request::is('*privacy/shedules*') ? 'active' : '' }}"
                                href="{{ route('privacy.shedules') }}">{{ __('Мои тренировки') }}</a>
+
                             <a class="dropdown-item {{ Request::is('*privacy/cards*') ? 'active' : '' }}"
                                href="{{ route('privacy.cards') }}">{{ __('Мои карты') }}</a>
+
                             <a class="dropdown-item {{ Request::is('*privacy/comments*') ? 'active' : '' }}"
                                href="{{ route('privacy.comments') }}">{{ __('Мои отзывы') }}</a>
+
                             <a class="dropdown-item {{ Request::is('*privacy/faq*') ? 'active' : '' }}"
                                href="{{ route('privacy.faq') }}">{{ __('Обратная связь') }}</a>
-                            {{--<a class="dropdown-item" href="{{ route('privacy') }}">{{ __('Настройки') }}</a>--}}
+
                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">{{ __('Выход') }}</a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -131,7 +174,88 @@
                             </form>
                         </div>
                     </li>
-                @endauth
+                @endguestCheckAuth
+
+
+                {{--------------privacy-trainer--------------}}
+                @trainer
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown " class="nav-link dropdown-toggle {{ Request::is('privacy*') ? 'active' : '' }}" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <img id="img_photo" src="{{ asset("{$avatar_src}") }}" alt="Image"
+                                 class="img-fluid rounded-circle avatar-nav img-thumbnail">
+                            {{ Auth::user()->name }} (Тренер)
+                            <span class="caret"></span></a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+
+                            <a class="dropdown-item {{ Request::is('*privacy/profile*') ? 'active' : '' }}"
+                               href="{{ route('privacy.profile') }}">{{ __('Мой профиль') }}</a>
+
+                            <a class="dropdown-item {{ Request::is('*privacy/shedules*') ? 'active' : '' }}"
+                               href="{{ route('privacy.shedules') }}">{{ __('Мои тренировки') }}</a>
+
+
+                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">{{ __('Выход') }}</a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </div>
+                    </li>
+                @endtrainer
+
+                {{--------------privacy-support--------------}}
+                @support
+
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown " class="nav-link dropdown-toggle {{ Request::is('privacy*') ? 'active' : '' }}" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <img id="img_photo" src="{{ asset("{$avatar_src}") }}" alt="Image"
+                                 class="img-fluid rounded-circle avatar-nav img-thumbnail">
+                            {{ Auth::user()->name }} (Support)
+                            <span class="caret"></span></a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+
+                            <a class="dropdown-item {{ Request::is('*privacy/profile*') ? 'active' : '' }}"
+                               href="{{ route('privacy.profile') }}">{{ __('Мой профиль') }}</a>
+
+                            <a class="dropdown-item {{ Request::is('*privacy/faq*') ? 'active' : '' }}"
+                               href="{{ route('privacy.faq') }}">{{ __('Обратная связь') }}</a>
+
+
+                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">{{ __('Выход') }}</a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </div>
+                    </li>
+                @endsupport
+
+                {{--------------privacy-content--------------}}
+                @content
+
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown " class="nav-link dropdown-toggle {{ Request::is('privacy*') ? 'active' : '' }}" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <img id="img_photo" src="{{ asset("{$avatar_src}") }}" alt="Image"
+                                 class="img-fluid rounded-circle avatar-nav img-thumbnail">
+                            {{ Auth::user()->name }} (Менеджер)
+                            <span class="caret"></span></a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+
+                            <a class="dropdown-item {{ Request::is('*privacy/profile*') ? 'active' : '' }}"
+                               href="{{ route('privacy.profile') }}">{{ __('Мой профиль') }}</a>
+
+                            <a class="dropdown-item {{ Request::is('*privacy/comments*') ? 'active' : '' }}"
+                               href="{{ route('privacy.comments') }}">{{ __('Мои отзывы') }}</a>
+
+                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">{{ __('Выход') }}</a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </div>
+                    </li>
+                @endcontent
+                {{-----------------------------}}
             </ul>
 
 
