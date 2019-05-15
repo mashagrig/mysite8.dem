@@ -9,6 +9,6 @@
     'top_slider_test_1'=>'Идивидуальный подход для эффективной тренировки'
     ])
 
-    @include('shedule.for_shedule_table')
+    @include('privacies.admin.shedule.for_shedule_table')
 
 @endsection

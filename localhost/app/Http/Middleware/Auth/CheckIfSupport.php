@@ -22,7 +22,7 @@ class CheckIfSupport
             return redirect('home');
         }
 
-        if (Auth::check() && ($user->isSupport() ||  $user->isAdmin())) {
+        if (Auth::check() && $user->isSupport()) {
             return $next($request);
         }
         return redirect('login');

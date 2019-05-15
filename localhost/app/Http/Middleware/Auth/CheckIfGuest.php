@@ -31,7 +31,8 @@ class CheckIfGuest
             return redirect('home');
         }
 
-        if (Auth::check() && ($user->isGuest() ||  $user->isAdmin())) {
+      //  if (Auth::check() && ($user->isGuest() ||  $user->isAdmin())) {
+        if (Auth::check() && $user->isGuest()) {
             return $next($request);
         }
         return redirect('login');

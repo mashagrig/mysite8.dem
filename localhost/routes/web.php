@@ -46,7 +46,7 @@ Route::group(['middleware' => 'guest'], function() {
 //Route::post('/privacy/destroy', 'SignupController@destroy')->middleware("can:manipulate,App\SheduleUser");
 
 Route::group([
-    'middleware' => 'CheckIfAdmin',
+    'middleware' => 'auth',
     'prefix' => '/privacy',
 ], function() {
     Route::group([
@@ -59,36 +59,43 @@ Route::group([
         Route::put('/', 'ProfileController@store');
         Route::post('/destroy', 'ProfileController@destroy');
     });
+});
+
+Route::group([
+    'middleware' => 'CheckIfAdmin',
+    'prefix' => '/privacy/admin',
+], function() {
+
         Route::group([
-            'prefix' => '/admin/users',
+            'prefix' => '/users',
         ], function() {
             Route::get('/', 'privacies\admin\UsersAdminController@index')->name('privacy.admin.users');
             Route::post('/', 'privacies\admin\UsersAdminController@store');
             Route::post('/destroy', 'privacies\admin\UsersAdminController@destroy');
         });
         Route::group([
-            'prefix' => '/admin/shedules',
+            'prefix' => '/shedules',
         ], function() {
             Route::get('/', 'privacies\admin\ShedulesAdminController@index')->name('privacy.admin.shedules');
             Route::post('/', 'privacies\admin\ShedulesAdminController@store');
             Route::post('/destroy', 'privacies\admin\ShedulesAdminController@destroy');
         });
         Route::group([
-            'prefix' => '/admin/cards',
+            'prefix' => 'cards',
         ], function() {
             Route::get('/', 'privacies\admin\CardsAdminController@index')->name('privacy.admin.cards');
             Route::post('/', 'privacies\admin\CardsAdminController@store');
             Route::post('/destroy', 'privacies\admin\CardsAdminController@destroy');
         });
         Route::group([
-            'prefix' => '/admin/comments',
+            'prefix' => '/comments',
         ], function() {
             Route::get('/', 'privacies\admin\CommentsAdminController@index')->name('privacy.admin.comments');
             Route::post('/', 'privacies\admin\CommentsAdminController@store');
             Route::post('/destroy', 'privacies\admin\CommentsAdminController@destroy');
         });
         Route::group([
-            'prefix' => '/admin/faq',
+            'prefix' => '/faq',
         ], function() {
             Route::get('/', 'privacies\admin\FaqAdminController@index')->name('privacy.admin.faq');
             Route::post('/', 'privacies\admin\FaqAdminController@store');
@@ -100,16 +107,7 @@ Route::group([
         'middleware' => 'CheckIfGuest',
         'prefix' => '/privacy',
         ], function() {
-        Route::group([
-            'prefix' => '/profile',
-        ], function() {
-            Route::get('/', 'ProfileController@index')->name('privacy.profile');
-            Route::put('/edit', 'ProfileController@edit');
-           // Route::post('/{token}', 'ProfileController@edit');
-            Route::put('/{id}', 'ProfileController@update');
-            Route::put('/', 'ProfileController@store');
-            Route::post('/destroy', 'ProfileController@destroy');
-        });
+
         Route::group([
             'prefix' => '/shedules',
         ], function() {
@@ -144,16 +142,7 @@ Route::group([
 //        'middleware' => 'CheckIfTrainer',
 //        'prefix' => '/privacy',
 //        ], function() {
-//        Route::group([
-//            'prefix' => '/profile',
-//        ], function() {
-//            Route::get('/', 'ProfileController@index')->name('privacy.profile');
-//            Route::put('/edit', 'ProfileController@edit');
-//           // Route::post('/{token}', 'ProfileController@edit');
-//            Route::put('/{id}', 'ProfileController@update');
-//            Route::put('/', 'ProfileController@store');
-//            Route::post('/destroy', 'ProfileController@destroy');
-//        });
+//
 //        Route::group([
 //            'prefix' => '/shedules',
 //        ], function() {
@@ -174,16 +163,7 @@ Route::group([
 //        'middleware' => 'CheckIfSupport',
 //        'prefix' => '/privacy',
 //        ], function() {
-//        Route::group([
-//            'prefix' => '/profile',
-//        ], function() {
-//            Route::get('/', 'ProfileController@index')->name('privacy.profile');
-//            Route::put('/edit', 'ProfileController@edit');
-//           // Route::post('/{token}', 'ProfileController@edit');
-//            Route::put('/{id}', 'ProfileController@update');
-//            Route::put('/', 'ProfileController@store');
-//            Route::post('/destroy', 'ProfileController@destroy');
-//        });
+//
 //
 //        Route::group([
 //            'prefix' => '/faq',

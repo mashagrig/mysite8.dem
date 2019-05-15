@@ -22,7 +22,7 @@ class CheckIfTrainer
             return redirect('home');
         }
 
-        if (Auth::check() && ($user->isTrainer() ||  $user->isAdmin())) {
+        if (Auth::check() && $user->isTrainer()) {
             return $next($request);
         }
         return redirect('login');

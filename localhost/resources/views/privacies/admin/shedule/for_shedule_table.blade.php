@@ -11,15 +11,7 @@ $section = '';
         <div class="row">
             <div class="col-md-12">
                 <h2 class="site-section-heading text-center">Расписание занятий</h2>
-                @guest
-                <p>Для записи на тренировку Вам необходимо
-                    <a class="a-link" href="{{ route('register') }}">зарегистрироваться</a>
-                    или
-                    <a class="a-link" href="{{ route('login') }}">авторизоваться</a>
-                </p>
-                    @endguest
-
-            </div>
+                        </div>
         </div>
         {{--------------status-------------------------------------------------------------------------------------}}
         @if (session('status'))
@@ -43,7 +35,6 @@ $section = '';
                         type: 'POST',
                         url: "{{ action('shedule\SheduleController@store') }}",
                         success: function (data) {
-
                           //  console.log(data);
                             $('#btn_show').click();
                         }, error: function (msg) {
@@ -205,7 +196,7 @@ $section = '';
 
         <div class="row">
             <div class="col">
-                    @include('shedule.shedule_table')
+                    @include('privacies.admin.shedule.shedule_table')
 
             </div>
         </div>

@@ -22,7 +22,8 @@ class CheckIfContent
             return redirect('home');
         }
 
-        if (Auth::check() && ($user->isContent() ||  $user->isAdmin())) {
+      //  if (Auth::check() && ($user->isContent() ||  $user->isAdmin())) {
+        if (Auth::check() && $user->isContent()) {
             return $next($request);
         }
         return redirect('login');
