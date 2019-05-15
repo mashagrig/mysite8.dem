@@ -14,7 +14,7 @@ class ShedulesAdminController extends Controller
      */
     public function index()
     {
-        return view('privacies.admin.shedules_list');
+        return view('privacies.admin.shedule.page_shedule');
 
     }
 

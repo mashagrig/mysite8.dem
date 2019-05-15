@@ -13,10 +13,11 @@ class SheduleUserPolicy
 
     public function manipulate(User $user)
     {
-        $admin = Role::has('users')->where('title', '=', 'admin')->first();
+     //   $admin = Role::has('users')->where('title', '=', 'admin')->first();
         $guest = Role::has('users')->where('title', '=', 'guest')->first();
 
-        if (($user->role_id === $admin->id) || ($user->role_id === $guest->id)) {
+        if (($user->role_id === $guest->id)) {
+       // if (($user->role_id === $admin->id) || ($user->role_id === $guest->id)) {
             return true;
         } else return false;
     }
