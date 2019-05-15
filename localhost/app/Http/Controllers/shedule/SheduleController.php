@@ -191,6 +191,7 @@ class SheduleController extends Controller
          //   $request->trainers = $id;
             $request->programs = '';
         }
+        //код в программных компоузерах требует рефакторинга, но на текущий момент задвоение обеспечивает гибкость и мастабируемость
         elseif(isset($request->item)&&$request->item === '$programs_item'){
             $request->trainers = '';
           //  $request->programs = $id;

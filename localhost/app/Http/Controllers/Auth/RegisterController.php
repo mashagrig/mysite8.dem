@@ -143,6 +143,16 @@ class RegisterController extends Controller
 //      //  new VerificationController();
 //      //  return redirect($this->redirectPath());
 //    }
+
+    protected function registered(Request $request, $user)
+    {
+        $this->guard()->logout();
+
+        return redirect($this->redirectPath());
+    }
+
+
+
     public function refreshCaptcha()
 
     {

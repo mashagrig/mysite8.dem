@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -15,6 +16,17 @@ use Illuminate\Support\Facades\Config;
 
 class InfoNotification extends Notification
 {
+
+//    public $email;//не $email_arr, т.к. отправка письма для каждого емейла
+//    public $user;
+//    public $password;
+//
+//    public function __construct( User $user)
+//    {
+//       // $this->email = $email;
+//        $this->user = $user;
+//      //  $this->password = $password;
+//    }
     /**
      * The callback that should be used to build the mail message.
      *
@@ -46,6 +58,12 @@ class InfoNotification extends Notification
         }
 
         $r = $this->verificationUrl($notifiable);
+
+     //   $email = $this->email;
+     //   $user = $this->user;
+     //   $password = $this->password;
+
+
            //     Mail::to($email)->queue(new UserVerificationEmail($email, $event->user, $event->password));//send
 
 //        return (new MailMessage)
@@ -60,6 +78,7 @@ class InfoNotification extends Notification
         return  (new MailMessage)
         ->markdown('emails.users.user_verification', [
               'route'=>$r,
+            //  'user'=>$user,
         ])
             ->subject(  "SportFit: Регистрация на сайте")
             ->from("m-a-grigoreva@yandex.ru");
