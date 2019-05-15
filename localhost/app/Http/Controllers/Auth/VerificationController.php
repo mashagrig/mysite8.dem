@@ -168,17 +168,8 @@ class VerificationController extends Controller
                 if ($user->markEmailAsVerified()) {
                     event(new Verified($request->user()));
                 }
-
-//            $request->email = User::where('id', $request->route('id'))->first()->email;
-//            $request->password = 11111111;
-//
-//            try {
-//                (new LoginController())->login($request);
-//
-//            } catch (ValidationException $e) {
-//            }
-
-
+                //сразу автоматически авторизуем !!!
+                Auth::guard()->login($user);
             }
         }
 
