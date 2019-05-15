@@ -36,7 +36,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = 'verification.send';
+    protected $redirectTo = 'verification/send';
  //   protected $redirectTo = '/login/success';
  //   protected $generatedPassword;
     /**
@@ -148,7 +148,7 @@ class RegisterController extends Controller
     {
         $this->guard()->logout();
 
-        return redirect($this->redirectPath());
+        return redirect($this->redirectPath())->with('status', 'Вам на почту было отправлено письмо для верификации Вашего email.');
     }
 
 
