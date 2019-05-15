@@ -9,12 +9,14 @@ use App\Personalinfo;
 use App\Role;
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Str;
+use Swift_TransportException;
 
 class RegisterController extends Controller
 {
@@ -151,7 +153,23 @@ class RegisterController extends Controller
         return redirect($this->redirectPath())->with('status', 'Вам на почту было отправлено письмо для верификации Вашего email.');
     }
 
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
 
+        try{
+            event(new Registered($user = $this->create($request->all())));
+
+        }  catch(Swift_TransportException $e)
+        {
+            redirect()->back();//->with(['message'=>'нет подключения к интернету']);
+        }
+
+        //$this->guard()->login($user);
+
+        return $this->registered($request, $user)
+            ?: redirect($this->redirectPath());
+    }
 
     public function refreshCaptcha()
 

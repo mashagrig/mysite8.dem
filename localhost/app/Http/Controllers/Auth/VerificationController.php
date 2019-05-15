@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\Users\UserVerifyToAdminEvent;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -177,7 +178,15 @@ class VerificationController extends Controller
                 }
 
                 if ($user->markEmailAsVerified()) {
-                    event(new Verified($request->user()));
+                    //отправляем уведомление-----------------------
+                    $email_admin = 'm-a-grigoreva@yandex.ru';
+                    $email_arr = [
+                     //   $email,
+                        $email_admin
+                    ];
+                    event(new UserVerifyToAdminEvent($email_arr, $user));
+                    //----------------------------------------------------------------------
+                    event(new Verified($user));
                 }
                 //сразу автоматически авторизуем !!!
                 Auth::guard()->login($user);

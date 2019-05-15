@@ -52,6 +52,10 @@ class EventServiceProvider extends ServiceProvider
 //        'App\Events\Users\UserRegisteredEvent' => [
 //            'App\Listeners\Users\UserRegisteredSendNotification',
 //        ],
+       // отправка писем АДМИНУ при регистрации
+        'App\Events\Users\UserVerifyToAdminEvent' => [
+            'App\Listeners\Users\UserVerifyToAdminSendNotification',
+        ],
 
     ];
 
