@@ -156,19 +156,22 @@ Route::get('/password/verification', function () {
 })->name('verifySuccess');
 
 
+
+
 // запрос для верификации - регает ссылку с RegisterContr и из шаблоне регистрации!
-Route::get('verification.send', function () {
+Route::get('verification/send', function () {
     return view('auth.verify');
-});
+})->name('auth.verify');
 Route::get('/password/send', 'Auth\VerificationController@send')->name('verification.send');
 //Route::get('/password/verify', 'Auth\VerificationController@verify')->name('verification.verify');
 
 
 // запрос для верификации - регает ссылку с RegisterContr и из шаблоне регистрации!
-Route::get('verification.resend', function () {
-    return view('auth.verify');
-});
-Route::get('/password/resend', 'Auth\VerificationController@resend')->name('verification.resend');
+//Route::get('verification/resend', function () {
+//    return view('auth.verify');
+//});
+//Route::get('/password/send', 'Auth\VerificationController@resend')->name('verification.resend');
+Route::post('/password/send', 'Auth\VerificationController@resend')->name('verification.resend');
 //страница с формой для верификации пароля
 //Route::get('/password/verification', 'Auth\VerificationController@show');
 // запрос для верификации

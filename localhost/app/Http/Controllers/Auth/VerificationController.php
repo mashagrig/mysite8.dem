@@ -33,7 +33,7 @@ class VerificationController extends Controller
      * @var string
      */
     protected $redirectTo = '/login';
-   // protected $redirectTo = '/password/verification';
+ //   protected $redirectTo = '/password/verification';
   //  protected $redirectTo = '/home';
 
     /**
@@ -48,34 +48,96 @@ class VerificationController extends Controller
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
     }
+
+    public function show(Request $request)
+    {
+        if (Auth::user() !== null) {
+            return $request->user()->hasVerifiedEmail()
+                ? redirect($this->redirectPath())
+                : view('auth.verify');
+        } else {
+            if (User::where('email', $request->email)->first() !== null) {
+                $user = User::where('email', $request->email)->first();
+
+                return $user->hasVerifiedEmail()
+                    ? redirect($this->redirectPath())
+                    : view('auth.verify');
+
+            }
+        }
+    }
+
    public function send(Request $request)
     {
+        if (Auth::user()!== null) {
 //        if ($request->user()->hasVerifiedEmail()) {
 //            return redirect($this->redirectPath());
 //        }
 
-       $request->user()->sendEmailVerificationNotification();
+            $request->user()->sendEmailVerificationNotification();
 
-        // return back()->with('sent', true);
-        back()->with('sent', true);
-        return $this->show($request);
+            // return back()->with('sent', true);
+            back()->with('sent', true);
+            return $this->show($request);
 
+        }else {
+            if (User::where('email', $request->email)->first() !== null) {
+                $user = User::where('email', $request->email)->first();
+
+                $user->sendEmailVerificationNotification();
+
+                back()->with('sent', true);
+                return $this->show($request);
+            }
+        }
     }
 
 
     public function resend(Request $request)
     {
-        if ($request->user()->hasVerifiedEmail()) {
-            return redirect($this->redirectPath());
+
+        if (Auth::user()!== null) {
+
+            if ($request->user()->hasVerifiedEmail()) {
+                return redirect($this->redirectPath());
+            }
+
+            $request->user()->sendEmailVerificationNotification();
+
+            redirect()->back()->with('resent', true);
+            //return redirect($this->redirectPath())->with('resent', true);
+
+         //   redirect('/password/resend')->with('resent', true);
+            return $this->show($request);
+
+        }else {
+            if($request->email !== null){
+                if (User::where('email', $request->email)->first() !== null) {
+                    $user = User::where('email', $request->email)->first();
+
+                    if ($user->hasVerifiedEmail()) {
+                        return redirect($this->redirectPath());
+                    }
+
+                    $user->sendEmailVerificationNotification();
+
+                    //    redirect()->back()->with('resent', true);
+                    redirect('auth.verify')->with('resent', true);
+                    return $this->show($request);
+
+                }else{
+                    return  redirect()->back()->with('status', 'С данным email нет зарегистрированных пользователей. Уточните email, либо повторите регистрацию.');
+
+                }
+            }elseif($request->email === null){
+                return  redirect()->back()->with('status', 'Вы не заполнили поле email.');
+
+            }
+
         }
+       // return  redirect()->back();
+     //   return $this->show($request);
 
-        $request->user()->sendEmailVerificationNotification();
-
-        //return back()->with('resent', true);
-        //return redirect($this->redirectPath())->with('resent', true);
-
-        redirect('/password/resend')->with('resent', true);
-        return $this->show($request);
     }
 
 
@@ -120,6 +182,7 @@ class VerificationController extends Controller
             }
         }
 
-        return redirect($this->redirectPath())->with('verified', true);
+      //  return redirect($this->redirectPath())->with('verified', true);
+        return redirect('login')->with('status', 'Ваш email успешно верифицирован. Вы можете авторизоваться на сайте.');
     }
 }

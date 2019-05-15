@@ -18,6 +18,14 @@
                 <div class="card-header">{{ __('Авторизация') }}</div>
 
                 <div class="card-body">
+
+                    {{--------------status-------------------------------------------------------------------------------------}}
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+                    {{------------------------------------------------------------}}
                     {{--<form method="POST" action="{{ route('login') }}">--}}
                     <form method="POST" action="{{ action('Auth\LoginController@login') }}">
                         @csrf
