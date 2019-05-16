@@ -10,12 +10,27 @@ namespace App\Http\ViewComposers\privacies\admin;
 
 
 use App\User;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class FaqAdminQuestionsComposer
 {
+    public $request;
+    public function __construct(Request $request)
+    {
+        $this->request = $request;
+    }
+
     public function compose(View $view)
     {
+        $email = '';
+
+        if($this->request !== null){
+            $request = $this->request;
+            $email = $request->email_user;
+        }
+
+
         return $view->with('question_from_contacts_all',
             $question_from_contacts_all =
                 User::select(
@@ -42,6 +57,7 @@ class FaqAdminQuestionsComposer
                         $join->on('contents.id', '=', 'content_user.content_id');
                     })
                     ->where('contents.title', 'like', '%question_from_contacts%')
+                    ->where('users.email', 'like', "%{$email}%")
                     ->orderBy('contents.updated_at', 'desc')
                     ->groupBy('contents.id')
                     ->get()

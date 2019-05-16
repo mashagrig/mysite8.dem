@@ -1,22 +1,17 @@
 
-
 <?php
-
-//$role_user_all = App\Role::all();
 $role_name = '';
 $select = '';
-
 ?>
 
-
-
-<div id="shedule" class="site-section">
+<div class="site-section  block-14 bg-light nav-direction-white">
     <div class="container">
-        <div class="row">
+        <div class="row  mb-3">
             <div class="col-md-12">
-                <h2 class="site-section-heading text-center">Вопросы от пользователей сайта</h2>
+                <h2 class="site-section-heading text-center">Обратная связь</h2>
             </div>
         </div>
+
         {{------------------------------------------------------------}}
         <script type="text/javascript">
             {{--window.addEventListener('DOMContentLoaded', function () {--}}
@@ -38,7 +33,7 @@ $select = '';
         </script>
         {{------------------------------------------------------------}}
 
-        <div class="row">
+        <div class="row  bg-white p-4">
             <form method='POST' id="form" action="{{ action('privacies\admin\FaqAdminController@show') }}" class="row">
                 {{ csrf_field() }}
 
@@ -50,9 +45,6 @@ $select = '';
                             <option value="" @if(old('email_user') === "")  selected @endif></option>
 
                             @foreach($question_from_contacts_all as $question)
-
-                                {{var_dump($question)}}
-
                                 <option value="{{ $question->users_email }}"
                                         @if(old('role_user') === "{$question->users_email}")
                                         selected
@@ -96,8 +88,9 @@ $select = '';
             @endif
         </div>
         {{-----------------------------------------------------------------}}
-
+        @if (session('status_show'))
         @include('privacies.admin.faq.faq_table')
+        @endif
 
     </div> {{-- container--}}
 </div>

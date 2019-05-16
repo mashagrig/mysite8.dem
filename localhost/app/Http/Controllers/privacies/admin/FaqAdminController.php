@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\privacies\admin;
 
+use App\Http\ViewComposers\privacies\admin\FaqAdminQuestionsComposer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -157,9 +158,13 @@ class FaqAdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        if(isset($request)&& $request->email_user !== null){
+
+            new FaqAdminQuestionsComposer($request);
+            return redirect()->back()->with('status_show', true);
+        }
     }
 
     /**
