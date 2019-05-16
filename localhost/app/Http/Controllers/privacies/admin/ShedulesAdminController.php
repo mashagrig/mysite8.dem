@@ -40,12 +40,10 @@ class ShedulesAdminController extends Controller
     public function store(Request $request)
     {
         //update
-      // if($request->shedule_id !== null){
        if(
        Shedule::where('date_training', "{$request->date_training}")
            ->where('trainingtime_id', "{$request->time_id}")->first() !== null
        ){
-
            // если  заполнены
         if(
         $request->date_training !== '' ||
@@ -57,7 +55,6 @@ class ShedulesAdminController extends Controller
           $section_id =  Section::where('title', 'like', "%{$request->admin_programs}%")
                 ->first()->id;
 
-         //   Shedule::where('id', "{$request->shedule_id}")
             Shedule::where('date_training', "{$request->date_training}")
                 ->where('trainingtime_id', "{$request->time_id}")
                 ->update([
@@ -71,12 +68,10 @@ class ShedulesAdminController extends Controller
            return redirect()->back()->with('status', 'Вы не изменили поле для обновления');
 
        }else     //create
-         //  if(!isset($request->shedule_id)){
            if(
                Shedule::where('date_training', "{$request->date_training}")
                    ->where('trainingtime_id', "{$request->time_id}")->first() === null
            ){
-
                //только если все заполнены!
                if(
                    $request->date_training !== '' &&
@@ -95,20 +90,10 @@ class ShedulesAdminController extends Controller
                            'section_id' => $section_id,
                            'gym_id' => $request->admin_gyms
                        ]);
-//                   Shedule::create([
-//                           'date_training' => '2019-16-05',
-//                           'trainingtime_id' => '3',
-//                           'user_id' => '21',
-//                           'section_id' => '2',
-//                           'gym_id' => '1'
-//                       ]);
                    return redirect()->back()->with('status', 'Данные добавлены');
                }
                return redirect()->back()->with('status', 'Заполнены не все поля');
            }
-
-
-
 
         return redirect()->route('privacy.admin.shedules')->with('status', 'Данные не обновлены и не добавлены');
     }

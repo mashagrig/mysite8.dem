@@ -14,7 +14,7 @@ class UsersAdminController extends Controller
      */
     public function index()
     {
-        return view('privacies.admin.users_list');
+        return view('privacies.admin.users.page_users');
     }
 
     /**

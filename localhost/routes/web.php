@@ -71,6 +71,7 @@ Route::group([
         ], function() {
             Route::get('/', 'privacies\admin\UsersAdminController@index')->name('privacy.admin.users');
             Route::post('/', 'privacies\admin\UsersAdminController@store');
+            Route::post('/', 'privacies\admin\UsersAdminController@show');
             Route::post('/destroy', 'privacies\admin\UsersAdminController@destroy');
         });
         Route::group([
