@@ -43,16 +43,16 @@ class UserObserver
      */
     public function updated(User $user)
     {
-        if($user->email_verified_at !== null){
-            //отправляем уведомление-----------------------
-            $email_admin = 'm-a-grigoreva@yandex.ru';
-            $email_arr = [
-                //   $email,
-                $email_admin
-            ];
-            event(new UserVerifyToAdminEvent($email_arr, $user));
-            //----------------------------------------------------------------------
-        }
+//        if($user->email_verified_at !== null){
+//            //отправляем уведомление-----------------------
+//            $email_admin = 'm-a-grigoreva@yandex.ru';
+//            $email_arr = [
+//                //   $email,
+//                $email_admin
+//            ];
+//            event(new UserVerifyToAdminEvent($email_arr, $user));
+//            //----------------------------------------------------------------------
+//        }
 
     }
 

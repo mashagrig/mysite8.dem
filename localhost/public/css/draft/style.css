@@ -547,10 +547,7 @@ a.nav-link.active {
     outline: none;
     -webkit-box-shadow: none !important;
     box-shadow: none !important; }
-  .btn.btn-secondary {
-    background-color: #e6e7e9;
-    border-color: #e6e7e9;
-    color: #000; }
+
   .btn.btn-sm {
     font-size: 0.8rem; }
   .btn:hover {
@@ -567,7 +564,15 @@ a.nav-link.active {
       color: #000; }
 
 
-
+.btn.btn-secondary {
+    font-size: 0.8rem !important;
+    background-color: rgba(0, 0, 0, 0.3) !important;
+    border-color: rgba(0, 0, 0, 0.1) !important;
+    color: #fff!important; }
+.btn.btn-secondary:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-color: rgba(0, 0, 0, 0.3);
+    color: #000!important;}
 
 
 

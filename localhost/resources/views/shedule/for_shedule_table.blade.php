@@ -65,7 +65,7 @@ $section = '';
                 <div class="col-md-auto toolbar-form bg-white  mb-3">
                     <div class="tolbar-select">
                         <label class="mr-sm-2" for="period">Показать расписание на период:</label><br/>
-                        <select id="period" name="period">
+                        <select id="period" name="period" class="form-control">
                             {{--<option  value="" hidden></option>--}}
                             <option value="today"  @if($period_select === "today")  selected @endif>Сегодня</option>
                             <option value="week" @if($period_select === "week")  selected @endif >На неделю</option>
@@ -82,14 +82,7 @@ $section = '';
                 <div class="col-md-auto toolbar-form bg-white  mb-3">
                     <div class="tolbar-select">
                         <label class="mr-sm-2" for="programs">Выберете программу:</label><br/>
-                        <select id="programs" name="programs"
-                                {{--onchange="function f() {--}}
-                                    {{--$.ajax({--}}
-                                    {{----}}
-                                    {{--});--}}
-                           {{--$('#btn_show').click();--}}
-                        {{--}"--}}
-                        >
+                        <select id="programs" name="programs" class="form-control">
                             {{--<option value="" hidden></option>--}}
                             <option value="" @if($program_select === "")  selected @endif>Все программы</option>
                             <option value="morning_programs" @if($program_select === "morning_programs")  selected @endif>Утренние программы</option>
@@ -129,7 +122,7 @@ $section = '';
                 <div class="col-md-auto toolbar-form bg-white  mb-3">
                     <div class="tolbar-select">
                         <label class="mr-sm-2" for="trainers">Выберете тренера:</label><br/>
-                        <select id="trainers" name="trainers">
+                        <select id="trainers" name="trainers" class="form-control">
                             <option value="" hidden></option>
                             <option value="" selected>Все тренеры</option>
                             {{--<option value="" @if($trainers_select === "")  selected @endif>Все тренеры</option>--}}
@@ -179,11 +172,8 @@ $section = '';
                 </div>
 
 
-            <div class="col  text-md-right bg-white  mb-3">
-                {{--<div class="text-md-right">--}}
-                    <br/>
+            <div class="col p-4 text-md-right bg-white">
                     <input type="submit" id="btn_show" class="btn btn-primary rounded text-white px-4" value="Показать">
-                {{--</div>--}}
             </div>
             </form>
         </div>
@@ -192,7 +182,7 @@ $section = '';
         @if($program_select !== '')
         <div class="row">
             <div class="col">
-                <span>Секция: </span><span class="h3 orange">{{ $section }}</span>
+                <span>Программа: </span><span class="h3 orange">{{ $section }}</span>
             </div>
         </div>
         @endif

@@ -26,10 +26,11 @@
 <table class="table  table-hover">
     <thead class="text-black thead-dark">
     <tr>
-        {{--<th scope="col">Дата</th>--}}
+
+
         <th scope="col" style="width: 20%!important;">Время</th>
+        <th scope="col" style="width: 30%!important;">Программа</th>
         <th scope="col">Тренер</th>
-        <th scope="col" style="width: 20%!important;">Секция</th>
         <th scope="col" style="width: 10%!important;">№ зала</th>
 
         @can("manipulate", "App\SheduleUser") <th scope="col">Записаться</th> @endcan
@@ -111,12 +112,12 @@
                 <tr class="{{ $status_tr_style }}">
             {{--<td>{{ date_format(date_create($shedule->date_training), 'd-m-Y') }}</td>--}}
             <td>{{ date_format(date_create($shedule->start_training), 'H:i') }} - {{ date_format(date_create($shedule->stop_training), 'H:i') }}</td>
+                    <td>{{ $section }}</td>
             <td>
                 {{      $shedule->trainer_surname
                 ." ". $shedule->trainer_name
                 ." ". $shedule->trainer_middle_name }}
             </td>
-            <td>{{ $section }}</td>
             <td>{{ $shedule->gym_number }}</td>
 
             @can("manipulate", "App\SheduleUser")

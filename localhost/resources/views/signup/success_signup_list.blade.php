@@ -52,13 +52,14 @@
                                             <table class="table  table-hover">
                                                 <thead class="text-black thead-dark">
                                                 <tr>
-                                                    <th scope="col">Время</th>
+                                                    <th scope="col" style="width: 20%!important;">Время</th>
+                                                    <th scope="col" style="width: 20%!important;">Программа</th>
                                                     <th scope="col">Тренер</th>
-                                                    <th scope="col">Секция</th>
-                                                    <th scope="col">№ зала</th>
+                                                    <th scope="col" style="width: 10%!important;">№ зала</th>
+
                                            @can("manipulate", "App\SheduleUser")
                                                         <th scope="col">Статус</th>
-                                                        <th scope="col">Отменить</th>
+                                                        <th scope="col" style="width: 10%!important;">Отменить</th>
                                             @endcan
                                                 </tr>
                                                 </thead>
@@ -133,8 +134,10 @@
                                                         <tr class="{{ $status_tr_style }}">
                                                             <td>{{ date_format(date_create($singup[$k]['start_training']), 'H:i') }}
                                                                 - {{ date_format(date_create($singup[$k]['stop_training']), 'H:i') }}</td>
-                                                            <td>{{ $singup[$k]['trainer_name'] }}</td>
                                                             <td>{{ $section }}</td>
+                                                            <td>{{ $singup[$k]['trainer_surname']
+                                                            ." ".$singup[$k]['trainer_name']
+                                                            ." ".$singup[$k]['trainer_middle_name'] }}</td>
                                                             <td>{{ $singup[$k]['gym_number'] }}</td>
                                               @can("manipulate", "App\SheduleUser")
                                                                 <td style="color: {{$status_color}}!important;">{{ $status }}</td>

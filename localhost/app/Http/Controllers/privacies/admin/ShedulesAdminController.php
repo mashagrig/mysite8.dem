@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\privacies\admin;
 
 use App\Http\ViewComposers\SheduleComposer;
+use App\Section;
+use App\Shedule;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -37,7 +39,78 @@ class ShedulesAdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //update
+      // if($request->shedule_id !== null){
+       if(
+       Shedule::where('date_training', "{$request->date_training}")
+           ->where('trainingtime_id', "{$request->time_id}")->first() !== null
+       ){
+
+           // если  заполнены
+        if(
+        $request->date_training !== '' ||
+        $request->time_id !== '' ||
+        $request->admin_trainers !== '' ||
+        $request->admin_programs !== '' ||
+        $request->admin_gyms !== ''
+       ){
+          $section_id =  Section::where('title', 'like', "%{$request->admin_programs}%")
+                ->first()->id;
+
+         //   Shedule::where('id', "{$request->shedule_id}")
+            Shedule::where('date_training', "{$request->date_training}")
+                ->where('trainingtime_id', "{$request->time_id}")
+                ->update([
+                    'trainingtime_id' => $request->time_id,
+                    'user_id' => $request->admin_trainers,
+                    'section_id' => $section_id,
+                    'gym_id' => $request->admin_gyms
+                ]);
+            return redirect()->back()->with('status', 'Данные обновлены');
+        }
+           return redirect()->back()->with('status', 'Вы не изменили поле для обновления');
+
+       }else     //create
+         //  if(!isset($request->shedule_id)){
+           if(
+               Shedule::where('date_training', "{$request->date_training}")
+                   ->where('trainingtime_id', "{$request->time_id}")->first() === null
+           ){
+
+               //только если все заполнены!
+               if(
+                   $request->date_training !== '' &&
+                   $request->time_id !== '' &&
+                   $request->admin_trainers !== '' &&
+                   $request->admin_programs !== '' &&
+                   $request->admin_gyms !== ''
+               ){
+                   $section_id =  Section::where('title', 'like', "%{$request->admin_programs}%")
+                       ->first()->id;
+
+                   Shedule::create([
+                           'date_training' => $request->date_training,
+                           'trainingtime_id' => $request->time_id,
+                           'user_id' => $request->admin_trainers,
+                           'section_id' => $section_id,
+                           'gym_id' => $request->admin_gyms
+                       ]);
+//                   Shedule::create([
+//                           'date_training' => '2019-16-05',
+//                           'trainingtime_id' => '3',
+//                           'user_id' => '21',
+//                           'section_id' => '2',
+//                           'gym_id' => '1'
+//                       ]);
+                   return redirect()->back()->with('status', 'Данные добавлены');
+               }
+               return redirect()->back()->with('status', 'Заполнены не все поля');
+           }
+
+
+
+
+        return redirect()->route('privacy.admin.shedules')->with('status', 'Данные не обновлены и не добавлены');
     }
 
     /**

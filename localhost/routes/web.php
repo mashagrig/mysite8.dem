@@ -77,6 +77,7 @@ Route::group([
             'prefix' => '/shedules',
         ], function() {
             Route::get('/', 'privacies\admin\ShedulesAdminController@index')->name('privacy.admin.shedules');
+            Route::get('/show', 'privacies\admin\ShedulesAdminController@show');
             Route::post('/show', 'privacies\admin\ShedulesAdminController@show');
             Route::post('/', 'privacies\admin\ShedulesAdminController@store');
             Route::post('/destroy', 'privacies\admin\ShedulesAdminController@destroy');

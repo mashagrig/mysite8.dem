@@ -56,7 +56,10 @@ class TrainerComposer
                 ->join('contents', 'contents.id', '=','content_user.content_id',  'inner')
 
                 ->where('roles.title', 'like', '%trainer%')
+                ->orderBy('personalinfos.surname')
+                ->groupBy('users.id')
                 ->get()
+             //   ->unique()
         );
     }
 }

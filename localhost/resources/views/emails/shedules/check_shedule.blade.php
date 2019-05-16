@@ -16,7 +16,9 @@ foreach ($each_check_shedule_info as $kk => $singup) {
                     'section_title' => $singup[$k]['section_title'],
                     'start_training' => $singup[$k]['start_training'],
                     'stop_training' => $singup[$k]['stop_training'],
-                    'trainer_name' => $singup[$k]['trainer_name'],
+                    'trainer_name' => $singup[$k]['trainer_surname']
+                        ." ".$singup[$k]['trainer_name']
+                        ." ".$singup[$k]['trainer_middle_name'],
                     'gym_number' => $singup[$k]['gym_number'],
                 ];
 

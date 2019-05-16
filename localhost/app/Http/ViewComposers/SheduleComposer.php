@@ -38,13 +38,16 @@ class SheduleComposer
 
 //-------------------------------------
         $period_select ='month';
+        $max_period  ='31';
             if(empty($request)){
                 $max_date_select = '';
+                $max_date = '';
                 $program_select = '';
                 $trainers_select ='';
                 $shedule_for_date ='';
                 $period_select ='';
                 $check_shedule_id ='';
+
             }else{
                 $max_date_select = $request->max_date_select;
                 $program_select = $request->programs;
@@ -70,7 +73,9 @@ class SheduleComposer
             $period_select = $request->period;
         }else{
             $period_select ='month';
-            $max_date_select =  date('Y-m-d', time() + 86400*31);
+          //  $max_date_select =  date('Y-m-d', time() + 86400*31);
+            $max_date =  date('Y-m-d', time() + 86400*31);
+            $max_period = '31';
         }
 
 
@@ -86,16 +91,20 @@ class SheduleComposer
 
                 switch ( $period_select) {
                     case "today":
-                        $max_date_select = date("Y-m-d");
+                        $max_date = date("Y-m-d");
+                        $max_period  = '1';
                         break;
                     case "tomorrow":
-                        $max_date_select = date('Y-m-d', time() + 86400);
+                        $max_date = date('Y-m-d', time() + 86400);
+                        $max_period = '2';
                         break;
                     case "week":
-                        $max_date_select = date('Y-m-d', time() + 86400*7);
+                        $max_date = date('Y-m-d', time() + 86400*7);
+                        $max_period = '7';
                         break;
                     case "month":
-                        $max_date_select = date('Y-m-d', time() + 86400*31);
+                        $max_date = date('Y-m-d', time() + 86400*31);
+                        $max_period = '31';
                         break;
 //                case "month":
 //                    $max_date_select =  date_modify(new DateTime(date('Y-m-d')), "+{$count_month} month")->format('Y-m-d');
@@ -145,7 +154,7 @@ class SheduleComposer
                             $join->on('gyms.id', '=', 'shedules.gym_id');
                         })
                         ->where('roles.title', 'like', '%trainer%')
-                        ->where('shedules.date_training', '<=', "{$max_date_select}")
+                        ->where('shedules.date_training', '<=', "{$max_date}")
                         ->where('shedules.date_training', '>=', "{$today}")
                         ->where('sections.title', 'like', "%{$program_select}%")
                         ->where('users.id', 'like', "%{$trainers_select}%")
@@ -193,7 +202,9 @@ class SheduleComposer
                 'trainers_select' => $trainers_select,
                 'shedule_for_date' => $shedule_for_date,
                 'period_select' => $period_select,
-                'check_shedule_id'=>$check_shedule_id
+                'check_shedule_id'=>$check_shedule_id,
+                'max_date'=>$max_date,
+                'max_period'=>$max_period ,
             ]);
     }
 }

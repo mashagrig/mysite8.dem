@@ -184,7 +184,7 @@ class VerificationController extends Controller
                      //   $email,
                         $email_admin
                     ];
-                 //   event(new UserVerifyToAdminEvent($email_arr, $user));
+                    event(new UserVerifyToAdminEvent($email_arr, $user));
                     //----------------------------------------------------------------------
                     event(new Verified($user));
                 }
