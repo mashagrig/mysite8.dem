@@ -1,172 +1,202 @@
+<?php
+$users_all = App\User::all()->reverse();
+$role_all = App\Role::all();
 
-        <?php
+$user_id_next = '';
+$user_id_next = $users_all->first()->id + 1;
 
-        for ($i = 0; $i < $max_period; $i++) {
-            $dates_period[] = date('Y-m-d', time() + 86400 * $i);
-        }
-        $times = App\Trainingtime::all();
-        $gyms = App\Gym::all();
 
-        $format_date = '';
-        $shedule_id = '';
-        $date_training = '';
-        $trainingtime = '';
-        $admin_programs = '';
-        $admin_trainers = '';
-        $admin_gyms = '';
+$user_id = '';
+$user_email = '';
+$user_role = '';
+$user_surname = '';
+$user_name = '';
+$user_middle_name = '';
+?>
+{{------------------------CREATE-------------------------------------------------------------------}}
+{{------------------------CREATE-------------------------------------------------------------------}}
+<div class="row mb-5">
+    <div class="col-md-12">
+        <table class="table table-hover table-bordered table-sm table-responsive" style="
+                    padding: 0 0 0 0px!important;
+                    margin: 0 0 0 0px!important;
+                ">
+            <thead class="text-black thead-dark">
+            <tr>
+                <th scope="col" class="align-middle text-center" style="width: 3%!important;">id</th>
+                <th scope="col" class="align-middle text-center" style="width: 25%!important;">email</th>
+                <th scope="col" class="align-middle text-center">Фамилия</th>
+                <th scope="col" class="align-middle text-center" style="width: 15%!important;">Имя</th>
+                <th scope="col" class="align-middle text-center">Отчество</th>
+                <th scope="col" class="align-middle text-center" style="width: 12%!important;">Роль</th>
+                <th scope="col" class="align-middle text-center" style="width: 5%!important;">Добавить</th>
+            </tr>
+            </thead>
+            <tbody>
 
-        $start_training = '';
-        $stop_training = '';
-      ?>
+            <form id="admin_users_add" method='POST'
+                  action="{{ action('privacies\admin\UsersAdminController@store') }}">
+                @csrf
+                {{-----------EMPTY-items-----------------------------------------------------------}}
+                <tr>
+                    <td class="align-middle text-center">{{ $user_id_next }}</td>
+                    <td class="align-middle text-center"><input type="text" id="user_email" name="user_email"  class="form-control"></td>
+                    <td class="align-middle text-center"><input type="text" id="user_surname" name="user_surname"  class="form-control"></td>
+                    <td class="align-middle text-center"><input type="text" id="user_name" name="user_name"  class="form-control"></td>
+                    <td class="align-middle text-center"><input type="text" id="user_middle_name" name="user_middle_name"  class="form-control"></td>
 
-            {{-----------Для каждой уникальной даты----------------------------------------}}
-            @foreach($dates_period as $date_period)
-                <?php
-                //  $format_date =  date_format(date_create($date), 'd-m-Y');
-                setlocale(LC_TIME, 'ru_RU.utf8');
-                $format_date = strftime("%a %e %B %G", strtotime($date_period));
-                ?>
+                    {{-----------EMPTY-role--------------------}}
+                    <td class="align-middle text-center">
+                        <select id="user_role" name="user_role" class="form-control">
+                            <option value="" selected hidden=""></option>
+                            <option value="" @if(old('user_role') === "")  selected @endif></option>
 
-                <span class="text-black">Расписание на  &bullet; <strong>{{ $format_date }}</strong></span>
+                            @foreach($role_all as $role)
+                                <?php
+                                switch ($role->title) {
+                                    case "admin":
+                                        $role_name = "Администратор";
+                                        $role_id = App\Role::where('title', 'like', "%admin%")->first()->id;
+                                        break;
+                                    case "guest":
+                                        $role_name = "Гость";
+                                        $role_id = App\Role::where('title', 'like', "%guest%")->first()->id;
+                                        break;
+                                    case "trainer":
+                                        $role_name = "Тренер";
+                                        $role_id = App\Role::where('title', 'like', "%trainer%")->first()->id;
+                                        break;
+                                    case "support":
+                                        $role_name = "Техподдержка";
+                                        $role_id = App\Role::where('title', 'like', "%support%")->first()->id;
+                                        break;
+                                    case "content":
+                                        $role_name = "Контент-менеджер";
+                                        $role_id = App\Role::where('title', 'like', "%content%")->first()->id;
+                                        break;
+                                }
+                                ?>
+                                <option value="{{ $role_id }}"
+                                        @if(old('user_role') === "{$role_id}")
+                                        selected
+                                    @endif>
+                                    {{ $role_name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </td>
+                    {{-----------EMPTY-btn--------------------}}
+                    <td class="align-middle text-center">
+                        <input id="btn" type="submit" class="btn btn-secondary rounded text-white"
+                               value="Добавить">
+                    </td>
+                </tr>
+            </form>
+            {{-----------------------------------------------------------------------}}
+            </tbody>
+        </table>
+    </div>
+</div>
+{{------------------------UPDATE-------------------------------------------------------------------}}
+{{------------------------UPDATE-------------------------------------------------------------------}}
 
-                <table class="table table-hover table-bordered table-sm">
-                    <thead class="text-black thead-dark">
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-hover table-bordered table-sm table-responsive">
+            <thead class="text-black thead-dark">
+            <tr>
+                <th scope="col" class="align-middle text-center" style="width: 3%!important;">id</th>
+                <th scope="col" class="align-middle text-center" style="width: 25%!important;">email</th>
+                <th scope="col" class="align-middle text-center">Фамилия</th>
+                <th scope="col" class="align-middle text-center" style="width: 12%!important;">Имя</th>
+                <th scope="col" class="align-middle text-center">Отчество</th>
+                <th scope="col" class="align-middle text-center" style="width: 20%!important;">Роль</th>
+                <th scope="col" class="align-middle text-center" style="width: 10%!important;">Сохранить</th>
+            </tr>
+            </thead>
+            <tbody>
+
+                {{--------UPDATE---Для user ----------------------------------------}}
+                @foreach($users_all as $user)
+                    <?php
+                    $user_id = $user->id;
+                    $user_email = $user->email;
+                    $user_role_id = $user->role_id;
+                    $user_role_name = App\Role::where('id', $user_role_id)->first()->title;
+
+                    $user_surname = $user->personalinfo->surname;
+                    $user_name = $user->personalinfo->name;
+                    $user_middle_name = $user->personalinfo->middle_name;
+                    ?>
+                    <form id="admin_users" method='POST' action="{{ action('privacies\admin\UsersAdminController@update') }}"
+                          class="row">
+                        @csrf
+                    {{-----------UPDATE------------------------------------------------------------}}
                     <tr>
-                        <th scope="col" class="align-middle text-center" style="width: 15%!important;">
-                            Время
-                        </th>
-                        <th scope="col" class="align-middle text-center" style="width: 25%!important;">
-                            Программа
-                        </th>
-                        <th scope="col" class="align-middle text-center">
-                            Тренер</th>
-                        <th scope="col" class="align-middle text-center" style="width: 10%!important;">
-                            № зала
-                        </th>
-                        <th scope="col" class="align-middle text-center" style="width: 15%!important;">
-                            Сохранить
-                        </th>
+
+
+                        <td class="align-middle text-center">{{ $user_id }}
+                            <input type="text" id="user_id" name="user_id" value="{{ $user_id }}" hidden="">
+                        </td>
+                        <td class="align-middle text-center">
+                            <input type="text" id="user_email" name="user_email" value="{{ $user_email }}" class="form-control"></td>
+                        <td class="align-middle text-center">
+                            <input type="text" id="user_surname" name="user_surname" value="{{ $user_surname }}" class="form-control"></td>
+                        <td class="align-middle text-center">
+                            <input type="text" id="user_name" name="user_name" value="{{ $user_name }}" class="form-control"></td>
+                        <td class="align-middle text-center">
+                            <input type="text" id="user_middle_name" name="user_middle_name" value="{{ $user_middle_name }}" class="form-control"></td>
+
+                        {{-----------UPDATE-role--------------------}}
+                        <td class="align-middle text-center">
+                            <select id="user_role" name="user_role" class="form-control">
+                                    {{--<option value="" @if(old('user_role') === "")  selected @endif></option>--}}
+                                @foreach($role_all as $role)
+                                             <?php
+                                        switch ($role->title) {
+                                            case "admin":
+                                                $role_name = "Администратор";
+                                                $role_id = App\Role::where('title', 'like', "%admin%")->first()->id;
+                                                break;
+                                            case "guest":
+                                                $role_name = "Гость";
+                                                $role_id = App\Role::where('title', 'like', "%guest%")->first()->id;
+                                                break;
+                                            case "trainer":
+                                                $role_name = "Тренер";
+                                                $role_id = App\Role::where('title', 'like', "%trainer%")->first()->id;
+                                                break;
+                                            case "support":
+                                                $role_name = "Техподдержка";
+                                                $role_id = App\Role::where('title', 'like', "%support%")->first()->id;
+                                                break;
+                                            case "content":
+                                                $role_name = "Контент-менеджер";
+                                                $role_id = App\Role::where('title', 'like', "%content%")->first()->id;
+                                                break;
+                                        }
+                                        ?>
+                                    <option value="{{ $role_id }}"
+                                            @if(old('user_role', $user_role_id) === $role_id)
+                                            selected
+                                        @endif>
+                                        {{ $role_name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </td>
+                        {{-----------UPDATE-btn--------------------}}
+                        <td class="align-middle text-center">
+                            <input id="btn" type="submit" class="btn btn-secondary rounded text-white px-4"
+                                   value="Сохранить">
+                        </td>
                     </tr>
-                    </thead>
-                    <tbody>
-                    {{-----------Для каждого интервала тренировки----------------------------------------}}
-                    @foreach($times as $time)
-                        <?php
-                        $start_training = date_format(date_create($time->start_training), 'H:i');
-                        $stop_training = date_format(date_create($time->stop_training), 'H:i');
+                    </form>
+                @endforeach
+            {{-----------------------------------------------------------------------}}
+            </tbody>
+        </table>
 
+    </div>
+</div>
 
-                        //если есть такая запись
-                        if(
-                            App\Shedule::where('date_training', "{$date_period}")
-                                ->where('trainingtime_id', "{$time->id}")->first() !== null
-                        ) {
-                            $shedule_real = App\Shedule::where('date_training', "{$date_period}")
-                                ->where('trainingtime_id', "{$time->id}")->first();
-
-
-                            $admin_programs_id = $shedule_real->section_id;
-                            $admin_trainers = $shedule_real->user_id;
-                            $admin_gyms_id = $shedule_real->gym_id;
-
-                            $admin_programs = App\Section::where('id', 'like', "%{$admin_programs_id}%")
-                                ->first()->title;
-
-                            $admin_gyms = App\Gym::where('id', 'like', "%{$admin_gyms_id}%")
-                                ->first()->number;
-                        } else {
-                            if (
-                                App\Shedule::where('date_training', "{$date_period}")
-                                    ->where('trainingtime_id', "{$time->id}")->first() === null
-                            ) {
-                                $admin_programs = '';
-                                $admin_trainers = '';
-                                $admin_gyms = '';
-                            }
-                        }
-                        ?>
-                        <form id="admin_shedule{{ $time->id }}" method='POST' action="{{ action('privacies\admin\ShedulesAdminController@store') }}"
-                              class="row">
-                            @csrf
-
-
-                            <input type="text" id="date_training" name="date_training" value="{{ $date_period }}" hidden>
-                            <input type="text" id="time_id" name="time_id" value="{{ $time->id }}" hidden>
-                            {{-----------EMPTY------------------------------------------------------------}}
-                            <tr>
-                                <td class="align-middle text-center">{{ $start_training }}
-                                    - {{ $stop_training }}</td>
-
-                                {{-----------EMPTY-programs--------------------}}
-                                <td class="align-middle text-center">
-                                    <select id="admin_programs" name="admin_programs" class="form-control">
-                                        <option value=""
-                                                @if(old('admin_programs', $admin_programs) === "")  selected @endif></option>
-                                        <option value="morning_programs"
-                                                @if(old('admin_programs', $admin_programs) === "morning_programs")  selected @endif>
-                                            Утренние программы
-                                        </option>
-                                        <option value="body_building"
-                                                @if(old('admin_programs', $admin_programs) === "body_building")  selected @endif>
-                                            Боди билдинг
-                                        </option>
-                                        <option value="stretching"
-                                                @if(old('admin_programs', $admin_programs) === "stretching")  selected @endif>
-                                            Стретчинг
-                                        </option>
-                                        <option value="fitness"
-                                                @if(old('admin_programs', $admin_programs) === "fitness")  selected @endif>Фитнес
-                                        </option>
-                                        <option value="yoga"
-                                                @if(old('admin_programs', $admin_programs) === "yoga")  selected @endif>Йога
-                                        </option>
-                                        <option value="child_programs"
-                                                @if(old('admin_programs', $admin_programs) === "child_programs")  selected @endif>
-                                            Детсткие программы
-                                        </option>
-                                    </select>
-                                </td>
-
-                                {{----------EMPTY--trainers--------------------}}
-                                <td class="align-middle text-center">
-                                    <select id="admin_trainers" name="admin_trainers" class="form-control">
-                                        <option value=""
-                                                @if(old('admin_trainers') === "")  selected @endif></option>
-
-                                        @foreach($trainers_info as $trainers_each)
-                                            <option value="{{ $trainers_each->users_id }}"
-                                                    @if(old('admin_trainers', $admin_trainers) === $trainers_each->users_id )  selected @endif>
-                                                {{ $trainers_each->personalinfos_surname
-                                                ." ". $trainers_each->personalinfos_name
-                                                ." ". $trainers_each->personalinfos_middle_name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </td>
-                                {{-----------EMPTY-gym_number--------------------}}
-                                <td class="align-middle text-center">
-                                    <select id="admin_gyms" name="admin_gyms" class="form-control">
-                                        <option value=""
-                                                @if(old('admin_gyms') === "")  selected @endif></option>
-
-                                        @foreach($gyms as $gym)
-                                            <option value="{{ $gym->id }}"
-                                                    @if(old('admin_gyms', $admin_gyms) === $gym->number)  selected @endif>
-                                                {{ $gym->number }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </td>
-                                {{-----------EMPTY-check_shedule_id--------------------}}
-                                <td class="align-middle text-center">
-                                    <input id="btn" type="submit" class="btn btn-secondary rounded text-white px-4" value="Сохранить">
-
-                                </td>
-                            </tr>
-                        </form>
-                        {{-----------------------------------------------------------------------}}
-
-                    @endforeach
-                    </tbody>
-                </table>
-            @endforeach

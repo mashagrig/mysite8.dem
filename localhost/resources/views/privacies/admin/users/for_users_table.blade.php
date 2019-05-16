@@ -120,12 +120,7 @@ $role_user_select = '';
     </div>
         {{-----------------------------------------------------------------}}
 
-
-        <div class="row">
-            <div class="col">
                     @include('privacies.admin.users.users_table')
-            </div>
-        </div>
 
     </div> {{-- container--}}
 </div>

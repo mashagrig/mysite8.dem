@@ -49,7 +49,7 @@
                                             <span
                                                 class="text-black">Запись на  &bullet; <strong>{{ $format_date }}</strong></span>
 
-                                            <table class="table  table-hover">
+                                            <table class="table  table-hover ">
                                                 <thead class="text-black thead-dark">
                                                 <tr>
                                                     <th scope="col" style="width: 20%!important;">Время</th>

@@ -52,7 +52,7 @@
 
 
                                             {{--<table class="table table-striped">--}}
-                                            <table class="table table-hover table-striped">
+                                            <table class="table table-hover table-striped ">
                                                 <thead class="text-black thead-dark">
                                                 <tr>
                                                     <th scope="col">Срок действия</th>
