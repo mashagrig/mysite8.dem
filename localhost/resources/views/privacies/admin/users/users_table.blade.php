@@ -111,7 +111,8 @@ $user_middle_name = '';
                 <th scope="col" class="align-middle text-center" style="width: 12%!important;">Имя</th>
                 <th scope="col" class="align-middle text-center">Отчество</th>
                 <th scope="col" class="align-middle text-center" style="width: 20%!important;">Роль</th>
-                <th scope="col" class="align-middle text-center" style="width: 10%!important;">Сохранить</th>
+                <th scope="col" class="align-middle text-center" style="width: 7%!important;">Сохранить</th>
+                <th scope="col" class="align-middle text-center" style="width: 7%!important;">Удалить</th>
             </tr>
             </thead>
             <tbody>
@@ -124,16 +125,19 @@ $user_middle_name = '';
                     $user_role_id = $user->role_id;
                     $user_role_name = App\Role::where('id', $user_role_id)->first()->title;
 
-                    $user_surname = $user->personalinfo->surname;
-                    $user_name = $user->personalinfo->name;
-                    $user_middle_name = $user->personalinfo->middle_name;
+                    if($user->personalinfo !== null){
+                        $user_surname = $user->personalinfo->surname;
+                        $user_name = $user->personalinfo->name;
+                        $user_middle_name = $user->personalinfo->middle_name;
+                    }
+
                     ?>
-                    <form id="admin_users" method='POST' action="{{ action('privacies\admin\UsersAdminController@update') }}"
-                          class="row">
-                        @csrf
+
                     {{-----------UPDATE------------------------------------------------------------}}
                     <tr>
-
+                        <form id="admin_users" method='POST' action="{{ action('privacies\admin\UsersAdminController@update') }}"
+                              class="row">
+                            @csrf
 
                         <td class="align-middle text-center">{{ $user_id }}
                             <input type="text" id="user_id" name="user_id" value="{{ $user_id }}" hidden="">
@@ -185,13 +189,35 @@ $user_middle_name = '';
                                 @endforeach
                             </select>
                         </td>
+
                         {{-----------UPDATE-btn--------------------}}
                         <td class="align-middle text-center">
                             <input id="btn" type="submit" class="btn btn-secondary rounded text-white px-4"
                                    value="Сохранить">
+
+                        </td>
+                    </form>
+                    {{-----------DELETE-btn--------------------}}
+
+                    <td class="align-middle text-center">
+
+
+                                <form id="admin_users_delete" action="{{ action('privacies\admin\UsersAdminController@destroy', $user_id) }}" method="POST">
+                                    @csrf
+                                    <input type="text" id="user_id" name="user_id" value="{{ $user_id }}" hidden="">
+                                    <input id="btn" type="submit" class="btn btn-secondary rounded text-white px-4"
+                                    value="Удалить">
+                                </form>
+
+
+
+                            {{--<a class="btn btn-primary rounded text-white px-4 mb-3"--}}
+                            {{--href="{{ action('privacies\admin\UsersAdminController@destroy', $user_id) }}"--}}
+                            {{--onclick="event.preventDefault(); document.getElementById('admin_users_delete').submit();">--}}
+                            {{--{{ __('Удалить') }}</a>--}}
                         </td>
                     </tr>
-                    </form>
+
                 @endforeach
             {{-----------------------------------------------------------------------}}
             </tbody>

@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\privacies\admin;
 
+use App\Binaryfile;
+use App\Card;
 use App\Content;
 use App\Personalinfo;
+use App\Shedule;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -52,7 +55,7 @@ class UsersAdminController extends Controller
                 $request->user_middle_name !== ''
             ){
                 $personalinfo_id = Personalinfo::create([
-                    'email' => $request->email,
+                    'email' => $request->user_email,
                     'surname' => $request->user_surname,
                     'name' => $request->user_name,
                     'middle_name' => $request->user_middle_name
@@ -129,26 +132,52 @@ class UsersAdminController extends Controller
                 $request->user_name !== '' ||
                 $request->user_middle_name !== ''
             ){
+                $user_id = $request->user_id;
+                $user =  User::where('id', $user_id)->first();
 
-                User::where('id', $request->user_id)
+
+                User::where('id', $user_id)
                     ->update([
                         'email' => $request->user_email,
                         'role_id' => $request->user_role,
                     ]);
-              //   redirect()->back()->with('status', 'Данные user обновлены');
-               $user_id = $request->user_id;
-                Personalinfo:: whereHas('users', function ($q) use($user_id){
-                    $q->where('users.id', $user_id);
-                })
-                    ->update([
-                        'email' => $request->user_email,
-                        'surname' => $request->user_surname,
-                        'name' => $request->user_name,
-                        'middle_name' => $request->user_middle_name
-                    ]);
-                return   redirect()->back()->with('status', $request->user_id.'Данные обновлены');
+
+
+               if($user->personalinfo_id !== null){
+
+                   $personalinfo_id =  $user->personalinfo_id;
+
+                   Personalinfo:: whereHas('users', function ($q) use($user_id){
+                       $q->where('users.id', $user_id);
+                   })
+                       ->update([
+                           'email' => $request->user_email,
+                           'surname' => $request->user_surname,
+                           'name' => $request->user_name,
+                           'middle_name' => $request->user_middle_name
+                       ]);
+
+               }elseif($user->personalinfo_id === null){
+
+                   $personalinfo_id =   Personalinfo::
+                        create([
+                       'email' => $request->user_email,
+                       'surname' => $request->user_surname,
+                       'name' => $request->user_name,
+                       'middle_name' => $request->user_middle_name
+                   ])->id;
+                  //->first()->users()->attach($user);
+                 //  Content::where('status', 'like', "%".$email."%")->first()->users()->attach($new_user);
+
+                   User::where('id', $user_id)
+                       ->update([
+                           'personalinfo_id' => $personalinfo_id,
+                       ]);
+               }
+
+                return   redirect()->back()->with('status', $request->user_id.' - Данные обновлены');
             }
-            return redirect()->back()->with('status', $request->user_email.'Вы не изменили поле для обновления');
+            return redirect()->back()->with('status', $request->user_email.' - Вы не изменили поле для обновления');
 
         }
 
@@ -164,6 +193,63 @@ class UsersAdminController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(
+            User::where('id', $id)->first() !== null
+        ){
+            $user =  User::where('id', $id)->first();
+            $personalinfo_id =  $user->personalinfo_id;
+
+//                User::where('id', $id)
+//                    ->delete();
+//
+            User::find($id)
+                    ->delete();
+
+                Personalinfo::find($personalinfo_id)
+                    ->delete();
+
+                //удаление из базы запрошенных тренировок на пользователя
+//                if( Shedule::has('users')){
+//
+//                  Shedule::has('users')
+//
+//                ->users()
+//                ->detach($user);
+//
+//                    return   redirect()->back()->with('status', $id.'Данные uuu удалены');
+//                }
+
+
+
+
+//
+//            //удаление из базы запрошенных тренировок на пользователя
+//            Card::whereHas('users', function ($q) use($user_id){
+//                $q->where('users.id', $user_id);
+//            })
+//                ->users()
+//                ->detach($user);
+//
+//            //удаление из базы   на пользователя
+//            Content::whereHas('users', function ($q) use($user_id){
+//                $q->where('users.id', $user_id);
+//            })
+//                ->users()
+//                ->detach($user);
+//
+//            //удаление из базы   на пользователя
+//            Binaryfile::whereHas('users', function ($q) use($user_id){
+//                $q->where('users.id', $user_id);
+//            })
+//                ->users()
+//                ->detach($user);
+
+
+
+                return   redirect()->back()->with('status', $id.'Данные удалены');
+            }
+
+        return redirect()->route('privacy.admin.users')->with('status', "Данные не удалены.");
+
     }
 }

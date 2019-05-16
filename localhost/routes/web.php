@@ -73,7 +73,7 @@ Route::group([
             Route::post('/', 'privacies\admin\UsersAdminController@store');
             Route::post('/show', 'privacies\admin\UsersAdminController@show');
             Route::post('/update', 'privacies\admin\UsersAdminController@update');
-            Route::post('/destroy', 'privacies\admin\UsersAdminController@destroy');
+            Route::post('/destroy/{id}', 'privacies\admin\UsersAdminController@destroy');
         });
         Route::group([
             'prefix' => '/shedules',
