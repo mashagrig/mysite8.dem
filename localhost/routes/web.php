@@ -85,7 +85,7 @@ Route::group([
             Route::post('/destroy', 'privacies\admin\ShedulesAdminController@destroy');
         });
         Route::group([
-            'prefix' => 'cards',
+            'prefix' => '/cards',
         ], function() {
             Route::get('/', 'privacies\admin\CardsAdminController@index')->name('privacy.admin.cards');
             Route::post('/', 'privacies\admin\CardsAdminController@store');
@@ -103,6 +103,7 @@ Route::group([
         ], function() {
             Route::get('/', 'privacies\admin\FaqAdminController@index')->name('privacy.admin.faq');
             Route::post('/', 'privacies\admin\FaqAdminController@store');
+            Route::post('/show', 'privacies\admin\FaqAdminController@show');
             Route::post('/destroy', 'privacies\admin\FaqAdminController@destroy');
         });
 });

@@ -123,7 +123,10 @@ $user_middle_name = '';
                     $user_id = $user->id;
                     $user_email = $user->email;
                     $user_role_id = $user->role_id;
-                    $user_role_name = App\Role::where('id', $user_role_id)->first()->title;
+                    if(App\Role::where('id', $user_role_id)->first() !== null){
+                        $user_role_name = App\Role::where('id', $user_role_id)->first()->title;
+                    }
+
 
                     if($user->personalinfo !== null){
                         $user_surname = $user->personalinfo->surname;

@@ -7,6 +7,9 @@ use App\Http\ViewComposers\AvatarComposer;
 use App\Http\ViewComposers\CardComposer;
 use App\Http\ViewComposers\CardStatusComposer;
 use App\Http\ViewComposers\CommentsComposer;
+use App\Http\ViewComposers\privacies\admin\FaqAdminAnswersComposer;
+
+use App\Http\ViewComposers\privacies\admin\FaqAdminQuestionsComposer;
 use App\Http\ViewComposers\ProfileComposer;
 use App\Http\ViewComposers\ProgramComposer;
 use App\Http\ViewComposers\QuestionsComposer;
@@ -113,7 +116,7 @@ class ViewServiceProvider extends ServiceProvider
             'signup.success_signup_card_list',
         ], CardStatusComposer::class);
 
-
+        //---------------------------------
         view()->composer([
             'signup.faq',
         ], QuestionsComposer::class);
@@ -121,6 +124,19 @@ class ViewServiceProvider extends ServiceProvider
         view()->composer([
             'signup.faq',
         ], AnswersComposer::class);
+        //---------------------------------
+        view()->composer([
+            'privacies.admin.faq.page_faq',
+            'privacies.admin.faq.for_faq_table',
+            'privacies.admin.faq.faq_table',
+        ], FaqAdminQuestionsComposer::class);
+
+        view()->composer([
+        //    'privacies.admin.faq.page_faq',
+//            'privacies.admin.faq.for_faq_table',
+//            'privacies.admin.faq.faq_table',
+        ], FaqAdminAnswersComposer::class);
+        //---------------------------------
 
         view()->composer([
             'signup.profile',
