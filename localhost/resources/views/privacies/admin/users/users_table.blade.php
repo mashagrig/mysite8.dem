@@ -26,8 +26,9 @@ $user_middle_name = '';
                 <th scope="col" class="align-middle text-center" style="width: 3%!important;">id</th>
                 <th scope="col" class="align-middle text-center" style="width: 25%!important;">email</th>
                 <th scope="col" class="align-middle text-center">Фамилия</th>
-                <th scope="col" class="align-middle text-center" style="width: 15%!important;">Имя</th>
+                <th scope="col" class="align-middle text-center">Имя</th>
                 <th scope="col" class="align-middle text-center">Отчество</th>
+                <th scope="col" class="align-middle text-center">Пароль</th>
                 <th scope="col" class="align-middle text-center" style="width: 12%!important;">Роль</th>
                 <th scope="col" class="align-middle text-center" style="width: 5%!important;">Добавить</th>
             </tr>
@@ -41,9 +42,19 @@ $user_middle_name = '';
                 <tr>
                     <td class="align-middle text-center">{{ $user_id_next }}</td>
                     <td class="align-middle text-center"><input type="text" id="user_email" name="user_email"  class="form-control"></td>
+                    {{--<td class="align-middle text-center">--}}
+                    {{--<div class="text-center"><input type="text" id="user_email" name="user_email"  class="form-control">--}}
+                    {{--</div>--}}
+                    {{--<div>--}}
+                        {{--<small>Пароль</small>--}}
+                        {{--<input type="text" id="user_password" name="user_password"  class="form-control">--}}
+                    {{--</div>--}}
+                    {{--</td>--}}
                     <td class="align-middle text-center"><input type="text" id="user_surname" name="user_surname"  class="form-control"></td>
                     <td class="align-middle text-center"><input type="text" id="user_name" name="user_name"  class="form-control"></td>
                     <td class="align-middle text-center"><input type="text" id="user_middle_name" name="user_middle_name"  class="form-control"></td>
+                    <td class="align-middle text-center"><input type="text" id="user_password" name="user_password"  class="form-control"></td>
+
 
                     {{-----------EMPTY-role--------------------}}
                     <td class="align-middle text-center">

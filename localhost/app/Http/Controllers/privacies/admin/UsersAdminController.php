@@ -48,11 +48,12 @@ class UsersAdminController extends Controller
         ){
             // если  заполнены
             if(
-                $request->user_email !== '' &&
-                $request->user_role !== '' &&
-                $request->user_surname !== '' &&
-                $request->user_name !== '' &&
-                $request->user_middle_name !== ''
+                $request->user_email !== null &&
+                $request->user_role !== null &&
+                $request->user_surname !== null &&
+                $request->user_name !== null &&
+                $request->user_middle_name !== null &&
+                $request->user_password !== null
             ){
                 $personalinfo_id = Personalinfo::create([
                     'email' => $request->user_email,
@@ -64,7 +65,7 @@ class UsersAdminController extends Controller
                 $new_user = User::create([
                     'name' => $request->user_name,
                     'email' => $request->user_email,
-                    'password' => Hash::make($password = '11111111'),
+                    'password' => Hash::make($password = $request->user_password),
                     'role_id' => $request->user_role,
                     'personalinfo_id' => $personalinfo_id,
                 ]);
@@ -126,11 +127,11 @@ class UsersAdminController extends Controller
         ){
             // если  заполнены
             if(
-                $request->user_email !== '' ||
-                $request->user_role !== '' ||
-                $request->user_surname !== '' ||
-                $request->user_name !== '' ||
-                $request->user_middle_name !== ''
+                $request->user_email !== null ||
+                $request->user_role !== null ||
+                $request->user_surname !== null ||
+                $request->user_name !== null ||
+                $request->user_middle_name !== null
             ){
                 $user_id = $request->user_id;
                 $user =  User::where('id', $user_id)->first();
