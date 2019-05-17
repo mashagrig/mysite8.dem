@@ -11,6 +11,7 @@ use App\Http\ViewComposers\privacies\admin\FaqAdminAnswersComposer;
 
 use App\Http\ViewComposers\privacies\admin\FaqAdminEmailsComposer;
 use App\Http\ViewComposers\privacies\admin\FaqAdminQuestionsComposer;
+use App\Http\ViewComposers\privacies\admin\ShedulesAdminComposer;
 use App\Http\ViewComposers\ProfileComposer;
 use App\Http\ViewComposers\ProgramComposer;
 use App\Http\ViewComposers\QuestionsComposer;
@@ -78,8 +79,13 @@ class ViewServiceProvider extends ServiceProvider
 //        ], GuestComposer::class);
 //----Shedule-----------------------------------------
         view()->composer([
-            'shedule.for_shedule_table',
+           // 'shedule.for_shedule_table',
             'privacies.admin.shedule.for_shedule_table',
+        ], ShedulesAdminComposer::class);
+
+        view()->composer([
+            'shedule.for_shedule_table',
+          //  'privacies.admin.shedule.for_shedule_table',
         ], SheduleComposer::class);
 
         view()->composer([
@@ -93,7 +99,7 @@ class ViewServiceProvider extends ServiceProvider
 
         view()->composer([
             'shedule.for_shedule_table',
-            'privacies.admin.shedule.for_shedule_table',
+           // 'privacies.admin.shedule.for_shedule_table',
             'signup.success_signup_list',
         ], SheduleStatusComposer::class);
 

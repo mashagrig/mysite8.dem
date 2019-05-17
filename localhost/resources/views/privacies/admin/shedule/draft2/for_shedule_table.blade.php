@@ -1,5 +1,17 @@
 
-
+<?php
+switch ( $max_period) {
+    case "1":
+        $max_period_name  = 'today';
+        break;
+    case "7":
+        $max_period_name = 'week';
+        break;
+    case "31":
+        $max_period_name = 'month';
+        break;
+}
+?>
 
 
 <div id="shedule" class="site-section">
@@ -12,12 +24,13 @@
         {{------------------------------------------------------------}}
         <script type="text/javascript">
             window.addEventListener('DOMContentLoaded', function () {
-                $('#max_period').change( function (e) {
+                $('#period').change( function (e) {
                     e.preventDefault();
                     $.ajax({
                         data: $("#form").serialize(),
                         type: 'POST',
                         url: "{{ action('privacies\admin\ShedulesAdminController@show') }}",
+                        {{--//url: "{{ action('shedule\SheduleController@store') }}",--}}
                         success: function (data) {
                             $('#btn_show').click();
                         }, error: function (msg) {
@@ -37,11 +50,11 @@
 
                 <div class="col-md-auto toolbar-form bg-white  mb-3">
                     <div class="tolbar-select">
-                        <label class="mr-sm-2" for="max_period">Показать расписание на период:</label><br/>
-                        <select id="max_period" name="max_period" class="form-control">
-                            <option value="1" @if('1' === $max_period) selected @endif>Сегодня</option>
-                            <option value="7" @if('7' === $max_period) selected @endif>На неделю</option>
-                            <option value="31" @if('31' === $max_period) selected @endif>На месяц</option>
+                        <label class="mr-sm-2" for="period">Показать расписание на период:</label><br/>
+                        <select id="period" name="period" class="form-control">
+                            <option value="today"  @if($period_select === "today")  selected @endif>Сегодня</option>
+                            <option value="week" @if($period_select === "week")  selected @endif >На неделю</option>
+                           <option value="month" @if($period_select === "month")  selected @endif>На месяц</option>
                         </select>
                     </div>
                 </div>
