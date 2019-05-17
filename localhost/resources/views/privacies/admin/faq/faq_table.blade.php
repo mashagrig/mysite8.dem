@@ -8,20 +8,18 @@
         $email_admin = Auth::user()->email;
     }
     $guestion_id = '';
+    $count = 1;
     ?>
-
+    <form method='POST' action="{{ action('privacies\admin\FaqAdminController@store') }}">
+        @csrf
     <div class="row">
         <div class="col-lg-12">
             <div class="p-4 bg-white  mb-3">
                 <h3 class="h5 text-black mb-3">Ответить на вопрос</h3>
                 {{---------------------------------------------------------------------------}}
-                <form method='POST' action="{{ action('privacies\admin\FaqAdminController@store') }}"
-                      class="mb-0 bg-white">
-                    @csrf
-                    <input type="text" name="email_admin" id="email_admin" value="{{ $email_admin }}" hidden>
-                    <input type="text" name="guestion_id" id="guestion_id" value="{{ $guestion_id }}" hidden>
 
-                    {{ var_dump($guestion_id) }}
+                    <input type="text" name="email_admin" id="email_admin" value="{{ $email_admin }}" hidden>
+
 
                     <div class="row form-group">
                         <div class="col-md-12">
@@ -36,7 +34,7 @@
                             <input type="submit" value="Отправить" class="btn btn-primary text-white px-4 py-2">
                         </div>
                     </div>
-                </form>
+
                 {{---------------------------------------------------------------------------}}
             </div>
         </div>
@@ -47,8 +45,8 @@
 
     {{---------------------------------------------------------------------------}}
     @foreach($question_from_contacts_all  as $question)
-        <?php $guestion_id=$question->contents_id ?>
 
+            {{---------------------------------------------------------------------------}}
         @foreach($answers_admin_all as $answer)
             @if($question->contents_id === (int)$answer->status_content)
                 <div class="row left">
@@ -65,8 +63,12 @@
             @endif
         @endforeach
         {{---------------------------------------------------------------------------}}
-
-
+            <?php
+            if($count === 1){
+                $guestion_id = $question->contents_id;
+            }
+            $count++;
+            ?>
         <div class="row right">
             <div class="col-lg-4"></div>
             <div class="col-lg-8 mb-4 right">
@@ -81,8 +83,12 @@
             </div>
         </div>
         {{---------------------------------------------------------------------------}}
+        {{---------------------------------------------------------------------------}}
 
     @endforeach
+        <input type="text" name="guestion_id" id="guestion_id" value="{{ $guestion_id }}" hidden>
+    </form>
+
 @endif
 
 

@@ -1,6 +1,5 @@
 
 <?php
-$role_name = '';
 $select = '';
 
 ?>
@@ -45,6 +44,14 @@ $select = '';
                         <select id="email_user" name="email_user" class="form-control">
                             <option value="" @if(old('email_user') === "")  selected @endif></option>
 
+                    {{--@if(isset($check_email)&& $check_email!=='')--}}
+                                {{--<option value="{{ $check_email }}"--}}
+                                        {{--@if(old('role_user') === "{$check_email}")--}}
+                                        {{--selected--}}
+                                    {{--@endif>--}}
+                                    {{--{{ $check_email }}--}}
+                                {{--</option>--}}
+                     {{--@else--}}
                             @foreach($new_emails_unique as $question_email)
                                 <option value="{{ $question_email }}"
                                         @if(old('role_user') === "{$question_email}")
@@ -53,6 +60,7 @@ $select = '';
                                     {{ $question_email }}
                                 </option>
                             @endforeach
+                     {{--@endif--}}
                         </select>
                     </div>
                 </div>

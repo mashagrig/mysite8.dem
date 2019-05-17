@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\privacies\admin;
 
+use App\Content;
 use App\Events\Contacts\ContactsEvent;
 use App\Http\ViewComposers\privacies\admin\FaqAdminQuestionsComposer;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class FaqAdminController extends Controller
 {
@@ -41,6 +43,10 @@ class FaqAdminController extends Controller
     {
         $email_admin = '';
         $message_admin = '';
+        $guestion_id = '';
+
+        $admin = Auth::user();
+
 
         $name = '';
         $email = '';
@@ -50,82 +56,47 @@ class FaqAdminController extends Controller
         $current_user_email = '';
         $current_user_id = '';
         $title = 'question_from_contacts';
-        $status = '';
-
 
         if(
-             $request->email !== null
+             $request->email_admin !== null
             && $request->message_admin !== null
-            && $request->message_admin !== null
+            && $request->guestion_id !== null
         ){
-            $name = $request->name;
-            $email = $request->email;
-            $phone = $request->phone;
-            $message = $request->message;
-
             $email_admin = $request->email_admin;
             $message_admin = $request->message_admin;
+            $guestion_id = $request->guestion_id;
 
-            $current_user_email = User::where('email', $email)->pluck('email')->toArray();
 
-            //есть такой пользователь в базе, просто обновляем по нему данные
-            if(!empty($current_user_email)){
 
-                $current_user_db = User::where('email', $email)->get();
-                //чтобы не обновлять данные зареганного пользователя
-
-                $status_db = $email
-                    .", "
-                    .$phone
-                    .", "
-                    .$name;
-
-                Content::create([
-                    'title' => $title,
-                    'status' => $status_db,
-                    'text' => $message,
-                ])->users()->attach($current_user_db);
-
-//
-//            $personalinfo_id = $current_user_db->pluck('email')->toArray()[0];
-//            Personalinfo::where('id', $personalinfo_id)->update([
-//                'name' => $name,
-//                'email' => $email,
-//                'telephone' => $phone
-//            ]);
+            if(Content::where('contents.status', 'like', "%@%")
+                    ->where('contents.id', $guestion_id)
+                    ->first() !== null){
+                //выцепляем почту из сообщения
+                $email = Content::where('contents.id', $guestion_id)
+                    ->first()->status;
             }
-            //нет такого пользователя в базе, создаем по нему данные ТОЛЬКО в Content!!!
-            else
-                if(empty($current_user_email)){
+            else if(Content::where('contents.status', 'like', "%@%")
+                    ->where('contents.id', $guestion_id)
+                    ->first() === null){
+                //выцепляем почту из User (можно и проще, но потом)
+                $email = User::select('users.email as users_email')
+                        ->join('content_user', function ($join) {
+                            $join->on('users.id', '=', 'content_user.user_id');
+                        })
+                        ->join('contents', function ($join) {
+                            $join->on('contents.id', '=', 'content_user.content_id');
+                        })
+                        ->where('contents.id', $guestion_id)
+                        ->get();
+            }
 
-//                    $current_user =  User::create([
-//                        'name' => $name,
-//                        'email' => $email,
-//                        'phone' => $phone,
-//                        'role_id' => $role_id
-//                    ]);
-//
-//                    Personalinfo::create([
-//                        'name' => $name,
-//                        'email' => $email,
-//                        'telephone' => $phone
-//                    ])->users()->save($current_user);
-
-                    $status_db = $email
-                        .", "
-                        .$phone
-                        .", "
-                        .$name;
-
-                    Content::create([
-                        'title' => $title,
-                        'status' => $status_db,
-                        'text' => $message,
-                    ]);
-                }
-
-
-
+            Content::create([
+                'title' => 'answer',
+                'status' => $guestion_id,
+                'text' => $message_admin
+            ])
+                ->users()
+                ->attach($admin);;
             //отправить письмо техподдержке, админу и юзеру, если заполнены все поля!!!
             //отправляем уведомление (проверка на коннект в листенере)
             //--------------------------------------------------
@@ -138,8 +109,11 @@ class FaqAdminController extends Controller
             //сообщение в письмо перердаем напрямую отсюда через событие, а не через компоузер
          //   event(new ContactsAnswerEvent($email_arr, $message_admin));
             //---------------------------------------------------
-            $status_message = 'Вы успешно отправили сообщение. В ближайшее время наш менеджер свяжется с Вами.';
-            return redirect()->back()->with('status', $status_message);
+            $status_message = 'Вы успешно отправили ответ.';
+
+            $request->email_user = $email;
+            $request_composer =   new FaqAdminQuestionsComposer($request);
+            return view('privacies.admin.faq.page_faq')->with('request_composer', $request_composer);
         }
         else{
             //вывести сообщение, что форма не заполнена
@@ -159,12 +133,13 @@ class FaqAdminController extends Controller
      */
     public function show(Request $request)
     {
-        if(isset($request)&& $request->email_user !== null){
+
+        if(isset($request)&& $request->email_user !== ''){
 
             $request_composer =   new FaqAdminQuestionsComposer($request);
             return view('privacies.admin.faq.page_faq')->with('request_composer', $request_composer);
         }
-        return redirect()->back()->with('status_show',false );
+        return redirect()->back();
 
     }
 
