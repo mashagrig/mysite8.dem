@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\privacies\admin;
 
+use App\Events\Contacts\ContactsEvent;
 use App\Http\ViewComposers\privacies\admin\FaqAdminQuestionsComposer;
 use App\User;
 use Illuminate\Http\Request;
@@ -38,6 +39,9 @@ class FaqAdminController extends Controller
      */
     public function store(Request $request)
     {
+        $email_admin = '';
+        $message_admin = '';
+
         $name = '';
         $email = '';
         $phone = '';
@@ -48,26 +52,19 @@ class FaqAdminController extends Controller
         $title = 'question_from_contacts';
         $status = '';
 
-        $name = $request->name;
-        $email = $request->email;
-        $phone = $request->phone;
-        $message = $request->message;
-        $role_id = Role::where('title', 'like', "%guest%")
-            ->first()->id;
 
         if(
-            $name !== ''
-            && $email !== ''
-            && $phone !== ''
-            && $message !== ''
-            && $request->email !== null
-            && $request->message !== null
+             $request->email !== null
+            && $request->message_admin !== null
+            && $request->message_admin !== null
         ){
+            $name = $request->name;
+            $email = $request->email;
+            $phone = $request->phone;
+            $message = $request->message;
 
-            if(Auth::user()!==null){
-                $current_user_id = Auth::user()->getAuthIdentifier();
-            }
-
+            $email_admin = $request->email_admin;
+            $message_admin = $request->message_admin;
 
             $current_user_email = User::where('email', $email)->pluck('email')->toArray();
 
@@ -132,21 +129,22 @@ class FaqAdminController extends Controller
             //отправить письмо техподдержке, админу и юзеру, если заполнены все поля!!!
             //отправляем уведомление (проверка на коннект в листенере)
             //--------------------------------------------------
-            $email_admin = 'm-a-grigoreva@yandex.ru';
+            $email_admin_def = 'm-a-grigoreva@yandex.ru';
             $email_arr = [
                 $email,
-                $email_admin
+                $email_admin,
+                $email_admin_def
             ];
             //сообщение в письмо перердаем напрямую отсюда через событие, а не через компоузер
-            event(new ContactsEvent($email_arr, $message));
+         //   event(new ContactsAnswerEvent($email_arr, $message_admin));
             //---------------------------------------------------
-            $message = 'Вы успешно отправили сообщение. В ближайшее время наш менеджер свяжется с Вами.';
-            return redirect()->back()->with('status', $message);
+            $status_message = 'Вы успешно отправили сообщение. В ближайшее время наш менеджер свяжется с Вами.';
+            return redirect()->back()->with('status', $status_message);
         }
         else{
             //вывести сообщение, что форма не заполнена
-            $message = 'Вы заполнили не все поля.';
-            return redirect()->back()->with('status', $message);
+            $status_message = 'Вы заполнили не все поля.';
+            return redirect()->back()->with('status', $status_message);
         }
 
 

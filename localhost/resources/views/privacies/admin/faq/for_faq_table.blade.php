@@ -2,34 +2,7 @@
 <?php
 $role_name = '';
 $select = '';
-$que = App\User::select(
-      //  'users.id as users_id',
-        'users.email as users_email'//,
-//        'personalinfos.name as personalinfos_name',
-//        'personalinfos.surname as personalinfos_surname',
-//        'personalinfos.middle_name as personalinfos_middle_name',
-//        'contents.id as contents_id',
-//        'contents.title as contents_title',
-//        'contents.status as status_content',//тут данные от анонимных пользователей
-//        'contents.text as contents_text',
-//        'contents.created_at as contents_created_at',
-//        'contents.updated_at as contents_updated_at'
-    )
-//        ->join('personalinfos', function ($join) {
-//            $join->on('personalinfos.id', '=', 'users.personalinfo_id');
-//        })
 
-        ->join('content_user', function ($join) {
-            $join->on('users.id', '=', 'content_user.user_id');
-        })
-        ->join('contents', function ($join) {
-            $join->on('contents.id', '=', 'content_user.content_id');
-        })
-        ->where('contents.title', 'like', '%question_from_contacts%')
-        //->where('users.email', 'like', "%{$email}%")
-        ->orderBy('contents.updated_at', 'desc')
-        ->groupBy('contents.id')
-        ->get();
 ?>
 
 <div class="site-section  block-14 bg-light nav-direction-white">
@@ -72,13 +45,12 @@ $que = App\User::select(
                         <select id="email_user" name="email_user" class="form-control">
                             <option value="" @if(old('email_user') === "")  selected @endif></option>
 
-                            {{--@foreach($question_from_contacts_all as $question)--}}
-                            @foreach($que as $question)
-                                <option value="{{ $question->users_email }}"
-                                        @if(old('role_user') === "{$question->users_email}")
+                            @foreach($new_emails_unique as $question_email)
+                                <option value="{{ $question_email }}"
+                                        @if(old('role_user') === "{$question_email}")
                                         selected
                                     @endif>
-                                    {{ $question->users_email }}
+                                    {{ $question_email }}
                                 </option>
                             @endforeach
                         </select>
@@ -115,7 +87,7 @@ $que = App\User::select(
             @endif
         </div>
         {{-----------------------------------------------------------------}}
-        {{--@if (session('request_composer')!==null)--}}
+        {{--@if (session('request_composer'))--}}
         @include('privacies.admin.faq.faq_table')
         {{--@endif--}}
 

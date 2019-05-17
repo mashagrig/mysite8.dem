@@ -9,6 +9,7 @@ use App\Http\ViewComposers\CardStatusComposer;
 use App\Http\ViewComposers\CommentsComposer;
 use App\Http\ViewComposers\privacies\admin\FaqAdminAnswersComposer;
 
+use App\Http\ViewComposers\privacies\admin\FaqAdminEmailsComposer;
 use App\Http\ViewComposers\privacies\admin\FaqAdminQuestionsComposer;
 use App\Http\ViewComposers\ProfileComposer;
 use App\Http\ViewComposers\ProgramComposer;
@@ -136,6 +137,11 @@ class ViewServiceProvider extends ServiceProvider
             'privacies.admin.faq.for_faq_table',
             'privacies.admin.faq.faq_table',
         ], FaqAdminAnswersComposer::class);
+        view()->composer([
+           'privacies.admin.faq.page_faq',
+            'privacies.admin.faq.for_faq_table',
+            'privacies.admin.faq.faq_table',
+        ], FaqAdminEmailsComposer::class);
         //---------------------------------
 
         view()->composer([

@@ -7,6 +7,7 @@
     if (Auth::check()) {
         $email_admin = Auth::user()->email;
     }
+    $guestion_id = '';
     ?>
 
     <div class="row">
@@ -18,6 +19,9 @@
                       class="mb-0 bg-white">
                     @csrf
                     <input type="text" name="email_admin" id="email_admin" value="{{ $email_admin }}" hidden>
+                    <input type="text" name="guestion_id" id="guestion_id" value="{{ $guestion_id }}" hidden>
+
+                    {{ var_dump($guestion_id) }}
 
                     <div class="row form-group">
                         <div class="col-md-12">
@@ -38,8 +42,29 @@
         </div>
     </div>
 
+
+
+
     {{---------------------------------------------------------------------------}}
     @foreach($question_from_contacts_all  as $question)
+        <?php $guestion_id=$question->contents_id ?>
+
+        @foreach($answers_admin_all as $answer)
+            @if($question->contents_id === (int)$answer->status_content)
+                <div class="row left">
+                    <div class="col-lg-8 mb-4 left">
+                        <p>Ответ от {{date_format(date_create($answer->contents_updated_at), 'd-m-Y H:i')}}
+                            на вопрос #{{$answer->status_content}}
+                        </p>
+                        <div class="border p-4 text-with-icon  bg-white">
+                            <p>&ldquo;{{ $answer->contents_text }}&rdquo;</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4"></div>
+                </div>
+            @endif
+        @endforeach
+        {{---------------------------------------------------------------------------}}
 
 
         <div class="row right">
@@ -56,21 +81,7 @@
             </div>
         </div>
         {{---------------------------------------------------------------------------}}
-        @foreach($answers_admin_all as $answer)
-            @if($question->contents_id === (int)$answer->status_content)
-                <div class="row left">
-                    <div class="col-lg-8 mb-4 left">
-                        <p>Ответ на вопрос #{{$answer->status_content}}
-                            от {{date_format(date_create($answer->contents_updated_at), 'd-m-Y H:i')}}</p>
-                        <div class="border p-4 text-with-icon  bg-white">
-                            <p>&ldquo;{{ $answer->contents_text }}&rdquo;</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4"></div>
-                </div>
-            @endif
-        @endforeach
-        {{---------------------------------------------------------------------------}}
+
     @endforeach
 @endif
 
