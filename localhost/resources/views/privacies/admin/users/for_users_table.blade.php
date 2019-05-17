@@ -51,7 +51,7 @@ $role_user_select = '';
                     <div class="tolbar-select">
                         <label class="mr-sm-2" for="role_user">Поиск пользователя по роли: </label><br/>
                         <select id="role_user" name="role_user" class="form-control">
-                            <option value="" @if(old('role_user') === "")  selected @endif>Все роли</option>
+                            <option value="" @if(old('role_user') === "")  selected @endif></option>
 
                             @foreach($role_user_all as $role)
 

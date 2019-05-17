@@ -126,14 +126,14 @@ class ViewServiceProvider extends ServiceProvider
         ], AnswersComposer::class);
         //---------------------------------
         view()->composer([
-           // 'privacies.admin.faq.page_faq',
+            'privacies.admin.faq.page_faq',
             'privacies.admin.faq.for_faq_table',
             'privacies.admin.faq.faq_table',
         ], FaqAdminQuestionsComposer::class);
 
         view()->composer([
-         //   'privacies.admin.faq.page_faq',
-          //  'privacies.admin.faq.for_faq_table',
+           'privacies.admin.faq.page_faq',
+            'privacies.admin.faq.for_faq_table',
             'privacies.admin.faq.faq_table',
         ], FaqAdminAnswersComposer::class);
         //---------------------------------

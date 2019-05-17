@@ -39,38 +39,18 @@
     </div>
 
     {{---------------------------------------------------------------------------}}
-    @foreach($question_from_contacts_all as $question)
-        <?php
-        $status_comment = '';
-        $status_color = "";
-        $status_tr_style = '';
-        switch ($question->status_content) {
-            case "moderating":
-                $status_comment = 'Ожидает модерации';//'В ближайшее время менеджер ответит на Ваш вопрос';
-                $status_color = "#fd7e14";
-                $status_tr_style = 'table-light-new';
-                break;
-            case "public":
-                $status_comment = 'Опубликован';
-                $status_color = "";
-                $status_tr_style = '';
-                break;
-            case "denied":
-                $status_comment = 'Вопрос отклонен модератором';
-                $status_color = "red";
-                $status_tr_style = 'table-secondary-new';
-                break;
-        }
-        ?>
+    @foreach($question_from_contacts_all  as $question)
+
+
         <div class="row right">
             <div class="col-lg-4"></div>
             <div class="col-lg-8 mb-4 right">
                 <p>Вопорос #{{$question->contents_id}}
-                    пользователя {{ $question->users_id }}
+                    пользователя #{{ $question->users_id }}
                     от {{date_format(date_create($question->contents_updated_at), 'd-m-Y H:i')}}
-                    &bullet; <span style="color: {{$status_color}}!important;">{{ $status_comment }}</span></p>
+                    &bullet;</p>
 
-                <div class="border p-4 text-with-icon  bg-white {{ $status_tr_style }}">
+                <div class="border p-4 text-with-icon  bg-white">
                     <p>&ldquo;{{ $question->contents_text }}&rdquo;</p>
                 </div>
             </div>

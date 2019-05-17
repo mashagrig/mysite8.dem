@@ -103,6 +103,7 @@ Route::group([
         ], function() {
             Route::get('/', 'privacies\admin\FaqAdminController@index')->name('privacy.admin.faq');
             Route::post('/', 'privacies\admin\FaqAdminController@store');
+            Route::get('/show', 'privacies\admin\FaqAdminController@show');
             Route::post('/show', 'privacies\admin\FaqAdminController@show');
             Route::post('/destroy', 'privacies\admin\FaqAdminController@destroy');
         });

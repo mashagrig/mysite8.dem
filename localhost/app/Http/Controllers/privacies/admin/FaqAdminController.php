@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\privacies\admin;
 
 use App\Http\ViewComposers\privacies\admin\FaqAdminQuestionsComposer;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -162,9 +163,11 @@ class FaqAdminController extends Controller
     {
         if(isset($request)&& $request->email_user !== null){
 
-            new FaqAdminQuestionsComposer($request);
-            return redirect()->back()->with('status_show', true);
+            $request_composer =   new FaqAdminQuestionsComposer($request);
+            return view('privacies.admin.faq.page_faq')->with('request_composer', $request_composer);
         }
+        return redirect()->back()->with('status_show',false );
+
     }
 
     /**
