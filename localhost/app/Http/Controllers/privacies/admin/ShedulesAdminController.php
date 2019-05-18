@@ -40,7 +40,7 @@ class ShedulesAdminController extends Controller
      */
     public function store(Request $request)
     {
-        $max_period = 31;
+        $max_period = '7';
 
             //за какой период расписание показать
             if($request->max_period !== null){
@@ -74,6 +74,7 @@ class ShedulesAdminController extends Controller
                    ->update([
                        'section_id' => $section_id,
                    ]);
+               $shedule_composer = new ShedulesAdminComposer($request);
                return redirect()->back()->with('status', 'Данные обновлены');
            }
 
@@ -105,7 +106,6 @@ class ShedulesAdminController extends Controller
                            'gym_id' => $request->admin_gyms
                        ]);
 
-                 //  $request->max_period = $max_period;
                    $shedule_composer = new ShedulesAdminComposer($request);
                    return redirect()->back()->with('status', 'Данные добавлены');
                }
@@ -127,14 +127,14 @@ class ShedulesAdminController extends Controller
      */
     public function show(Request $request)
     {
-        if($request->max_period !== null){
-
+        if($request->max_period === null) {
+            $request->max_period = '7';
+        }
             $shedule_composer = new ShedulesAdminComposer($request);
             return view('privacies.admin.shedule.page_shedule')->with('shedule_composer',$shedule_composer);
-        }
 
 
-        return redirect()->back()->with('status', 'Вы не выбрали дату для фильта');
+          //  return redirect()->back()->with('status', 'Вы не выбрали дату для фильта');
     }
 
     /**

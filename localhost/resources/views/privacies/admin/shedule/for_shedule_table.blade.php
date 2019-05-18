@@ -31,6 +31,8 @@
         <div class="row">
             <form method='POST' id="form" action="{{ action('privacies\admin\ShedulesAdminController@show') }}" class="row">
                 {{ csrf_field() }}
+                {{ method_field("PUT") }}
+
 
                 <div class="col-md-auto toolbar-form bg-white  mb-3">
                     <div class="tolbar-select"></div></div>
@@ -39,9 +41,9 @@
                     <div class="tolbar-select">
                         <label class="mr-sm-2" for="max_period">Показать расписание на период:</label><br/>
                         <select id="max_period" name="max_period" class="form-control">
-                            <option value="1" @if('1' === $max_period) selected @endif>Сегодня</option>
-                            <option value="7" @if('7' === $max_period) selected @endif>На неделю</option>
-                            <option value="31" @if('31' === $max_period) selected @endif>На месяц</option>
+                            <option value="1" @if(old('max_period', $max_period) === '1') selected @endif>Сегодня</option>
+                            <option value="7" @if(old('max_period', $max_period) === '7') selected @endif>На неделю</option>
+                            <option value="31" @if(old('max_period', $max_period) === '31') selected @endif>На месяц</option>
                         </select>
                     </div>
                 </div>

@@ -27,8 +27,8 @@ class ShedulesAdminComposer
     {
         //default
         $today = date('Y-m-d');
-        $max_date = date('Y-m-d', time() + 86400*31);
-        $max_period = "31";
+        $max_date = date('Y-m-d', time() + 86400*7);
+        $max_period = "7";
 
         $shedule_for_date = [];
         $request = $this->request;
@@ -36,20 +36,19 @@ class ShedulesAdminComposer
             //за какой период расписание показать
             if($request->max_period !== null){
                 $max_period = $request->max_period;//в формате "31"
-
-                switch ($max_period) {
-                    case "1":
-                        $max_date = date("Y-m-d");
-                        break;
-                    case "7":
-                        $max_date = date('Y-m-d', time() + 86400*7);
-                        break;
-                    case "31":
-                        $max_date = date('Y-m-d', time() + 86400*31);
-                        break;
-                }
             }
 
+        switch ($max_period) {
+            case "1":
+                $max_date = date("Y-m-d");
+                break;
+            case "7":
+                $max_date = date('Y-m-d', time() + 86400*7);
+                break;
+            case "31":
+                $max_date = date('Y-m-d', time() + 86400*31);
+                break;
+        }
             //если заполнили поля (все!)
 //            if(
 //                $request->date_training !== null

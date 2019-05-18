@@ -54,7 +54,7 @@ $stop_training = '';
                     <td class="align-middle text-center">
 
                         {{------------------------------------------------------}}
-                        <table class="table table-hover table-bordered table-sm">
+                        <table class="table  table-sm table-hover table-bordered">
                             <thead class="text-black thead-light">
                             <tr>
                                 <th scope="col" class="align-middle text-center" style="width: 10%!important;">№ зала</th>
@@ -65,49 +65,54 @@ $stop_training = '';
                             </thead>
                             <tbody>
 
+
+
+                                {{-----------EMPTY-gym_number--------------------}}
                             @foreach($gyms as $gym)
                                 {{-----------------------------------------------------------------}}
-                                <form id="admin_shedule{{ $time->id }}" method='POST'
-                                      action="{{ action('privacies\admin\ShedulesAdminController@store') }}" class="row">
+                                <form method='POST' action="{{ action('privacies\admin\ShedulesAdminController@store') }}">
                                     @csrf
-
+                                    {{--{{ method_field("PUT") }}--}}
                                     <?php
                                     foreach ($shedule_for_date as $shedule){
 
+//                                       var_dump($shedule['section_title']);
+
                                         if(//если есть такая запись
-                                            $date_period === $shedule['date_training']
-                                            && $time->id === $shedule['trainingtime_id']
-                                            && $gym->number === $shedule['gym_number']// сравниваем номер, а запоминаем id
+                                        strtotime($date_period) === strtotime($shedule['date_training'])
+                                           && $time->id === $shedule['trainingtime_id']
+                                        //    && $gym->id === $shedule['gym_id']// сравниваем номер, а запоминаем id
                                         ){
                                         //    $date_training = $shedule['date_training'];//id получим в контроллере
                                             $admin_programs = $shedule['section_title'];//id получим в контроллере
                                             $admin_trainers = $shedule['trainer_id'];
                                             $admin_gyms = $shedule['gym_id'];// сравниваем номер, а запоминаем id
+
+                                            var_dump($admin_programs);
+
+
                                         }else {
-                                          //  $date_training = $date_period;
                                             $admin_programs = '';
                                             $admin_trainers = '';
+                                            $admin_gyms = '';
                                         }
                                     }
-                                  //  var_dump($shedule['date_training']);
-                                    var_dump($max_period);
                                     ?>
-
+                                    <tr>
                                     <input type="text" id="max_period" name="max_period" value="{{ $max_period }}" hidden>
                                     <input type="text" id="date_training" name="date_training" value="{{ $date_period }}" hidden>
                                     <input type="text" id="time_id" name="time_id" value="{{ $time->id }}" hidden>
                                     <input type="text" id="admin_gyms" name="admin_gyms" value="{{ $gym->id }}" hidden>
 
-                                    <tr>
-                                {{-----------EMPTY-gym_number--------------------}}
-                                <td class="align-middle text-center">{{ $gym->number }}</td>
+                                    <td class="align-middle text-center">{{ $gym->number }}</td>
+
                                 {{-----------EMPTY-programs--------------------}}
                                 <td class="align-middle text-center">
                                     <select id="admin_programs" name="admin_programs" class="form-control">
                                         <option value="" @if(old('admin_programs', $admin_programs) === "")  selected @endif></option>
                                         <option value="morning_programs" @if(old('admin_programs', $admin_programs) === "morning_programs")  selected @endif>
                                             Утренние программы</option>
-                                        <option value="body_building" @if(old('admin_programs', $admin_programs) === "body_building")  selected @endif>
+                                        <option value="body_building" @if( $admin_programs === "body_building")  selected @endif>
                                             Боди билдинг</option>
                                         <option value="stretching" @if(old('admin_programs', $admin_programs) === "stretching")  selected @endif>
                                             Стретчинг</option>
@@ -123,7 +128,7 @@ $stop_training = '';
                                 {{----------EMPTY--trainers--------------------}}
                                 <td class="align-middle text-center">
                                     <select id="admin_trainers" name="admin_trainers" class="form-control">
-                                        <option value="" @if(old('admin_trainers') === "")  selected @endif></option>
+                                        <option value="" @if(old('admin_trainers', $admin_trainers) === "")  selected @endif></option>
 
                                         @foreach($trainers_info as $trainers_each)
                                             <option value="{{ $trainers_each->users_id }}"
@@ -142,6 +147,7 @@ $stop_training = '';
                                            value="Сохранить">
                                 </td>
                                 {{------------------------------------------------------}}
+
                             </tr>
                                 </form>
                             @endforeach
