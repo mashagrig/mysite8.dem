@@ -9,6 +9,7 @@ class Shedule extends Model
 
     protected $table = "shedules";
     protected $guarded = [];
+    protected $fillable = ['date_training', 'trainingtime_id', 'user_id', 'section_id', 'gym_id'];
 
     //m-1 (ед)
     //----------------------------------

@@ -10,7 +10,7 @@ $format_date = '';
 $date_training = '';
 $admin_programs = '';
 $admin_trainers = '';
-$admin_gyms = '';
+//$admin_gyms = '';
 
 $start_training = '';
 $stop_training = '';
@@ -44,14 +44,13 @@ $stop_training = '';
             $start_training = date_format(date_create($time->start_training), 'H:i');
             $stop_training = date_format(date_create($time->stop_training), 'H:i');
             ?>
-
                 {{-----------EMPTY------------------------------------------------------------}}
                 <tr>
                     <td class="align-middle text-center">{{ $start_training }}
                         - {{ $stop_training }}</td>
-
                     {{-----------EMPTY-programs--------------------}}
                     <td class="align-middle text-center">
+
 
                         {{------------------------------------------------------}}
                         <table class="table  table-sm table-hover table-bordered">
@@ -60,59 +59,103 @@ $stop_training = '';
                                 <th scope="col" class="align-middle text-center" style="width: 10%!important;">№ зала</th>
                                 <th scope="col" class="align-middle text-center" style="width: 25%!important;">Программа</th>
                                 <th scope="col" class="align-middle text-center">Тренер</th>
-                                <th scope="col" class="align-middle text-center" style="width: 15%!important;">Сохранить</th>
+                                <th scope="col" class="align-middle text-center" style="width: 10%!important;">Сохранить</th>
+                                <th scope="col" class="align-middle text-center" style="width: 10%!important;">Очистить</th>
                             </tr>
                             </thead>
                             <tbody>
 
-
-
-                                {{-----------EMPTY-gym_number--------------------}}
                             @foreach($gyms as $gym)
+                                <tr>
+
+                                <?php
+
+
+                                foreach ($shedule_for_date as $shedule){
+
+                                    //если есть такая запись
+                                    if(
+                                        strtotime($date_period) === strtotime($shedule['date_training'])
+                                        && $time->id === $shedule['trainingtime_id']
+                                        && $gym->id === $shedule['gym_id']// сравниваем номер, а запоминаем id
+                                    ){
+
+//                                        if($shedule['section_id']==='' && $shedule['trainer_id']!==''){
+//                                            $admin_programs = '';
+//                                            $admin_trainers = $shedule['trainer_id'];
+//                                        }
+//                                        if($shedule['trainer_id']==='' && $shedule['section_id']!==''){
+//                                            $admin_trainers = '';
+//                                            $admin_programs = $shedule['section_title'];
+//
+//                                        }
+//                                        if($shedule['trainer_id']!=='' && $shedule['section_id']!==''){
+//                                            $admin_trainers = $shedule['trainer_id'];
+//                                            $admin_programs = $shedule['section_title'];
+//                                        }
+
+                                        $admin_trainers = $shedule['trainer_id'];
+                                        $admin_programs = $shedule['section_title'];
+                                        var_dump($shedule);
+                                        var_dump($date_period);
+                                    }
+//                                    if(
+//                                        $date_period !== $shedule['date_training']
+//                                        && $time->id === $shedule['trainingtime_id']
+//                                        && $gym->id === $shedule['gym_id']// сравниваем номер, а запоминаем id
+//                                    )
+//                                       {
+//                                        $admin_programs = '';
+//                                        $admin_trainers = '';
+//                                    }
+//                                    if(
+//                                        $date_period === $shedule['date_training']
+//                                        && $time->id !== $shedule['trainingtime_id']
+//                                        && $gym->id === $shedule['gym_id']// сравниваем номер, а запоминаем id
+//                                    )
+//                                       {
+//                                        $admin_programs = '';
+//                                        $admin_trainers = '';
+//                                    }
+                                    if(
+                                        strtotime($date_period) !== strtotime($shedule['date_training'])
+                                        && $time->id !== $shedule['trainingtime_id']
+                                        && $gym->id === $shedule['gym_id']// сравниваем номер, а запоминаем id
+                                    )
+                                       {
+                                        $admin_programs = '';
+                                        $admin_trainers = '';
+                                    }
+
+
+
+
+                                }
+
+
+                                ?>
+
                                 {{-----------------------------------------------------------------}}
                                 <form method='POST' action="{{ action('privacies\admin\ShedulesAdminController@store') }}">
                                     @csrf
                                     {{--{{ method_field("PUT") }}--}}
-                                    <?php
-                                    foreach ($shedule_for_date as $shedule){
 
-//                                       var_dump($shedule['section_title']);
-
-                                        if(//если есть такая запись
-                                        strtotime($date_period) === strtotime($shedule['date_training'])
-                                           && $time->id === $shedule['trainingtime_id']
-                                        //    && $gym->id === $shedule['gym_id']// сравниваем номер, а запоминаем id
-                                        ){
-                                        //    $date_training = $shedule['date_training'];//id получим в контроллере
-                                            $admin_programs = $shedule['section_title'];//id получим в контроллере
-                                            $admin_trainers = $shedule['trainer_id'];
-                                            $admin_gyms = $shedule['gym_id'];// сравниваем номер, а запоминаем id
-
-                                            var_dump($admin_programs);
-
-
-                                        }else {
-                                            $admin_programs = '';
-                                            $admin_trainers = '';
-                                            $admin_gyms = '';
-                                        }
-                                    }
-                                    ?>
-                                    <tr>
                                     <input type="text" id="max_period" name="max_period" value="{{ $max_period }}" hidden>
                                     <input type="text" id="date_training" name="date_training" value="{{ $date_period }}" hidden>
                                     <input type="text" id="time_id" name="time_id" value="{{ $time->id }}" hidden>
                                     <input type="text" id="admin_gyms" name="admin_gyms" value="{{ $gym->id }}" hidden>
 
-                                    <td class="align-middle text-center">{{ $gym->number }}</td>
+                               {{-----------EMPTY-gym_number--------------------}}
+
+                                        <td class="align-middle text-center">{{ $gym->number }}</td>
 
                                 {{-----------EMPTY-programs--------------------}}
                                 <td class="align-middle text-center">
                                     <select id="admin_programs" name="admin_programs" class="form-control">
-                                        <option value="" @if(old('admin_programs', $admin_programs) === "")  selected @endif></option>
+                                        <option value="" @if(old('admin_programs') === '')  selected @endif></option>
                                         <option value="morning_programs" @if(old('admin_programs', $admin_programs) === "morning_programs")  selected @endif>
                                             Утренние программы</option>
-                                        <option value="body_building" @if( $admin_programs === "body_building")  selected @endif>
+                                        <option value="body_building" @if( old('admin_programs', $admin_programs) === "body_building")  selected @endif>
                                             Боди билдинг</option>
                                         <option value="stretching" @if(old('admin_programs', $admin_programs) === "stretching")  selected @endif>
                                             Стретчинг</option>
@@ -146,19 +189,35 @@ $stop_training = '';
                                     <input id="btn" type="submit" class="btn btn-secondary rounded text-white px-4"
                                            value="Сохранить">
                                 </td>
-                                {{------------------------------------------------------}}
-
-                            </tr>
                                 </form>
+                                        {{-----------EMPTY-delete--------------------}}
+                                    <form method='POST' action="{{ action('privacies\admin\ShedulesAdminController@destroy') }}">
+                                        @csrf
+                                        <td class="align-middle text-center">
+
+                                        <input type="text" id="max_period" name="max_period" value="{{ $max_period }}" hidden>
+                                        <input type="text" id="date_training" name="date_training" value="{{ $date_period }}" hidden>
+                                        <input type="text" id="time_id" name="time_id" value="{{ $time->id }}" hidden>
+                                        <input type="text" id="admin_gyms" name="admin_gyms" value="{{ $gym->id }}" hidden>
+                                        {{--<input type="text" id="admin_programs" name="admin_programs" value="{{ $admin_programs }}" hidden>--}}
+                                        {{--<input type="text" id="admin_trainers" name="admin_trainers" value="{{ $admin_trainers }}" hidden>--}}
+                                    <input id="btn" type="submit" class="btn btn-secondary rounded text-white px-4"
+                                           value="Очистить">
+                                        </td>
+
+                                    </form>
+                                {{------------------------------------------------------}}
+                            </tr>
+
+
                             @endforeach
                             </tbody>
                         </table>
-                        {{------------------------------------------------------}}
+
+                            {{------------------------------------------------------}}
                     </td>
                 </tr>
             {{-----------------------------------------------------------------------}}
-
-            {{------------------------------------------------------}}
 
         @endforeach
         </tbody>

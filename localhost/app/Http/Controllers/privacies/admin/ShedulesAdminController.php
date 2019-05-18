@@ -40,12 +40,17 @@ class ShedulesAdminController extends Controller
      */
     public function store(Request $request)
     {
-        $max_period = '7';
-
             //за какой период расписание показать
             if($request->max_period !== null){
                 $max_period = $request->max_period;//в формате "31"
                }
+
+        if($request->admin_programs === '' || $request->admin_programs === null ){
+            $section_id = null;
+        }else if($request->admin_programs !== '' && $request->admin_programs !== null ){
+            $section_id =  Section::where('title', 'like', "%{$request->admin_programs}%")
+                ->first()->id;
+        }
         //-----------------------------------------------
         //update
        if(
@@ -54,31 +59,54 @@ class ShedulesAdminController extends Controller
            ->where('gym_id', "{$request->admin_gyms}")
            ->first() !== null
        ){
-           // если  заполнены
-        if($request->admin_trainers !== null){
-             Shedule::where('date_training', "{$request->date_training}")
-                ->where('trainingtime_id', "{$request->time_id}")
-                ->where('gym_id', "{$request->admin_gyms}")
-                ->update([
-                    'user_id' => $request->admin_trainers,
-                ]);
-            return redirect()->back()->with('status', 'Данные обновлены');
-        }
 
-           if($request->admin_programs !== null){
-               $section_id =  Section::where('title', 'like', "%{$request->admin_programs}%")
-                   ->first()->id;
-               Shedule::where('date_training', "{$request->date_training}")
-                   ->where('trainingtime_id', "{$request->time_id}")
-                   ->where('gym_id', "{$request->admin_gyms}")
-                   ->update([
-                       'section_id' => $section_id,
-                   ]);
-               $shedule_composer = new ShedulesAdminComposer($request);
-               return redirect()->back()->with('status', 'Данные обновлены');
-           }
 
-           return redirect()->back()->with('status', 'Вы не изменили поле для обновления');
+//           if($request->admin_trainers === ''){
+//               $section_id = null;
+//           }else{
+//               $section_id =  Section::where('title', 'like', "%{$request->admin_programs}%")
+//                   ->first()->id;
+//           }
+
+
+           Shedule::where('date_training', "{$request->date_training}")
+               ->where('trainingtime_id', "{$request->time_id}")
+               ->where('gym_id', "{$request->admin_gyms}")
+               ->update([
+                   'user_id' => $request->admin_trainers,
+                   'section_id' => $section_id,
+               ]);
+           $shedule_composer = new ShedulesAdminComposer($request);
+           return view('privacies.admin.shedule.page_shedule')->with('status', 'Данные обновлены');
+
+
+
+
+//           // если  заполнены admin_trainers
+//        if($request->admin_trainers !== null || $request->admin_trainers === ''){
+//             Shedule::where('date_training', "{$request->date_training}")
+//                ->where('trainingtime_id', "{$request->time_id}")
+//                ->where('gym_id', "{$request->admin_gyms}")
+//                ->update([
+//                    'user_id' => $request->admin_trainers,
+//                ]);
+//            return redirect()->back()->with('status', 'Данные обновлены');
+//        }
+//           // если  заполнены admin_programs
+//           if($request->admin_programs !== null || $request->admin_programs === ''){
+//               $section_id =  Section::where('title', 'like', "%{$request->admin_programs}%")
+//                   ->first()->id;
+//               Shedule::where('date_training', "{$request->date_training}")
+//                   ->where('trainingtime_id', "{$request->time_id}")
+//                   ->where('gym_id', "{$request->admin_gyms}")
+//                   ->update([
+//                       'section_id' => $section_id,
+//                   ]);
+//               $shedule_composer = new ShedulesAdminComposer($request);
+//               return redirect()->back()->with('status', 'Данные обновлены');
+//           }
+//
+//           return redirect()->back()->with('status', 'Вы не изменили поле для обновления');
 
        }else //create
            if(
@@ -87,16 +115,16 @@ class ShedulesAdminController extends Controller
                    ->where('gym_id', "{$request->admin_gyms}")
                    ->first() === null
            ){
-               //только если все заполнены!
-               if(
-                   $request->date_training !== null &&
-                   $request->time_id !== null &&
-                   $request->admin_trainers !== null &&
-                   $request->admin_programs !== null &&
-                   $request->admin_gyms !== null
-               ){
-                   $section_id =  Section::where('title', 'like', "%{$request->admin_programs}%")
-                       ->first()->id;
+//               //только если все заполнены!
+//               if(
+////                   $request->date_training !== null &&
+////                   $request->time_id !== null &&
+//                   $request->admin_trainers !== null ||
+//                   $request->admin_programs !== null //&&
+////                   $request->admin_gyms !== null
+//               )
+                    //{
+
 
                    Shedule::create([
                            'date_training' => $request->date_training,
@@ -112,8 +140,8 @@ class ShedulesAdminController extends Controller
 
 //               $request->max_period = $max_period;
 //               $shedule_composer = new ShedulesAdminComposer($request);
-               return redirect()->back()->with('status', 'Заполнены не все поля');
-           }
+ //              return redirect()->back()->with('status', 'Заполнены не все поля');
+  //         }
 
       //  return redirect()->route('privacy.admin.shedules')->with('status', 'Данные не обновлены и не добавлены');
         return redirect()->back()->with('status', 'Данные не обновлены и не добавлены');
@@ -130,8 +158,8 @@ class ShedulesAdminController extends Controller
         if($request->max_period === null) {
             $request->max_period = '7';
         }
-            $shedule_composer = new ShedulesAdminComposer($request);
-            return view('privacies.admin.shedule.page_shedule')->with('shedule_composer',$shedule_composer);
+            $shedule_composer_t = new ShedulesAdminComposer($request);
+            return view('privacies.admin.shedule.page_shedule')->with('shedule_composer',$shedule_composer_t);
 
 
           //  return redirect()->back()->with('status', 'Вы не выбрали дату для фильта');
@@ -166,8 +194,24 @@ class ShedulesAdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        if(
+            Shedule::where('date_training', "{$request->date_training}")
+                ->where('trainingtime_id', "{$request->time_id}")
+                ->where('gym_id', "{$request->admin_gyms}")
+                ->first() !== null
+        ){
+            Shedule::where('date_training', "{$request->date_training}")
+                ->where('trainingtime_id', "{$request->time_id}")
+                ->where('gym_id', "{$request->admin_gyms}")
+                ->delete();
+
+            $shedule_composer = new ShedulesAdminComposer($request);
+            return redirect()->back()->with('status', 'Данные удалены');
+        }
+
+        $shedule_composer = new ShedulesAdminComposer($request);
+        return redirect()->back()->with('status', 'Данных для удаления в базе нет');
     }
 }

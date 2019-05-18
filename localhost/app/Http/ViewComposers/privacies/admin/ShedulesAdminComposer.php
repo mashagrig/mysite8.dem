@@ -27,8 +27,8 @@ class ShedulesAdminComposer
     {
         //default
         $today = date('Y-m-d');
-        $max_date = date('Y-m-d', time() + 86400*7);
-        $max_period = "7";
+        $max_date = date('Y-m-d', time() + 86400*1);
+        $max_period = "1";
 
         $shedule_for_date = [];
         $request = $this->request;
@@ -40,7 +40,7 @@ class ShedulesAdminComposer
 
         switch ($max_period) {
             case "1":
-                $max_date = date("Y-m-d");
+                $max_date = date('Y-m-d', time() + 86400*1);
                 break;
             case "7":
                 $max_date = date('Y-m-d', time() + 86400*7);
