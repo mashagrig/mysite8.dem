@@ -73,7 +73,7 @@ $stop_training = '';
                                 <?php
                                 $arr_current = array();
 
-                                foreach ($shedule_for_date as $shedule) {
+                                foreach ($shedule_for_period as $shedule) {
 
                                     if(
                                         strtotime($date_period) === strtotime($shedule['date_training'])
@@ -81,19 +81,28 @@ $stop_training = '';
                                         && $gym->id === $shedule['gym_id']// сравниваем номер, а запоминаем id
                                     ){
                                         array_push($arr_current, $shedule);
-//
+                                        //
                                         var_dump($arr_current);
                                         echo "<br/>";
                                         break;
                                     }
                                 }
 
-
-
                                 if(!empty($arr_current)){
 
-                                    $admin_trainers = $shedule['trainer_id'];
-                                    $admin_programs = $shedule['section_title'];
+
+                                    if(isset($shedule['trainer_id'])){
+                                        $admin_trainers = $shedule['trainer_id'];
+                                    }else{
+                                        $admin_trainers = '';
+                                    }
+
+                                    if(isset($shedule['section_id'])){
+                                        $admin_programs = App\Section::where('id', $shedule['section_id'])->first()->title;
+                                    }else{
+                                        $admin_programs = '';
+                                    }
+                                  //  $admin_programs = $shedule['section_title'];
 
                                     var_dump($admin_trainers);
                                     echo "<br/>";
