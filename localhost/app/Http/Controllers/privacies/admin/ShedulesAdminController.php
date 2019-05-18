@@ -76,7 +76,7 @@ class ShedulesAdminController extends Controller
                    'user_id' => $request->admin_trainers,
                    'section_id' => $section_id,
                ]);
-           $shedule_composer = new ShedulesAdminComposer($request);
+          // $shedule_composer = new ShedulesAdminComposer($request);
            return view('privacies.admin.shedule.page_shedule')->with('status', 'Данные обновлены');
 
 
@@ -134,7 +134,7 @@ class ShedulesAdminController extends Controller
                            'gym_id' => $request->admin_gyms
                        ]);
 
-                   $shedule_composer = new ShedulesAdminComposer($request);
+               //    $shedule_composer = new ShedulesAdminComposer($request);
                    return redirect()->back()->with('status', 'Данные добавлены');
                }
 

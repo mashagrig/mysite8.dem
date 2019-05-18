@@ -10,6 +10,7 @@ namespace App\Http\ViewComposers\privacies\admin;
 
 
 use App\Content;
+use App\Section;
 use App\Shedule;
 use App\User;
 use Illuminate\Http\Request;
@@ -25,13 +26,26 @@ class ShedulesAdminComposer
 
     public function compose(View $view)
     {
+        $request = $this->request;
+
+        $date_training = $request->date_training;
+        $time_id = $request->time_id;
+        $admin_gyms = $request->admin_gyms;
+       // $admin_programs = $request->admin_programs;
+      //  $admin_trainers = $request->admin_trainers;
+
+
         //default
         $today = date('Y-m-d');
         $max_date = date('Y-m-d', time() + 86400*1);
         $max_period = "1";
 
         $shedule_for_date = [];
-        $request = $this->request;
+
+
+
+
+
 
             //за какой период расписание показать
             if($request->max_period !== null){
@@ -49,6 +63,22 @@ class ShedulesAdminComposer
                 $max_date = date('Y-m-d', time() + 86400*31);
                 break;
         }
+
+
+        if(!empty($request->admin_programs) || $request->admin_programs === '' || $request->admin_programs === null || $request->admin_programs === 'null'  ){
+            $admin_programs = null;
+        }else if($request->admin_programs !== '' && $request->admin_programs !== null ){
+            $admin_programs =  Section::where('title', 'like', "%{$request->admin_programs}%")
+                ->first()->id;
+        }
+
+        if($request->admin_trainers === '' || $request->admin_trainers === null ){
+            $admin_trainers = null;
+        }else if($request->admin_trainers !== '' && $request->admin_trainers !== null ){
+            $admin_trainers = $request->admin_trainers;
+        }
+
+
             //если заполнили поля (все!)
 //            if(
 //                $request->date_training !== null
@@ -57,12 +87,17 @@ class ShedulesAdminComposer
 //            && $request->admin_programs !== null
 //            && $request->admin_trainers !== null
 //            ){
-                $date_training = $request->date_training;
-                $time_id = $request->time_id;
-                $admin_gyms = $request->admin_gyms;
-                $admin_programs = $request->admin_programs;
-                $admin_trainers = $request->admin_trainers;
+//                $date_training = $request->date_training;
+//                $time_id = $request->time_id;
+//                $admin_gyms = $request->admin_gyms;
+//                $admin_programs = $request->admin_programs;
+//                $admin_trainers = $request->admin_trainers;
   //          }
+
+
+
+
+
 
         //----------------------------------------------------
         //окончательно выводим - передаем в шаблон
@@ -89,8 +124,8 @@ class ShedulesAdminComposer
                 $join->on('users.id', '=', 'shedules.user_id');
             })
             ->join('roles', function ($join) {
-                $join->on('roles.id', '=', 'users.role_id')
-                    ->where('roles.title', 'like', '%trainer%');
+                $join->on('roles.id', '=', 'users.role_id');
+                  //  ->where('roles.title', 'like', '%trainer%');
             })
             ->join('personalinfos', function ($join) {
                 $join->on('personalinfos.id', '=', 'users.personalinfo_id');
