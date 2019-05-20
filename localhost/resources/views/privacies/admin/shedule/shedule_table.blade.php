@@ -81,15 +81,11 @@ $stop_training = '';
                                         && $gym->id === $shedule['gym_id']// сравниваем номер, а запоминаем id
                                     ){
                                         array_push($arr_current, $shedule);
-                                        //
-                                        var_dump($arr_current);
-                                        echo "<br/>";
                                         break;
                                     }
                                 }
 
                                 if(!empty($arr_current)){
-
 
                                     if(isset($shedule['trainer_id'])){
                                         $admin_trainers = $shedule['trainer_id'];
@@ -102,20 +98,11 @@ $stop_training = '';
                                     }else{
                                         $admin_programs = '';
                                     }
-                                  //  $admin_programs = $shedule['section_title'];
-
-                                    var_dump($admin_trainers);
-                                    echo "<br/>";
                                 }else{
                                     $arr_current = null;
                                     $admin_programs = '';
                                      $admin_trainers = '';
-
-                                    var_dump($admin_trainers);
-                                    echo "<br/>";
                                 }
-                                var_dump($admin_trainers);
-                                echo "<br/>";
                                 ?>
 
                                 {{-----------------------------------------------------------------}}
