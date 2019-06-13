@@ -79,13 +79,11 @@ class ViewServiceProvider extends ServiceProvider
 //        ], GuestComposer::class);
 //----Shedule-----------------------------------------
         view()->composer([
-           // 'shedule.for_shedule_table',
             'privacies.admin.shedule.for_shedule_table',
         ], ShedulesAdminComposer::class);
 
         view()->composer([
             'shedule.for_shedule_table',
-          //  'privacies.admin.shedule.for_shedule_table',
         ], SheduleComposer::class);
 
         view()->composer([
@@ -99,7 +97,6 @@ class ViewServiceProvider extends ServiceProvider
 
         view()->composer([
             'shedule.for_shedule_table',
-           // 'privacies.admin.shedule.for_shedule_table',
             'signup.success_signup_list',
         ], SheduleStatusComposer::class);
 

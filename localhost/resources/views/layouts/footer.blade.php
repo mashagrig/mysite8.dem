@@ -93,6 +93,7 @@
 {{--<!------------------- Scripts --------------------->----------}}
 <script src="{{ asset('js/app.js') }}" type="application/javascript"></script>
 
+
 <script src="{{ asset('js/libs/jquery.min.js') }}"></script>
 
 <script src="{{ asset('js/libs/jquery-migrate.min.js') }}"></script>

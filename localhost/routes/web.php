@@ -1,5 +1,7 @@
 <?php
 
+Route::get('/vue/{any}', 'VueTest@index')->where('any', '.*');
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -217,7 +219,7 @@ Route::post('login', 'Auth\LoginController@login');
 
 Route::get('/login/success', function () {
     return view('auth.loginSuccess');
-})->name('loginSuccess');
+})->name('loginSuccess')->middleware('auth');
 
 //--------- register -----------------
 //Route::get('/register', 'HomeController@index')->name('register');

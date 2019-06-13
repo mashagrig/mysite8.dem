@@ -31,8 +31,6 @@ class AvatarComposer
                 $avatar_src = $b_id_arr[0];
             }
         }
-
         return $view->with('avatar_src', $avatar_src );
     }
-
 }

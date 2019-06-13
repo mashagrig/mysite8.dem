@@ -77,7 +77,6 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $new_user = User::where('email', $data['email'])->first();
-
         //такого пользователя нет - create
         if(
             User::where('email', $data['email'])->first() === null
@@ -85,14 +84,12 @@ class RegisterController extends Controller
         ){
             $role_id = Role::where('title', 'like', "%guest%")
                 ->first()->id;
-
             $personalinfo_id = Personalinfo::create([
                 'name' =>  $data['name'],
                 'email' => $data['email'],
             ])
                 ->id;
-
-//--------------------------------------------------
+            //--------------------------------------------------
             $new_user = User::create([
                 'name' => $data['name'],
                 'email' => $data['email'],
@@ -101,23 +98,18 @@ class RegisterController extends Controller
                 'role_id' => $role_id,
                 'personalinfo_id' => $personalinfo_id,
             ]);
-//--------------------------------------------------
+            //--------------------------------------------------
             $e = $data['email'];
             //такой пользователь отрпавлял вопрос из контактов - update
             if(
                 Content::where('status', 'like', "%".$e."%")->first() !== null
             ){
-
-
                 //--------------------------------------------------
                 Content::where('status', 'like', "%".$e."%")->each(function ($q) use($new_user,$e){
                     Content::where('status', 'like', "%".$e."%")->first()->users()->attach($new_user);
                 });
-
-
                 //--------------------------------------------------
             }
-
             return $new_user;
         }
     }

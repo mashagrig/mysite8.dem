@@ -17,7 +17,7 @@ class SliderTopThreeComposer
     {
         return $view->with([
             'bg_1'=>'hero_b1_1.jpg',
-            'top_slider_h1_1'=>'Фитнес клуб Sport',
+            'top_slider_h1_1'=>'Фитнес клуб SportFit',
             'top_slider_test_1'=>'Лучшие тренеры Москвы',
             'bg_2'=>'hero_bg_2.jpg',
             'top_slider_h1_2'=>'Эффективные тренировки',
