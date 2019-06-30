@@ -77,10 +77,9 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $new_user = User::where('email', $data['email'])->first();
-        //такого пользователя нет - create
+        //если такого пользователя нет - создать
         if(
             User::where('email', $data['email'])->first() === null
-           // || User::where('email', $data['email'])->get()[]->password !== null
         ){
             $role_id = Role::where('title', 'like', "%guest%")
                 ->first()->id;
@@ -94,19 +93,19 @@ class RegisterController extends Controller
                 'name' => $data['name'],
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
-              //  'password' => Hash::make($this->generatedPassword),
+              //  'password' => Hash::make($this->generatedPassword), - встроенный метод
                 'role_id' => $role_id,
                 'personalinfo_id' => $personalinfo_id,
             ]);
             //--------------------------------------------------
-            $e = $data['email'];
-            //такой пользователь отрпавлял вопрос из контактов - update
+            $email = $data['email'];
+            //такой пользователь отрпавлял вопрос из контактов - привязать к его новому аккаунту все обращения
             if(
-                Content::where('status', 'like', "%".$e."%")->first() !== null
+                Content::where('status', 'like', "%".$email."%")->first() !== null
             ){
                 //--------------------------------------------------
-                Content::where('status', 'like', "%".$e."%")->each(function ($q) use($new_user,$e){
-                    Content::where('status', 'like', "%".$e."%")->first()->users()->attach($new_user);
+                Content::where('status', 'like', "%".$email."%")->each(function ($q) use($new_user,$email){
+                    Content::where('status', 'like', "%".$email."%")->first()->users()->attach($new_user);
                 });
                 //--------------------------------------------------
             }
