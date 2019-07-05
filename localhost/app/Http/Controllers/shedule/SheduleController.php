@@ -53,12 +53,12 @@ class SheduleController extends Controller
      */
     public function show($id, Request $request)
     {
-        if(isset($request->item)&&$request->item === '$trainers_item'){
+        if(isset($request->item)&&$request->item === 'trainers_item'){
          //   $request->trainers = $id;
             $request->programs = '';
         }
         //код в программных компоузерах требует рефакторинга, но на текущий момент задвоение обеспечивает гибкость и мастабируемость
-        elseif(isset($request->item)&&$request->item === '$programs_item'){
+        elseif(isset($request->item)&&$request->item === 'programs_item'){
             $request->trainers = '';
           //  $request->programs = $id;
         }

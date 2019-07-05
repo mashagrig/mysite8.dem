@@ -68,7 +68,7 @@ class ShedulesAdminController extends Controller
                         ->where('user_id', "{$request->admin_trainers}")
                         ->first() !== null
                 ) {
-                    return redirect()->back()->with('status', "У данного тренера (id#".$request->admin_trainers.") уже есть запиь на этот день и на это время");
+                    return view('privacies.admin.shedule.page_shedule')->with('status', "У данного тренера (id#".$request->admin_trainers.") уже есть запиь на этот день и на это время");
                 }
             } else {
                 Shedule::where('date_training', "{$request->date_training}")
@@ -95,7 +95,7 @@ class ShedulesAdminController extends Controller
                         ->where('user_id', "{$request->admin_trainers}")
                         ->first() !== null
                 ) {
-                    return redirect()->back()->with('status', "У данного тренера (id#".$request->admin_trainers.") уже есть запиь на этот день и на это время");
+                    return view('privacies.admin.shedule.page_shedule')->with('status', "У данного тренера (id#".$request->admin_trainers.") уже есть запиь на этот день и на это время");
                 }
                 else {
                     Shedule::create([
@@ -105,10 +105,10 @@ class ShedulesAdminController extends Controller
                         'section_id' => $section_id,
                         'gym_id' => $request->admin_gyms
                     ]);
-                    return redirect()->back()->with('status', 'Данные добавлены');
+                    return view('privacies.admin.shedule.page_shedule')->with('status', 'Данные добавлены');
                 }
             }
-        return redirect()->back()->with('status', 'Данные не обновлены и не добавлены');
+        return view('privacies.admin.shedule.page_shedule')->with('status', 'Данные не обновлены и не добавлены');
 
     }
 
@@ -173,10 +173,10 @@ class ShedulesAdminController extends Controller
                 ->delete();
 
             $shedule_composer = new ShedulesAdminComposer($request);
-            return redirect()->back()->with('status', 'Данные удалены');
+            return view('privacies.admin.shedule.page_shedule')->with('status', 'Данные удалены');
         }
 
         $shedule_composer = new ShedulesAdminComposer($request);
-        return redirect()->back()->with('status', 'Данных для удаления в базе нет');
+        return view('privacies.admin.shedule.page_shedule')->with('status', 'Данных для удаления в базе нет');
     }
 }

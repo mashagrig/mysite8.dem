@@ -1,31 +1,21 @@
+//window.Vue = require('vue');
+//Vue.component('app', require('./components/App.vue').default);
 
-import Vue from 'vue';
-import VueRouter from 'vue-router';
 
-import App from 'components/App';
-import Hello from 'components/Hello';
-import Home from 'components/Home';
+import Vue from 'vue'
+import App from '/components/App.vue'
+
 const app_test = new Vue({
     el: '#app_test',
-    components: { App },
-    router,
+    //components: { App, Hello, Home },
+  components: { 'app': App },
+  //  router,
+    mounted() {
+    console.log('Component mounted.')
+}
 });
-Vue.use(VueRouter);
 
-const router = new VueRouter({
-    mode: 'history',
-    routes: [
-        {
-            path: '/home',
-            name: 'home',
-            component: Home
-        },
-        {
-            path: '/hello',
-            name: 'hello',
-            component: Hello,
-        },
-    ],
-});
+
+
 
 
